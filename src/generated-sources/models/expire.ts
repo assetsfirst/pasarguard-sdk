@@ -15,10 +15,8 @@
 
 
 /**
- * 
+ * @type Expire
  * @export
- * @interface Expire
  */
-export interface Expire {
-}
+export type Expire = number | string;
 

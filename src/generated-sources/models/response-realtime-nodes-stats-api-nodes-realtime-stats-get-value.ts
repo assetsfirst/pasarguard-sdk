@@ -18,46 +18,8 @@
 import type { NodeRealtimeStats } from './node-realtime-stats';
 
 /**
- * 
+ * @type ResponseRealtimeNodesStatsApiNodesRealtimeStatsGetValue
  * @export
- * @interface ResponseRealtimeNodesStatsApiNodesRealtimeStatsGetValue
  */
-export interface ResponseRealtimeNodesStatsApiNodesRealtimeStatsGetValue {
-    /**
-     * 
-     * @type {number}
-     * @memberof ResponseRealtimeNodesStatsApiNodesRealtimeStatsGetValue
-     */
-    'mem_total': number;
-    /**
-     * 
-     * @type {number}
-     * @memberof ResponseRealtimeNodesStatsApiNodesRealtimeStatsGetValue
-     */
-    'mem_used': number;
-    /**
-     * 
-     * @type {number}
-     * @memberof ResponseRealtimeNodesStatsApiNodesRealtimeStatsGetValue
-     */
-    'cpu_cores': number;
-    /**
-     * 
-     * @type {number}
-     * @memberof ResponseRealtimeNodesStatsApiNodesRealtimeStatsGetValue
-     */
-    'cpu_usage': number;
-    /**
-     * 
-     * @type {number}
-     * @memberof ResponseRealtimeNodesStatsApiNodesRealtimeStatsGetValue
-     */
-    'incoming_bandwidth_speed': number;
-    /**
-     * 
-     * @type {number}
-     * @memberof ResponseRealtimeNodesStatsApiNodesRealtimeStatsGetValue
-     */
-    'outgoing_bandwidth_speed': number;
-}
+export type ResponseRealtimeNodesStatsApiNodesRealtimeStatsGetValue = NodeRealtimeStats;
 

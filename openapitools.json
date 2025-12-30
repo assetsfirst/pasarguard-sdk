@@ -9,6 +9,9 @@
         "output": "./src/generated-sources",
         "templateDir": "./codegen/typescript-axios",
         "inputSpec": "./openapi/openapi.json",
+        "typeMappings": {
+          "anyOf": "object"
+        },
         "additionalProperties": {
           "supportsES6": true,
           "typescriptThreePlus": true,

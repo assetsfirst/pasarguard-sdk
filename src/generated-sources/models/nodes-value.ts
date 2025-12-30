@@ -18,16 +18,8 @@
 import type { UserIPList } from './user-iplist';
 
 /**
- * 
+ * @type NodesValue
  * @export
- * @interface NodesValue
  */
-export interface NodesValue {
-    /**
-     * 
-     * @type {{ [key: string]: number; }}
-     * @memberof NodesValue
-     */
-    'ips': { [key: string]: number; };
-}
+export type NodesValue = UserIPList;
 

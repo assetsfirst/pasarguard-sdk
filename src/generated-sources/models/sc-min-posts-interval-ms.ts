@@ -15,10 +15,8 @@
 
 
 /**
- * 
+ * @type ScMinPostsIntervalMs
  * @export
- * @interface ScMinPostsIntervalMs
  */
-export interface ScMinPostsIntervalMs {
-}
+export type ScMinPostsIntervalMs = number | string;
 

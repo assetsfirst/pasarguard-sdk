@@ -15,10 +15,8 @@
 
 
 /**
- * 
+ * @type MaxConnections
  * @export
- * @interface MaxConnections
  */
-export interface MaxConnections {
-}
+export type MaxConnections = number | string;
 

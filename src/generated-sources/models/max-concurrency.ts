@@ -15,10 +15,8 @@
 
 
 /**
- * 
+ * @type MaxConcurrency
  * @export
- * @interface MaxConcurrency
  */
-export interface MaxConcurrency {
-}
+export type MaxConcurrency = number | string;
 

@@ -15,10 +15,8 @@
 
 
 /**
- * 
+ * @type ValidationErrorLocInner
  * @export
- * @interface ValidationErrorLocInner
  */
-export interface ValidationErrorLocInner {
-}
+export type ValidationErrorLocInner = number | string;
 

@@ -15,10 +15,8 @@
 
 
 /**
- * 
+ * @type HMaxReusableSecs
  * @export
- * @interface HMaxReusableSecs
  */
-export interface HMaxReusableSecs {
-}
+export type HMaxReusableSecs = number | string;
 

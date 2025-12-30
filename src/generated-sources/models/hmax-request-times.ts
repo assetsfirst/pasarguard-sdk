@@ -15,10 +15,8 @@
 
 
 /**
- * 
+ * @type HMaxRequestTimes
  * @export
- * @interface HMaxRequestTimes
  */
-export interface HMaxRequestTimes {
-}
+export type HMaxRequestTimes = number | string;
 

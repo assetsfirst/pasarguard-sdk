@@ -15,10 +15,8 @@
 
 
 /**
- * 
+ * @type CMaxReuseTimes
  * @export
- * @interface CMaxReuseTimes
  */
-export interface CMaxReuseTimes {
-}
+export type CMaxReuseTimes = number | string;
 

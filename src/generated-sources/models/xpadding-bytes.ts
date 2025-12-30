@@ -15,10 +15,8 @@
 
 
 /**
- * 
+ * @type XPaddingBytes
  * @export
- * @interface XPaddingBytes
  */
-export interface XPaddingBytes {
-}
+export type XPaddingBytes = number | string;
 

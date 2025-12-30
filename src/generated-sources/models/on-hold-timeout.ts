@@ -15,10 +15,8 @@
 
 
 /**
- * 
+ * @type OnHoldTimeout
  * @export
- * @interface OnHoldTimeout
  */
-export interface OnHoldTimeout {
-}
+export type OnHoldTimeout = number | string;
 

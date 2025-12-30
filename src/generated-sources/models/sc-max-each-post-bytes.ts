@@ -15,10 +15,8 @@
 
 
 /**
- * 
+ * @type ScMaxEachPostBytes
  * @export
- * @interface ScMaxEachPostBytes
  */
-export interface ScMaxEachPostBytes {
-}
+export type ScMaxEachPostBytes = number | string;
 
