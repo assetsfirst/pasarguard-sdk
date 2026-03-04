@@ -1,6 +1,6 @@
 {
   "name": "@assetsfirst/pasarguard-sdk",
-  "version": "1.1.0",
+  "version": "2.2.0",
   "description": "Fully typed client SDK for the Pasarguard API, supporting both browser and Node.js environments.",
   "author": "pods611",
   "license": "MIT",
