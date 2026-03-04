@@ -5,6 +5,7 @@ All URIs are relative to *http://localhost*
 |Method | HTTP request | Description|
 |------------- | ------------- | -------------|
 |[**activeNextPlan**](#activenextplan) | **POST** /api/user/{username}/active_next | Active Next Plan|
+|[**bulkCreateUsersFromTemplate**](#bulkcreateusersfromtemplate) | **POST** /api/users/bulk/from_template | Bulk Create Users From Template|
 |[**bulkModifyUsersDatalimit**](#bulkmodifyusersdatalimit) | **POST** /api/users/bulk/data_limit | Bulk sum/sub to data limit of users|
 |[**bulkModifyUsersExpire**](#bulkmodifyusersexpire) | **POST** /api/users/bulk/expire | Bulk sum/sub to expire of users|
 |[**bulkModifyUsersProxySettings**](#bulkmodifyusersproxysettings) | **POST** /api/users/bulk/proxy_settings | Bulk modify users proxy settings|
@@ -16,6 +17,7 @@ All URIs are relative to *http://localhost*
 |[**getUserSubUpdateList**](#getusersubupdatelist) | **GET** /api/user/{username}/sub_update | Get User Sub Update List|
 |[**getUserUsage**](#getuserusage) | **GET** /api/user/{username}/usage | Get User Usage|
 |[**getUsers**](#getusers) | **GET** /api/users | Get Users|
+|[**getUsersSimple**](#getuserssimple) | **GET** /api/users/simple | Get lightweight user list|
 |[**getUsersSubUpdateChart**](#getuserssubupdatechart) | **GET** /api/users/sub_update/chart | Get Users Sub Update Chart|
 |[**getUsersUsage**](#getusersusage) | **GET** /api/users/usage | Get Users Usage|
 |[**modifyUser**](#modifyuser) | **PUT** /api/user/{username} | Modify User|
@@ -77,6 +79,64 @@ const { status, data } = await apiInstance.activeNextPlan(
 |**401** | Unauthorized Error |  * WWW-Authenticate - Authentication type <br>  |
 |**403** | Forbidden Error |  -  |
 |**404** | NotFound Error |  -  |
+|**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **bulkCreateUsersFromTemplate**
+> BulkUsersCreateResponse bulkCreateUsersFromTemplate(bulkUsersFromTemplate)
+
+Bulk create users from a template using configurable username strategies.  - Includes the template creation fields plus `count`, `strategy`, and `start_number` (for sequences). - **strategy**: Username generation strategy — `sequence` or `random`. - **start_number**: Optional starting suffix for `sequence` strategy. Defaults to `1` and does not parse numbers from the base username.  Returns subscription URLs for created users.
+
+### Example
+
+```typescript
+import {
+    UserApi,
+    Configuration,
+    BulkUsersFromTemplate
+} from './api';
+
+const configuration = new Configuration();
+const apiInstance = new UserApi(configuration);
+
+let bulkUsersFromTemplate: BulkUsersFromTemplate; //
+
+const { status, data } = await apiInstance.bulkCreateUsersFromTemplate(
+    bulkUsersFromTemplate
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **bulkUsersFromTemplate** | **BulkUsersFromTemplate**|  | |
+
+
+### Return type
+
+**BulkUsersCreateResponse**
+
+### Authorization
+
+[OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**201** | Successful Response |  -  |
+|**401** | Unauthorized Error |  * WWW-Authenticate - Authentication type <br>  |
+|**400** | BadRequest Error |  -  |
+|**403** | Forbidden Error |  -  |
+|**404** | NotFound Error |  -  |
+|**409** | Conflict Error |  -  |
 |**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -354,7 +414,7 @@ const { status, data } = await apiInstance.createUserFromTemplate(
 # **deleteExpiredUsers**
 > RemoveUsersResponse deleteExpiredUsers()
 
-Delete users who have expired within the specified date range.  - **expired_after** UTC datetime (optional) - **expired_before** UTC datetime (optional) - At least one of expired_after or expired_before must be provided
+Delete cleanup-target users in the specified scope.  - **target**: `expired` (time-based) or `limited` (usage-based) - **expired_after** UTC datetime (optional) - **expired_before** UTC datetime (optional) - Date range filters are applied only when target is `expired`
 
 ### Example
 
@@ -368,11 +428,13 @@ const configuration = new Configuration();
 const apiInstance = new UserApi(configuration);
 
 let adminUsername: string; // (optional) (default to undefined)
+let target: 'expired' | 'limited'; // (optional) (default to 'expired')
 let expiredAfter: string; // (optional) (default to undefined)
 let expiredBefore: string; // (optional) (default to undefined)
 
 const { status, data } = await apiInstance.deleteExpiredUsers(
     adminUsername,
+    target,
     expiredAfter,
     expiredBefore
 );
@@ -383,6 +445,7 @@ const { status, data } = await apiInstance.deleteExpiredUsers(
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 | **adminUsername** | [**string**] |  | (optional) defaults to undefined|
+| **target** | [**&#39;expired&#39; | &#39;limited&#39;**]**Array<&#39;expired&#39; &#124; &#39;limited&#39;>** |  | (optional) defaults to 'expired'|
 | **expiredAfter** | [**string**] |  | (optional) defaults to undefined|
 | **expiredBefore** | [**string**] |  | (optional) defaults to undefined|
 
@@ -413,7 +476,7 @@ const { status, data } = await apiInstance.deleteExpiredUsers(
 # **getExpiredUsers**
 > Array<string | null> getExpiredUsers()
 
-Get users who have expired within the specified date range.  - **expired_after** UTC datetime (optional) - **expired_before** UTC datetime (optional) - At least one of expired_after or expired_before must be provided for filtering - If both are omitted, returns all expired users
+Get cleanup-target users in the specified scope.  - **target**: `expired` (time-based) or `limited` (usage-based) - **expired_after** UTC datetime (optional) - **expired_before** UTC datetime (optional) - Date range filters are applied only when target is `expired`
 
 ### Example
 
@@ -427,11 +490,13 @@ const configuration = new Configuration();
 const apiInstance = new UserApi(configuration);
 
 let adminUsername: string; // (optional) (default to undefined)
+let target: 'expired' | 'limited'; // (optional) (default to 'expired')
 let expiredAfter: string; // (optional) (default to undefined)
 let expiredBefore: string; // (optional) (default to undefined)
 
 const { status, data } = await apiInstance.getExpiredUsers(
     adminUsername,
+    target,
     expiredAfter,
     expiredBefore
 );
@@ -442,6 +507,7 @@ const { status, data } = await apiInstance.getExpiredUsers(
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 | **adminUsername** | [**string**] |  | (optional) defaults to undefined|
+| **target** | [**&#39;expired&#39; | &#39;limited&#39;**]**Array<&#39;expired&#39; &#124; &#39;limited&#39;>** |  | (optional) defaults to 'expired'|
 | **expiredAfter** | [**string**] |  | (optional) defaults to undefined|
 | **expiredBefore** | [**string**] |  | (optional) defaults to undefined|
 
@@ -734,6 +800,73 @@ const { status, data } = await apiInstance.getUsers(
 |**400** | BadRequest Error |  -  |
 |**403** | Forbidden Error |  -  |
 |**404** | NotFound Error |  -  |
+|**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **getUsersSimple**
+> UsersSimpleResponse getUsersSimple()
+
+Returns only id and username for users. Optimized for dropdowns and autocomplete.
+
+### Example
+
+```typescript
+import {
+    UserApi,
+    Configuration
+} from './api';
+
+const configuration = new Configuration();
+const apiInstance = new UserApi(configuration);
+
+let offset: number; // (optional) (default to undefined)
+let limit: number; // (optional) (default to undefined)
+let search: string; // (optional) (default to undefined)
+let sort: string; // (optional) (default to undefined)
+let all: boolean; // (optional) (default to false)
+
+const { status, data } = await apiInstance.getUsersSimple(
+    offset,
+    limit,
+    search,
+    sort,
+    all
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **offset** | [**number**] |  | (optional) defaults to undefined|
+| **limit** | [**number**] |  | (optional) defaults to undefined|
+| **search** | [**string**] |  | (optional) defaults to undefined|
+| **sort** | [**string**] |  | (optional) defaults to undefined|
+| **all** | [**boolean**] |  | (optional) defaults to false|
+
+
+### Return type
+
+**UsersSimpleResponse**
+
+### Authorization
+
+[OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**401** | Unauthorized Error |  * WWW-Authenticate - Authentication type <br>  |
+|**400** | BadRequest Error |  -  |
+|**403** | Forbidden Error |  -  |
 |**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

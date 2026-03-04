@@ -9,6 +9,7 @@ All URIs are relative to *http://localhost*
 |[**createGroup**](#creategroup) | **POST** /api/group | Create a new group|
 |[**getAllGroups**](#getallgroups) | **GET** /api/groups | List all groups|
 |[**getGroup**](#getgroup) | **GET** /api/group/{group_id} | Get group details|
+|[**getGroupsSimple**](#getgroupssimple) | **GET** /api/groups/simple | Get lightweight group list|
 |[**modifyGroup**](#modifygroup) | **PUT** /api/group/{group_id} | Modify group|
 |[**removeGroup**](#removegroup) | **DELETE** /api/group/{group_id} | Remove group|
 
@@ -285,6 +286,72 @@ const { status, data } = await apiInstance.getGroup(
 |**401** | Unauthorized Error |  * WWW-Authenticate - Authentication type <br>  |
 |**403** | Forbidden Error |  -  |
 |**404** | NotFound Error |  -  |
+|**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **getGroupsSimple**
+> GroupsSimpleResponse getGroupsSimple()
+
+Returns only id and name for groups. Optimized for dropdowns and autocomplete.
+
+### Example
+
+```typescript
+import {
+    GroupsApi,
+    Configuration
+} from './api';
+
+const configuration = new Configuration();
+const apiInstance = new GroupsApi(configuration);
+
+let offset: number; // (optional) (default to undefined)
+let limit: number; // (optional) (default to undefined)
+let search: string; // (optional) (default to undefined)
+let sort: string; // (optional) (default to undefined)
+let all: boolean; // (optional) (default to false)
+
+const { status, data } = await apiInstance.getGroupsSimple(
+    offset,
+    limit,
+    search,
+    sort,
+    all
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **offset** | [**number**] |  | (optional) defaults to undefined|
+| **limit** | [**number**] |  | (optional) defaults to undefined|
+| **search** | [**string**] |  | (optional) defaults to undefined|
+| **sort** | [**string**] |  | (optional) defaults to undefined|
+| **all** | [**boolean**] |  | (optional) defaults to false|
+
+
+### Return type
+
+**GroupsSimpleResponse**
+
+### Authorization
+
+[OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**401** | Unauthorized Error |  * WWW-Authenticate - Authentication type <br>  |
+|**403** | Forbidden Error |  -  |
 |**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

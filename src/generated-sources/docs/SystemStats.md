@@ -8,6 +8,8 @@ Name | Type | Description | Notes
 **version** | **string** |  | [default to undefined]
 **mem_total** | **number** |  | [optional] [default to undefined]
 **mem_used** | **number** |  | [optional] [default to undefined]
+**disk_total** | **number** |  | [optional] [default to undefined]
+**disk_used** | **number** |  | [optional] [default to undefined]
 **cpu_cores** | **number** |  | [optional] [default to undefined]
 **cpu_usage** | **number** |  | [optional] [default to undefined]
 **total_user** | **number** |  | [default to undefined]
@@ -29,6 +31,8 @@ const instance: SystemStats = {
     version,
     mem_total,
     mem_used,
+    disk_total,
+    disk_used,
     cpu_cores,
     cpu_usage,
     total_user,

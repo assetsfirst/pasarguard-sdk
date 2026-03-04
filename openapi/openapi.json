@@ -3,7 +3,7 @@
   "info": {
     "title": "PasarGuardAPI",
     "description": "Unified GUI Censorship Resistant Solution",
-    "version": "1.8.2"
+    "version": "2.2.0"
   },
   "paths": {
     "/": {
@@ -62,6 +62,26 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/health": {
+      "get": {
+        "summary": "Health",
+        "operationId": "health",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Response Health Health Get"
                 }
               }
             }
@@ -640,6 +660,307 @@
         }
       }
     },
+    "/api/admins/simple": {
+      "get": {
+        "tags": [
+          "Admin"
+        ],
+        "summary": "Get lightweight admin list",
+        "description": "Returns only id and username for admins. Optimized for dropdowns and autocomplete.",
+        "operationId": "get_admins_simple",
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "search",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Search"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Offset"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Limit"
+            }
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Sort"
+            }
+          },
+          {
+            "name": "all",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "title": "All"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdminsSimpleResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Error",
+            "headers": {
+              "WWW-Authenticate": {
+                "description": "Authentication type",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Forbidden"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/admin/{username}/usage": {
+      "get": {
+        "tags": [
+          "Admin"
+        ],
+        "summary": "Get Admin Usage",
+        "description": "Get admin usage aggregated from user traffic.",
+        "operationId": "get_admin_usage",
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "username",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Username"
+            }
+          },
+          {
+            "name": "period",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/Period"
+            }
+          },
+          {
+            "name": "node_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Node Id"
+            }
+          },
+          {
+            "name": "group_by_node",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "title": "Group By Node"
+            }
+          },
+          {
+            "name": "start",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "examples": [
+                "2024-01-01T00:00:00+03:30"
+              ],
+              "title": "Start"
+            }
+          },
+          {
+            "name": "end",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "examples": [
+                "2024-01-31T23:59:59+03:30"
+              ],
+              "title": "End"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserUsageStatsList"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Error",
+            "headers": {
+              "WWW-Authenticate": {
+                "description": "Authentication type",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Forbidden"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "NotFound Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFound"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/admin/{username}/users/disable": {
       "post": {
         "tags": [
@@ -984,7 +1305,7 @@
           "System"
         ],
         "summary": "Get System Stats",
-        "description": "Fetch system stats including memory, CPU, and user metrics.",
+        "description": "Fetch system stats including memory, CPU, disk, and user metrics.",
         "operationId": "get_system_stats",
         "security": [
           {
@@ -1070,6 +1391,50 @@
                   },
                   "type": "array",
                   "title": "Response Get Inbounds Api Inbounds Get"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Error",
+            "headers": {
+              "WWW-Authenticate": {
+                "description": "Authentication type",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ]
+      }
+    },
+    "/api/workers/health": {
+      "get": {
+        "tags": [
+          "System"
+        ],
+        "summary": "Get Workers Health",
+        "operationId": "get_workers_health",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WorkersHealth"
                 }
               }
             }
@@ -1395,6 +1760,133 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/GroupsResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Error",
+            "headers": {
+              "WWW-Authenticate": {
+                "description": "Authentication type",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Forbidden"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/groups/simple": {
+      "get": {
+        "tags": [
+          "Groups"
+        ],
+        "summary": "Get lightweight group list",
+        "description": "Returns only id and name for groups. Optimized for dropdowns and autocomplete.",
+        "operationId": "get_groups_simple",
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "title": "Offset"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "title": "Limit"
+            }
+          },
+          {
+            "name": "search",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Search"
+            }
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Sort"
+            }
+          },
+          {
+            "name": "all",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "title": "All"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GroupsSimpleResponse"
                 }
               }
             }
@@ -2263,6 +2755,147 @@
         }
       }
     },
+    "/api/cores/simple": {
+      "get": {
+        "tags": [
+          "Core"
+        ],
+        "summary": "Get lightweight core list",
+        "description": "Returns only id and name for cores. Optimized for dropdowns and autocomplete.",
+        "operationId": "get_cores_simple",
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Offset"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Limit"
+            }
+          },
+          {
+            "name": "search",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Search"
+            }
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Sort"
+            }
+          },
+          {
+            "name": "all",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "title": "All"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CoresSimpleResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Error",
+            "headers": {
+              "WWW-Authenticate": {
+                "description": "Authentication type",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Forbidden"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/core/{core_id}/restart": {
       "post": {
         "tags": [
@@ -2909,9 +3542,11 @@
                   "type": "null"
                 }
               ],
+              "examples": [
+                "2024-01-01T00:00:00+03:30"
+              ],
               "title": "Start"
-            },
-            "example": "2024-01-01T00:00:00+03:30"
+            }
           },
           {
             "name": "end",
@@ -2927,9 +3562,11 @@
                   "type": "null"
                 }
               ],
+              "examples": [
+                "2024-01-31T23:59:59+03:30"
+              ],
               "title": "End"
-            },
-            "example": "2024-01-31T23:59:59+03:30"
+            }
           },
           {
             "name": "period",
@@ -3153,6 +3790,147 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/NodesResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Error",
+            "headers": {
+              "WWW-Authenticate": {
+                "description": "Authentication type",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Forbidden"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/nodes/simple": {
+      "get": {
+        "tags": [
+          "Node"
+        ],
+        "summary": "Get lightweight node list",
+        "description": "Returns only id and name for nodes. Optimized for dropdowns and autocomplete.",
+        "operationId": "get_nodes_simple",
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Offset"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Limit"
+            }
+          },
+          {
+            "name": "search",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Search"
+            }
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Sort"
+            }
+          },
+          {
+            "name": "all",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "title": "All"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NodesSimpleResponse"
                 }
               }
             }
@@ -3591,6 +4369,245 @@
         }
       }
     },
+    "/api/node/{node_id}/update": {
+      "post": {
+        "tags": [
+          "Node"
+        ],
+        "summary": "Update Node",
+        "operationId": "update_node",
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "node_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Node Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Error",
+            "headers": {
+              "WWW-Authenticate": {
+                "description": "Authentication type",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Forbidden"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/node/{node_id}/core_update": {
+      "post": {
+        "tags": [
+          "Node"
+        ],
+        "summary": "Update Core",
+        "operationId": "update_core",
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "node_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Node Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NodeCoreUpdate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Error",
+            "headers": {
+              "WWW-Authenticate": {
+                "description": "Authentication type",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Forbidden"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/node/{node_id}/geofiles": {
+      "post": {
+        "tags": [
+          "Node"
+        ],
+        "summary": "Update Geofiles",
+        "operationId": "update_geofiles",
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "node_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Node Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NodeGeoFilesUpdate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Error",
+            "headers": {
+              "WWW-Authenticate": {
+                "description": "Authentication type",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Forbidden"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/node/{node_id}/reset": {
       "post": {
         "tags": [
@@ -3934,9 +4951,11 @@
                   "type": "null"
                 }
               ],
+              "examples": [
+                "2024-01-01T00:00:00+03:30"
+              ],
               "title": "Start"
-            },
-            "example": "2024-01-01T00:00:00+03:30"
+            }
           },
           {
             "name": "end",
@@ -3952,9 +4971,11 @@
                   "type": "null"
                 }
               ],
+              "examples": [
+                "2024-01-31T23:59:59+03:30"
+              ],
               "title": "End"
-            },
-            "example": "2024-01-31T23:59:59+03:30"
+            }
           },
           {
             "name": "period",
@@ -5719,6 +6740,143 @@
         }
       }
     },
+    "/api/users/simple": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Get lightweight user list",
+        "description": "Returns only id and username for users. Optimized for dropdowns and autocomplete.",
+        "operationId": "get_users_simple",
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "title": "Offset"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "title": "Limit"
+            }
+          },
+          {
+            "name": "search",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Search"
+            }
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Sort"
+            }
+          },
+          {
+            "name": "all",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "title": "All"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UsersSimpleResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Error",
+            "headers": {
+              "WWW-Authenticate": {
+                "description": "Authentication type",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "BadRequest Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPException"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Forbidden"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/user/{username}/usage": {
       "get": {
         "tags": [
@@ -5790,9 +6948,11 @@
                   "type": "null"
                 }
               ],
+              "examples": [
+                "2024-01-01T00:00:00+03:30"
+              ],
               "title": "Start"
-            },
-            "example": "2024-01-01T00:00:00+03:30"
+            }
           },
           {
             "name": "end",
@@ -5808,9 +6968,11 @@
                   "type": "null"
                 }
               ],
+              "examples": [
+                "2024-01-31T23:59:59+03:30"
+              ],
               "title": "End"
-            },
-            "example": "2024-01-31T23:59:59+03:30"
+            }
           }
         ],
         "responses": {
@@ -5937,9 +7099,11 @@
                   "type": "null"
                 }
               ],
+              "examples": [
+                "2024-01-01T00:00:00+03:30"
+              ],
               "title": "Start"
-            },
-            "example": "2024-01-01T00:00:00+03:30"
+            }
           },
           {
             "name": "end",
@@ -5955,9 +7119,11 @@
                   "type": "null"
                 }
               ],
+              "examples": [
+                "2024-01-31T23:59:59+03:30"
+              ],
               "title": "End"
-            },
-            "example": "2024-01-31T23:59:59+03:30"
+            }
           },
           {
             "name": "admin",
@@ -6027,7 +7193,7 @@
           "User"
         ],
         "summary": "Get Expired Users",
-        "description": "Get users who have expired within the specified date range.\n\n- **expired_after** UTC datetime (optional)\n- **expired_before** UTC datetime (optional)\n- At least one of expired_after or expired_before must be provided for filtering\n- If both are omitted, returns all expired users",
+        "description": "Get cleanup-target users in the specified scope.\n\n- **target**: `expired` (time-based) or `limited` (usage-based)\n- **expired_after** UTC datetime (optional)\n- **expired_before** UTC datetime (optional)\n- Date range filters are applied only when target is `expired`",
         "operationId": "get_expired_users",
         "security": [
           {
@@ -6052,6 +7218,20 @@
             }
           },
           {
+            "name": "target",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "enum": [
+                "expired",
+                "limited"
+              ],
+              "type": "string",
+              "default": "expired",
+              "title": "Target"
+            }
+          },
+          {
             "name": "expired_after",
             "in": "query",
             "required": false,
@@ -6065,9 +7245,11 @@
                   "type": "null"
                 }
               ],
+              "examples": [
+                "2024-01-01T00:00:00+03:30"
+              ],
               "title": "Expired After"
-            },
-            "example": "2024-01-01T00:00:00+03:30"
+            }
           },
           {
             "name": "expired_before",
@@ -6083,9 +7265,11 @@
                   "type": "null"
                 }
               ],
+              "examples": [
+                "2024-01-31T23:59:59+03:30"
+              ],
               "title": "Expired Before"
-            },
-            "example": "2024-01-31T23:59:59+03:30"
+            }
           }
         ],
         "responses": {
@@ -6138,7 +7322,7 @@
           "User"
         ],
         "summary": "Delete Expired Users",
-        "description": "Delete users who have expired within the specified date range.\n\n- **expired_after** UTC datetime (optional)\n- **expired_before** UTC datetime (optional)\n- At least one of expired_after or expired_before must be provided",
+        "description": "Delete cleanup-target users in the specified scope.\n\n- **target**: `expired` (time-based) or `limited` (usage-based)\n- **expired_after** UTC datetime (optional)\n- **expired_before** UTC datetime (optional)\n- Date range filters are applied only when target is `expired`",
         "operationId": "delete_expired_users",
         "security": [
           {
@@ -6163,6 +7347,20 @@
             }
           },
           {
+            "name": "target",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "enum": [
+                "expired",
+                "limited"
+              ],
+              "type": "string",
+              "default": "expired",
+              "title": "Target"
+            }
+          },
+          {
             "name": "expired_after",
             "in": "query",
             "required": false,
@@ -6176,9 +7374,11 @@
                   "type": "null"
                 }
               ],
+              "examples": [
+                "2024-01-01T00:00:00+03:30"
+              ],
               "title": "Expired After"
-            },
-            "example": "2024-01-01T00:00:00+03:30"
+            }
           },
           {
             "name": "expired_before",
@@ -6194,9 +7394,11 @@
                   "type": "null"
                 }
               ],
+              "examples": [
+                "2024-01-31T23:59:59+03:30"
+              ],
               "title": "Expired Before"
-            },
-            "example": "2024-01-31T23:59:59+03:30"
+            }
           }
         ],
         "responses": {
@@ -6283,6 +7485,111 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ]
+      }
+    },
+    "/api/users/bulk/from_template": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Bulk Create Users From Template",
+        "description": "Bulk create users from a template using configurable username strategies.\n\n- Includes the template creation fields plus `count`, `strategy`, and `start_number` (for sequences).\n- **strategy**: Username generation strategy — `sequence` or `random`.\n- **start_number**: Optional starting suffix for `sequence` strategy. Defaults to `1` and does not parse numbers from the base username.\n\nReturns subscription URLs for created users.",
+        "operationId": "bulk_create_users_from_template",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BulkUsersFromTemplate"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BulkUsersCreateResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Error",
+            "headers": {
+              "WWW-Authenticate": {
+                "description": "Authentication type",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "BadRequest Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPException"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Forbidden"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "NotFound Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFound"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Conflict"
                 }
               }
             }
@@ -6741,9 +8048,11 @@
                   "type": "null"
                 }
               ],
+              "examples": [
+                "2024-01-01T00:00:00+03:30"
+              ],
               "title": "Start"
-            },
-            "example": "2024-01-01T00:00:00+03:30"
+            }
           },
           {
             "name": "end",
@@ -6759,9 +8068,11 @@
                   "type": "null"
                 }
               ],
+              "examples": [
+                "2024-01-31T23:59:59+03:30"
+              ],
               "title": "End"
-            },
-            "example": "2024-01-31T23:59:59+03:30"
+            }
           },
           {
             "name": "period",
@@ -7126,6 +8437,119 @@
           }
         }
       }
+    },
+    "/api/user_templates/simple": {
+      "get": {
+        "tags": [
+          "User Template"
+        ],
+        "summary": "Get lightweight user template list",
+        "description": "Returns only id and name for user templates. Optimized for dropdowns and autocomplete.",
+        "operationId": "get_user_templates_simple",
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Offset"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Limit"
+            }
+          },
+          {
+            "name": "search",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Search"
+            }
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Sort"
+            }
+          },
+          {
+            "name": "all",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "title": "All"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserTemplatesSimpleResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -7143,6 +8567,85 @@
         ],
         "title": "AdminBase",
         "description": "Minimal admin model containing only the username."
+      },
+      "AdminContactInfo": {
+        "properties": {
+          "username": {
+            "type": "string",
+            "title": "Username"
+          },
+          "telegram_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Telegram Id"
+          },
+          "discord_webhook": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Discord Webhook"
+          },
+          "sub_domain": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Sub Domain"
+          },
+          "profile_title": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Profile Title"
+          },
+          "support_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Support Url"
+          },
+          "notification_enable": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/UserNotificationEnable"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "type": "object",
+        "required": [
+          "username"
+        ],
+        "title": "AdminContactInfo",
+        "description": "Base model containing the core admin identification fields."
       },
       "AdminCreate": {
         "properties": {
@@ -7562,6 +9065,25 @@
         "type": "object",
         "title": "AdminNotificationEnable"
       },
+      "AdminSimple": {
+        "properties": {
+          "id": {
+            "type": "integer",
+            "title": "Id"
+          },
+          "username": {
+            "type": "string",
+            "title": "Username"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "username"
+        ],
+        "title": "AdminSimple",
+        "description": "Lightweight admin model with only id and username for performance."
+      },
       "AdminsResponse": {
         "properties": {
           "admins": {
@@ -7593,6 +9115,28 @@
         ],
         "title": "AdminsResponse",
         "description": "Response model for admins list with pagination and statistics."
+      },
+      "AdminsSimpleResponse": {
+        "properties": {
+          "admins": {
+            "items": {
+              "$ref": "#/components/schemas/AdminSimple"
+            },
+            "type": "array",
+            "title": "Admins"
+          },
+          "total": {
+            "type": "integer",
+            "title": "Total"
+          }
+        },
+        "type": "object",
+        "required": [
+          "admins",
+          "total"
+        ],
+        "title": "AdminsSimpleResponse",
+        "description": "Response model for lightweight admin list."
       },
       "Application-Input": {
         "properties": {
@@ -7890,6 +9434,18 @@
             "title": "Use Sni As Host",
             "default": false
           },
+          "vless_route": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^$|^[0-9a-fA-F]{4}$"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Vless Route"
+          },
           "priority": {
             "type": "integer",
             "title": "Priority"
@@ -7919,6 +9475,32 @@
               }
             ],
             "title": "Ech Config List"
+          },
+          "pinned_peer_cert_sha256": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Pinned Peer Cert Sha256"
+          },
+          "verify_peer_cert_by_name": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array",
+                "uniqueItems": true
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Verify Peer Cert By Name"
           }
         },
         "type": "object",
@@ -8116,6 +9698,84 @@
           "amount"
         ],
         "title": "BulkUser"
+      },
+      "BulkUsersCreateResponse": {
+        "properties": {
+          "subscription_urls": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Subscription Urls"
+          },
+          "created": {
+            "type": "integer",
+            "title": "Created",
+            "default": 0
+          }
+        },
+        "type": "object",
+        "title": "BulkUsersCreateResponse"
+      },
+      "BulkUsersFromTemplate": {
+        "properties": {
+          "user_template_id": {
+            "type": "integer",
+            "title": "User Template Id"
+          },
+          "note": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 500
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Note"
+          },
+          "username": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Username"
+          },
+          "count": {
+            "type": "integer",
+            "maximum": 500.0,
+            "exclusiveMinimum": 0.0,
+            "title": "Count"
+          },
+          "strategy": {
+            "$ref": "#/components/schemas/UsernameGenerationStrategy",
+            "default": "random"
+          },
+          "start_number": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Start Number",
+            "description": "Starting suffix for sequence strategy (defaults to 1; base username digits are ignored)"
+          }
+        },
+        "type": "object",
+        "required": [
+          "user_template_id",
+          "count"
+        ],
+        "title": "BulkUsersFromTemplate"
       },
       "BulkUsersProxy": {
         "properties": {
@@ -8386,6 +10046,47 @@
         ],
         "title": "CoreResponseList"
       },
+      "CoreSimple": {
+        "properties": {
+          "id": {
+            "type": "integer",
+            "title": "Id"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "name"
+        ],
+        "title": "CoreSimple",
+        "description": "Lightweight core model with only id and name for performance."
+      },
+      "CoresSimpleResponse": {
+        "properties": {
+          "cores": {
+            "items": {
+              "$ref": "#/components/schemas/CoreSimple"
+            },
+            "type": "array",
+            "title": "Cores"
+          },
+          "total": {
+            "type": "integer",
+            "title": "Total"
+          }
+        },
+        "type": "object",
+        "required": [
+          "cores",
+          "total"
+        ],
+        "title": "CoresSimpleResponse",
+        "description": "Response model for lightweight core list."
+      },
       "CreateHost": {
         "properties": {
           "id": {
@@ -8576,6 +10277,18 @@
             "title": "Use Sni As Host",
             "default": false
           },
+          "vless_route": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^$|^[0-9a-fA-F]{4}$"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Vless Route"
+          },
           "priority": {
             "type": "integer",
             "title": "Priority"
@@ -8605,6 +10318,32 @@
               }
             ],
             "title": "Ech Config List"
+          },
+          "pinned_peer_cert_sha256": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Pinned Peer Cert Sha256"
+          },
+          "verify_peer_cert_by_name": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array",
+                "uniqueItems": true
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Verify Peer Cert By Name"
           }
         },
         "type": "object",
@@ -8839,6 +10578,15 @@
         "type": "object",
         "title": "General"
       },
+      "GeoFilseRegion": {
+        "type": "string",
+        "enum": [
+          "iran",
+          "china",
+          "russia"
+        ],
+        "title": "GeoFilseRegion"
+      },
       "GroupCreate": {
         "properties": {
           "name": {
@@ -8947,6 +10695,25 @@
         ],
         "title": "GroupResponse"
       },
+      "GroupSimple": {
+        "properties": {
+          "id": {
+            "type": "integer",
+            "title": "Id"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "name"
+        ],
+        "title": "GroupSimple",
+        "description": "Lightweight group model with only id and name for performance."
+      },
       "GroupsResponse": {
         "properties": {
           "groups": {
@@ -8967,6 +10734,28 @@
           "total"
         ],
         "title": "GroupsResponse"
+      },
+      "GroupsSimpleResponse": {
+        "properties": {
+          "groups": {
+            "items": {
+              "$ref": "#/components/schemas/GroupSimple"
+            },
+            "type": "array",
+            "title": "Groups"
+          },
+          "total": {
+            "type": "integer",
+            "title": "Total"
+          }
+        },
+        "type": "object",
+        "required": [
+          "groups",
+          "total"
+        ],
+        "title": "GroupsSimpleResponse",
+        "description": "Response model for lightweight group list."
       },
       "HTTPException": {
         "properties": {
@@ -9098,12 +10887,6 @@
       },
       "KCPSettings": {
         "properties": {
-          "header": {
-            "type": "string",
-            "pattern": "^(:?none|srtp|utp|wechat-video|dtls|wireguard)$",
-            "title": "Header",
-            "default": "none"
-          },
           "mtu": {
             "anyOf": [
               {
@@ -9151,7 +10934,7 @@
           "congestion": {
             "anyOf": [
               {
-                "type": "integer"
+                "type": "boolean"
               },
               {
                 "type": "null"
@@ -9353,6 +11136,21 @@
         ],
         "title": "NodeConnectionType"
       },
+      "NodeCoreUpdate": {
+        "properties": {
+          "core_version": {
+            "type": "string",
+            "pattern": "^(latest|v?\\d+\\.\\d+\\.\\d+)$",
+            "title": "Core Version",
+            "default": "latest",
+            "examples": [
+              "v25.8.31"
+            ]
+          }
+        },
+        "type": "object",
+        "title": "NodeCoreUpdate"
+      },
       "NodeCreate": {
         "properties": {
           "name": {
@@ -9367,6 +11165,11 @@
             "type": "integer",
             "title": "Port",
             "default": 62050
+          },
+          "api_port": {
+            "type": "integer",
+            "title": "Api Port",
+            "default": 62051
           },
           "usage_coefficient": {
             "type": "number",
@@ -9445,6 +11248,19 @@
           "usage_coefficient": 1
         }
       },
+      "NodeGeoFilesUpdate": {
+        "properties": {
+          "region": {
+            "$ref": "#/components/schemas/GeoFilseRegion",
+            "default": "iran",
+            "examples": [
+              "iran"
+            ]
+          }
+        },
+        "type": "object",
+        "title": "NodeGeoFilesUpdate"
+      },
       "NodeModify": {
         "properties": {
           "name": {
@@ -9479,6 +11295,11 @@
               }
             ],
             "title": "Port"
+          },
+          "api_port": {
+            "type": "integer",
+            "title": "Api Port",
+            "default": 62051
           },
           "usage_coefficient": {
             "anyOf": [
@@ -9723,6 +11544,11 @@
             "title": "Port",
             "default": 62050
           },
+          "api_port": {
+            "type": "integer",
+            "title": "Api Port",
+            "default": 62051
+          },
           "usage_coefficient": {
             "type": "number",
             "exclusiveMinimum": 0.0,
@@ -9890,6 +11716,29 @@
         },
         "type": "object",
         "title": "NodeSettings"
+      },
+      "NodeSimple": {
+        "properties": {
+          "id": {
+            "type": "integer",
+            "title": "Id"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "status": {
+            "$ref": "#/components/schemas/NodeStatus"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "status"
+        ],
+        "title": "NodeSimple",
+        "description": "Lightweight node model with only id and name for performance."
       },
       "NodeStats": {
         "properties": {
@@ -10059,6 +11908,28 @@
           "total"
         ],
         "title": "NodesResponse"
+      },
+      "NodesSimpleResponse": {
+        "properties": {
+          "nodes": {
+            "items": {
+              "$ref": "#/components/schemas/NodeSimple"
+            },
+            "type": "array",
+            "title": "Nodes"
+          },
+          "total": {
+            "type": "integer",
+            "title": "Total"
+          }
+        },
+        "type": "object",
+        "required": [
+          "nodes",
+          "total"
+        ],
+        "title": "NodesSimpleResponse",
+        "description": "Response model for lightweight node list."
       },
       "NoiseSettings": {
         "properties": {
@@ -10854,6 +12725,21 @@
             },
             "type": "array",
             "title": "Applications"
+          },
+          "allow_browser_config": {
+            "type": "boolean",
+            "title": "Allow Browser Config",
+            "default": true
+          },
+          "disable_sub_template": {
+            "type": "boolean",
+            "title": "Disable Sub Template",
+            "default": false
+          },
+          "randomize_order": {
+            "type": "boolean",
+            "title": "Randomize Order",
+            "default": false
           }
         },
         "type": "object",
@@ -10911,6 +12797,21 @@
             },
             "type": "array",
             "title": "Applications"
+          },
+          "allow_browser_config": {
+            "type": "boolean",
+            "title": "Allow Browser Config",
+            "default": true
+          },
+          "disable_sub_template": {
+            "type": "boolean",
+            "title": "Disable Sub Template",
+            "default": false
+          },
+          "randomize_order": {
+            "type": "boolean",
+            "title": "Randomize Order",
+            "default": false
           }
         },
         "type": "object",
@@ -11100,6 +13001,28 @@
             ],
             "title": "Mem Used"
           },
+          "disk_total": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Disk Total"
+          },
+          "disk_used": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Disk Used"
+          },
           "cpu_cores": {
             "anyOf": [
               {
@@ -11178,7 +13101,7 @@
         "properties": {
           "header": {
             "type": "string",
-            "pattern": "^(:?none|http)$",
+            "pattern": "^(?:|none|http)$",
             "title": "Header",
             "default": "none"
           },
@@ -11993,6 +13916,25 @@
         ],
         "title": "UserResponse"
       },
+      "UserSimple": {
+        "properties": {
+          "id": {
+            "type": "integer",
+            "title": "Id"
+          },
+          "username": {
+            "type": "string",
+            "title": "Username"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "username"
+        ],
+        "title": "UserSimple",
+        "description": "Lightweight user model with only id and username for performance."
+      },
       "UserStatus": {
         "type": "string",
         "enum": [
@@ -12514,6 +14456,53 @@
         ],
         "title": "UserTemplateResponse"
       },
+      "UserTemplateSimple": {
+        "properties": {
+          "id": {
+            "type": "integer",
+            "title": "Id"
+          },
+          "name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Name"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id"
+        ],
+        "title": "UserTemplateSimple",
+        "description": "Lightweight user template model with only id and name for performance."
+      },
+      "UserTemplatesSimpleResponse": {
+        "properties": {
+          "templates": {
+            "items": {
+              "$ref": "#/components/schemas/UserTemplateSimple"
+            },
+            "type": "array",
+            "title": "Templates"
+          },
+          "total": {
+            "type": "integer",
+            "title": "Total"
+          }
+        },
+        "type": "object",
+        "required": [
+          "templates",
+          "total"
+        ],
+        "title": "UserTemplatesSimpleResponse",
+        "description": "Response model for lightweight user template list."
+      },
       "UserUsageStat": {
         "properties": {
           "total_traffic": {
@@ -12574,6 +14563,14 @@
         ],
         "title": "UserUsageStatsList"
       },
+      "UsernameGenerationStrategy": {
+        "type": "string",
+        "enum": [
+          "random",
+          "sequence"
+        ],
+        "title": "UsernameGenerationStrategy"
+      },
       "UsersResponse": {
         "properties": {
           "users": {
@@ -12594,6 +14591,28 @@
           "total"
         ],
         "title": "UsersResponse"
+      },
+      "UsersSimpleResponse": {
+        "properties": {
+          "users": {
+            "items": {
+              "$ref": "#/components/schemas/UserSimple"
+            },
+            "type": "array",
+            "title": "Users"
+          },
+          "total": {
+            "type": "integer",
+            "title": "Total"
+          }
+        },
+        "type": "object",
+        "required": [
+          "users",
+          "total"
+        ],
+        "title": "UsersSimpleResponse",
+        "description": "Response model for lightweight user list."
       },
       "VMessSettings": {
         "properties": {
@@ -12629,6 +14648,13 @@
           "type": {
             "type": "string",
             "title": "Error Type"
+          },
+          "input": {
+            "title": "Input"
+          },
+          "ctx": {
+            "type": "object",
+            "title": "Context"
           }
         },
         "type": "object",
@@ -12749,6 +14775,57 @@
         ],
         "title": "WebhookInfo"
       },
+      "WorkerHealth": {
+        "properties": {
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "response_time_ms": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Response Time Ms"
+          },
+          "error": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Error"
+          }
+        },
+        "type": "object",
+        "required": [
+          "status"
+        ],
+        "title": "WorkerHealth"
+      },
+      "WorkersHealth": {
+        "properties": {
+          "scheduler": {
+            "$ref": "#/components/schemas/WorkerHealth"
+          },
+          "node": {
+            "$ref": "#/components/schemas/WorkerHealth"
+          }
+        },
+        "type": "object",
+        "required": [
+          "scheduler",
+          "node"
+        ],
+        "title": "WorkersHealth"
+      },
       "XHttpModes": {
         "type": "string",
         "enum": [
@@ -12762,8 +14839,14 @@
       "XHttpSettings-Input": {
         "properties": {
           "mode": {
-            "$ref": "#/components/schemas/XHttpModes",
-            "default": "auto"
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/XHttpModes"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "no_grpc_header": {
             "anyOf": [
@@ -12789,6 +14872,154 @@
               }
             ],
             "title": "X Padding Bytes"
+          },
+          "x_padding_obfs_mode": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "X Padding Obfs Mode"
+          },
+          "x_padding_key": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "X Padding Key"
+          },
+          "x_padding_header": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "X Padding Header"
+          },
+          "x_padding_placement": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^$|^(cookie|header|query|queryInHeader)$"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "X Padding Placement"
+          },
+          "x_padding_method": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^$|^(repeat-x|tokenish)$"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "X Padding Method"
+          },
+          "uplink_http_method": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Uplink Http Method"
+          },
+          "session_placement": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^$|^(path|cookie|header|query)$"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Session Placement"
+          },
+          "session_key": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Session Key"
+          },
+          "seq_placement": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^$|^(path|cookie|header|query)$"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Seq Placement"
+          },
+          "seq_key": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Seq Key"
+          },
+          "uplink_data_placement": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^$|^(body|cookie|header)$"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Uplink Data Placement"
+          },
+          "uplink_data_key": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Uplink Data Key"
+          },
+          "uplink_chunk_size": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Uplink Chunk Size"
           },
           "sc_max_each_post_bytes": {
             "anyOf": [
@@ -12846,8 +15077,14 @@
       "XHttpSettings-Output": {
         "properties": {
           "mode": {
-            "$ref": "#/components/schemas/XHttpModes",
-            "default": "auto"
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/XHttpModes"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "no_grpc_header": {
             "anyOf": [
@@ -12871,6 +15108,154 @@
               }
             ],
             "title": "X Padding Bytes"
+          },
+          "x_padding_obfs_mode": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "X Padding Obfs Mode"
+          },
+          "x_padding_key": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "X Padding Key"
+          },
+          "x_padding_header": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "X Padding Header"
+          },
+          "x_padding_placement": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^$|^(cookie|header|query|queryInHeader)$"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "X Padding Placement"
+          },
+          "x_padding_method": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^$|^(repeat-x|tokenish)$"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "X Padding Method"
+          },
+          "uplink_http_method": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Uplink Http Method"
+          },
+          "session_placement": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^$|^(path|cookie|header|query)$"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Session Placement"
+          },
+          "session_key": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Session Key"
+          },
+          "seq_placement": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^$|^(path|cookie|header|query)$"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Seq Placement"
+          },
+          "seq_key": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Seq Key"
+          },
+          "uplink_data_placement": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^$|^(body|cookie|header)$"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Uplink Data Placement"
+          },
+          "uplink_data_key": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Uplink Data Key"
+          },
+          "uplink_chunk_size": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Uplink Chunk Size"
           },
           "sc_max_each_post_bytes": {
             "anyOf": [

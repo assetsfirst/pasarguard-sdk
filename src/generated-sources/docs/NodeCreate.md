@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **name** | **string** |  | [default to undefined]
 **address** | **string** |  | [default to undefined]
 **port** | **number** |  | [optional] [default to 62050]
+**api_port** | **number** |  | [optional] [default to 62051]
 **usage_coefficient** | **number** |  | [optional] [default to 1.0]
 **connection_type** | [**NodeConnectionType**](NodeConnectionType.md) |  | [default to undefined]
 **server_ca** | **string** |  | [default to undefined]
@@ -29,6 +30,7 @@ const instance: NodeCreate = {
     name,
     address,
     port,
+    api_port,
     usage_coefficient,
     connection_type,
     server_ca,

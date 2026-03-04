@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **name** | **string** |  | [optional] [default to undefined]
 **address** | **string** |  | [optional] [default to undefined]
 **port** | **number** |  | [optional] [default to undefined]
+**api_port** | **number** |  | [optional] [default to 62051]
 **usage_coefficient** | **number** |  | [optional] [default to undefined]
 **connection_type** | [**NodeConnectionType**](NodeConnectionType.md) |  | [optional] [default to undefined]
 **server_ca** | **string** |  | [optional] [default to undefined]
@@ -30,6 +31,7 @@ const instance: NodeModify = {
     name,
     address,
     port,
+    api_port,
     usage_coefficient,
     connection_type,
     server_ca,

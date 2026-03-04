@@ -7,6 +7,7 @@ All URIs are relative to *http://localhost*
 |[**createUserTemplate**](#createusertemplate) | **POST** /api/user_template | Create User Template|
 |[**getUserTemplate**](#getusertemplate) | **GET** /api/user_template/{template_id} | Get User Template|
 |[**getUserTemplates**](#getusertemplates) | **GET** /api/user_templates | Get User Templates|
+|[**getUserTemplatesSimple**](#getusertemplatessimple) | **GET** /api/user_templates/simple | Get lightweight user template list|
 |[**modifyUserTemplate**](#modifyusertemplate) | **PUT** /api/user_template/{template_id} | Modify User Template|
 |[**removeUserTemplate**](#removeusertemplate) | **DELETE** /api/user_template/{template_id} | Remove User Template|
 
@@ -152,6 +153,70 @@ const { status, data } = await apiInstance.getUserTemplates(
 ### Return type
 
 **Array<UserTemplateResponse>**
+
+### Authorization
+
+[OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **getUserTemplatesSimple**
+> UserTemplatesSimpleResponse getUserTemplatesSimple()
+
+Returns only id and name for user templates. Optimized for dropdowns and autocomplete.
+
+### Example
+
+```typescript
+import {
+    UserTemplateApi,
+    Configuration
+} from './api';
+
+const configuration = new Configuration();
+const apiInstance = new UserTemplateApi(configuration);
+
+let offset: number; // (optional) (default to undefined)
+let limit: number; // (optional) (default to undefined)
+let search: string; // (optional) (default to undefined)
+let sort: string; // (optional) (default to undefined)
+let all: boolean; // (optional) (default to false)
+
+const { status, data } = await apiInstance.getUserTemplatesSimple(
+    offset,
+    limit,
+    search,
+    sort,
+    all
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **offset** | [**number**] |  | (optional) defaults to undefined|
+| **limit** | [**number**] |  | (optional) defaults to undefined|
+| **search** | [**string**] |  | (optional) defaults to undefined|
+| **sort** | [**string**] |  | (optional) defaults to undefined|
+| **all** | [**boolean**] |  | (optional) defaults to false|
+
+
+### Return type
+
+**UserTemplatesSimpleResponse**
 
 ### Authorization
 

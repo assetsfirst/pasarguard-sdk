@@ -5,12 +5,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**header** | **string** |  | [optional] [default to 'none']
 **mtu** | **number** |  | [optional] [default to undefined]
 **tti** | **number** |  | [optional] [default to undefined]
 **uplink_capacity** | **number** |  | [optional] [default to undefined]
 **downlink_capacity** | **number** |  | [optional] [default to undefined]
-**congestion** | **number** |  | [optional] [default to undefined]
+**congestion** | **boolean** |  | [optional] [default to undefined]
 **read_buffer_size** | **number** |  | [optional] [default to undefined]
 **write_buffer_size** | **number** |  | [optional] [default to undefined]
 
@@ -20,7 +19,6 @@ Name | Type | Description | Notes
 import { KCPSettings } from './api';
 
 const instance: KCPSettings = {
-    header,
     mtu,
     tti,
     uplink_capacity,

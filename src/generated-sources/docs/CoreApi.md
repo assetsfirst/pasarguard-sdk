@@ -8,6 +8,7 @@ All URIs are relative to *http://localhost*
 |[**deleteCoreConfig**](#deletecoreconfig) | **DELETE** /api/core/{core_id} | Delete Core Config|
 |[**getAllCores**](#getallcores) | **GET** /api/cores | Get All Cores|
 |[**getCoreConfig**](#getcoreconfig) | **GET** /api/core/{core_id} | Get Core Config|
+|[**getCoresSimple**](#getcoressimple) | **GET** /api/cores/simple | Get lightweight core list|
 |[**modifyCoreConfig**](#modifycoreconfig) | **PUT** /api/core/{core_id} | Modify Core Config|
 |[**restartCore**](#restartcore) | **POST** /api/core/{core_id}/restart | Restart Core|
 
@@ -213,6 +214,72 @@ const { status, data } = await apiInstance.getCoreConfig(
 ### Return type
 
 **CoreResponse**
+
+### Authorization
+
+[OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**401** | Unauthorized Error |  * WWW-Authenticate - Authentication type <br>  |
+|**403** | Forbidden Error |  -  |
+|**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **getCoresSimple**
+> CoresSimpleResponse getCoresSimple()
+
+Returns only id and name for cores. Optimized for dropdowns and autocomplete.
+
+### Example
+
+```typescript
+import {
+    CoreApi,
+    Configuration
+} from './api';
+
+const configuration = new Configuration();
+const apiInstance = new CoreApi(configuration);
+
+let offset: number; // (optional) (default to undefined)
+let limit: number; // (optional) (default to undefined)
+let search: string; // (optional) (default to undefined)
+let sort: string; // (optional) (default to undefined)
+let all: boolean; // (optional) (default to false)
+
+const { status, data } = await apiInstance.getCoresSimple(
+    offset,
+    limit,
+    search,
+    sort,
+    all
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **offset** | [**number**] |  | (optional) defaults to undefined|
+| **limit** | [**number**] |  | (optional) defaults to undefined|
+| **search** | [**string**] |  | (optional) defaults to undefined|
+| **sort** | [**string**] |  | (optional) defaults to undefined|
+| **all** | [**boolean**] |  | (optional) defaults to false|
+
+
+### Return type
+
+**CoresSimpleResponse**
 
 ### Authorization
 

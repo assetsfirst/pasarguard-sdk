@@ -10,6 +10,7 @@ All URIs are relative to *http://localhost*
 |[**getNodeSettings**](#getnodesettings) | **GET** /api/node/settings | Get Node Settings|
 |[**getNodeStatsPeriodic**](#getnodestatsperiodic) | **GET** /api/node/{node_id}/stats | Get Node Stats Periodic|
 |[**getNodes**](#getnodes) | **GET** /api/nodes | Get Nodes|
+|[**getNodesSimple**](#getnodessimple) | **GET** /api/nodes/simple | Get lightweight node list|
 |[**getUsage**](#getusage) | **GET** /api/node/usage | Get Usage|
 |[**modifyNode**](#modifynode) | **PUT** /api/node/{node_id} | Modify Node|
 |[**nodeLogs**](#nodelogs) | **GET** /api/node/{node_id}/logs | Node Logs|
@@ -20,6 +21,9 @@ All URIs are relative to *http://localhost*
 |[**removeNode**](#removenode) | **DELETE** /api/node/{node_id} | Remove Node|
 |[**resetNodeUsage**](#resetnodeusage) | **POST** /api/node/{node_id}/reset | Reset Node Usage|
 |[**syncNode**](#syncnode) | **PUT** /api/node/{node_id}/sync | Sync Node|
+|[**updateCore**](#updatecore) | **POST** /api/node/{node_id}/core_update | Update Core|
+|[**updateGeofiles**](#updategeofiles) | **POST** /api/node/{node_id}/geofiles | Update Geofiles|
+|[**updateNode**](#updatenode) | **POST** /api/node/{node_id}/update | Update Node|
 |[**userOnlineIpList**](#useronlineiplist) | **GET** /api/node/{node_id}/online_stats/{username}/ip | User Online Ip List|
 |[**userOnlineIpListAllNodes**](#useronlineiplistallnodes) | **GET** /api/node/online_stats/{username}/ip | User Online Ip List All Nodes|
 |[**userOnlineStats**](#useronlinestats) | **GET** /api/node/{node_id}/online_stats/{username} | User Online Stats|
@@ -353,6 +357,72 @@ const { status, data } = await apiInstance.getNodes(
 ### Return type
 
 **NodesResponse**
+
+### Authorization
+
+[OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**401** | Unauthorized Error |  * WWW-Authenticate - Authentication type <br>  |
+|**403** | Forbidden Error |  -  |
+|**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **getNodesSimple**
+> NodesSimpleResponse getNodesSimple()
+
+Returns only id and name for nodes. Optimized for dropdowns and autocomplete.
+
+### Example
+
+```typescript
+import {
+    NodeApi,
+    Configuration
+} from './api';
+
+const configuration = new Configuration();
+const apiInstance = new NodeApi(configuration);
+
+let offset: number; // (optional) (default to undefined)
+let limit: number; // (optional) (default to undefined)
+let search: string; // (optional) (default to undefined)
+let sort: string; // (optional) (default to undefined)
+let all: boolean; // (optional) (default to false)
+
+const { status, data } = await apiInstance.getNodesSimple(
+    offset,
+    limit,
+    search,
+    sort,
+    all
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **offset** | [**number**] |  | (optional) defaults to undefined|
+| **limit** | [**number**] |  | (optional) defaults to undefined|
+| **search** | [**string**] |  | (optional) defaults to undefined|
+| **sort** | [**string**] |  | (optional) defaults to undefined|
+| **all** | [**boolean**] |  | (optional) defaults to false|
+
+
+### Return type
+
+**NodesSimpleResponse**
 
 ### Authorization
 
@@ -898,6 +968,173 @@ const { status, data } = await apiInstance.syncNode(
 |------------- | ------------- | ------------- | -------------|
 | **nodeId** | [**number**] |  | defaults to undefined|
 | **flushUsers** | [**boolean**] |  | (optional) defaults to false|
+
+
+### Return type
+
+**any**
+
+### Authorization
+
+[OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**401** | Unauthorized Error |  * WWW-Authenticate - Authentication type <br>  |
+|**403** | Forbidden Error |  -  |
+|**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **updateCore**
+> any updateCore(nodeCoreUpdate)
+
+
+### Example
+
+```typescript
+import {
+    NodeApi,
+    Configuration,
+    NodeCoreUpdate
+} from './api';
+
+const configuration = new Configuration();
+const apiInstance = new NodeApi(configuration);
+
+let nodeId: number; // (default to undefined)
+let nodeCoreUpdate: NodeCoreUpdate; //
+
+const { status, data } = await apiInstance.updateCore(
+    nodeId,
+    nodeCoreUpdate
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **nodeCoreUpdate** | **NodeCoreUpdate**|  | |
+| **nodeId** | [**number**] |  | defaults to undefined|
+
+
+### Return type
+
+**any**
+
+### Authorization
+
+[OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**401** | Unauthorized Error |  * WWW-Authenticate - Authentication type <br>  |
+|**403** | Forbidden Error |  -  |
+|**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **updateGeofiles**
+> any updateGeofiles(nodeGeoFilesUpdate)
+
+
+### Example
+
+```typescript
+import {
+    NodeApi,
+    Configuration,
+    NodeGeoFilesUpdate
+} from './api';
+
+const configuration = new Configuration();
+const apiInstance = new NodeApi(configuration);
+
+let nodeId: number; // (default to undefined)
+let nodeGeoFilesUpdate: NodeGeoFilesUpdate; //
+
+const { status, data } = await apiInstance.updateGeofiles(
+    nodeId,
+    nodeGeoFilesUpdate
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **nodeGeoFilesUpdate** | **NodeGeoFilesUpdate**|  | |
+| **nodeId** | [**number**] |  | defaults to undefined|
+
+
+### Return type
+
+**any**
+
+### Authorization
+
+[OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**401** | Unauthorized Error |  * WWW-Authenticate - Authentication type <br>  |
+|**403** | Forbidden Error |  -  |
+|**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **updateNode**
+> any updateNode()
+
+
+### Example
+
+```typescript
+import {
+    NodeApi,
+    Configuration
+} from './api';
+
+const configuration = new Configuration();
+const apiInstance = new NodeApi(configuration);
+
+let nodeId: number; // (default to undefined)
+
+const { status, data } = await apiInstance.updateNode(
+    nodeId
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **nodeId** | [**number**] |  | defaults to undefined|
 
 
 ### Return type

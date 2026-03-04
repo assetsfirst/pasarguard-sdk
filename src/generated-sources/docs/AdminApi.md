@@ -9,7 +9,9 @@ All URIs are relative to *http://localhost*
 |[**adminToken**](#admintoken) | **POST** /api/admin/token | Admin Token|
 |[**createAdmin**](#createadmin) | **POST** /api/admin | Create Admin|
 |[**disableAllActiveUsers**](#disableallactiveusers) | **POST** /api/admin/{username}/users/disable | Disable All Active Users|
+|[**getAdminUsage**](#getadminusage) | **GET** /api/admin/{username}/usage | Get Admin Usage|
 |[**getAdmins**](#getadmins) | **GET** /api/admins | Get Admins|
+|[**getAdminsSimple**](#getadminssimple) | **GET** /api/admins/simple | Get lightweight admin list|
 |[**getCurrentAdmin**](#getcurrentadmin) | **GET** /api/admin | Get Current Admin|
 |[**modifyAdmin**](#modifyadmin) | **PUT** /api/admin/{username} | Modify Admin|
 |[**removeAdmin**](#removeadmin) | **DELETE** /api/admin/{username} | Remove Admin|
@@ -305,6 +307,76 @@ const { status, data } = await apiInstance.disableAllActiveUsers(
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **getAdminUsage**
+> UserUsageStatsList getAdminUsage()
+
+Get admin usage aggregated from user traffic.
+
+### Example
+
+```typescript
+import {
+    AdminApi,
+    Configuration
+} from './api';
+
+const configuration = new Configuration();
+const apiInstance = new AdminApi(configuration);
+
+let username: string; // (default to undefined)
+let period: Period; // (default to undefined)
+let nodeId: number; // (optional) (default to undefined)
+let groupByNode: boolean; // (optional) (default to false)
+let start: string; // (optional) (default to undefined)
+let end: string; // (optional) (default to undefined)
+
+const { status, data } = await apiInstance.getAdminUsage(
+    username,
+    period,
+    nodeId,
+    groupByNode,
+    start,
+    end
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **username** | [**string**] |  | defaults to undefined|
+| **period** | **Period** |  | defaults to undefined|
+| **nodeId** | [**number**] |  | (optional) defaults to undefined|
+| **groupByNode** | [**boolean**] |  | (optional) defaults to false|
+| **start** | [**string**] |  | (optional) defaults to undefined|
+| **end** | [**string**] |  | (optional) defaults to undefined|
+
+
+### Return type
+
+**UserUsageStatsList**
+
+### Authorization
+
+[OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**401** | Unauthorized Error |  * WWW-Authenticate - Authentication type <br>  |
+|**403** | Forbidden Error |  -  |
+|**404** | NotFound Error |  -  |
+|**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **getAdmins**
 > AdminsResponse getAdmins()
 
@@ -347,6 +419,72 @@ const { status, data } = await apiInstance.getAdmins(
 ### Return type
 
 **AdminsResponse**
+
+### Authorization
+
+[OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**401** | Unauthorized Error |  * WWW-Authenticate - Authentication type <br>  |
+|**403** | Forbidden Error |  -  |
+|**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **getAdminsSimple**
+> AdminsSimpleResponse getAdminsSimple()
+
+Returns only id and username for admins. Optimized for dropdowns and autocomplete.
+
+### Example
+
+```typescript
+import {
+    AdminApi,
+    Configuration
+} from './api';
+
+const configuration = new Configuration();
+const apiInstance = new AdminApi(configuration);
+
+let search: string; // (optional) (default to undefined)
+let offset: number; // (optional) (default to undefined)
+let limit: number; // (optional) (default to undefined)
+let sort: string; // (optional) (default to undefined)
+let all: boolean; // (optional) (default to false)
+
+const { status, data } = await apiInstance.getAdminsSimple(
+    search,
+    offset,
+    limit,
+    sort,
+    all
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **search** | [**string**] |  | (optional) defaults to undefined|
+| **offset** | [**number**] |  | (optional) defaults to undefined|
+| **limit** | [**number**] |  | (optional) defaults to undefined|
+| **sort** | [**string**] |  | (optional) defaults to undefined|
+| **all** | [**boolean**] |  | (optional) defaults to false|
+
+
+### Return type
+
+**AdminsSimpleResponse**
 
 ### Authorization
 

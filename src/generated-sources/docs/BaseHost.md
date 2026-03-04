@@ -25,9 +25,12 @@ Name | Type | Description | Notes
 **noise_settings** | [**NoiseSettings**](NoiseSettings.md) |  | [optional] [default to undefined]
 **random_user_agent** | **boolean** |  | [optional] [default to false]
 **use_sni_as_host** | **boolean** |  | [optional] [default to false]
+**vless_route** | **string** |  | [optional] [default to undefined]
 **priority** | **number** |  | [default to undefined]
 **status** | [**Set&lt;UserStatus&gt;**](UserStatus.md) |  | [optional] [default to undefined]
 **ech_config_list** | **string** |  | [optional] [default to undefined]
+**pinned_peer_cert_sha256** | **string** |  | [optional] [default to undefined]
+**verify_peer_cert_by_name** | **Set&lt;string&gt;** |  | [optional] [default to undefined]
 
 ## Example
 
@@ -55,9 +58,12 @@ const instance: BaseHost = {
     noise_settings,
     random_user_agent,
     use_sni_as_host,
+    vless_route,
     priority,
     status,
     ech_config_list,
+    pinned_peer_cert_sha256,
+    verify_peer_cert_by_name,
 };
 ```
 

@@ -14,6 +14,9 @@ Name | Type | Description | Notes
 **rules** | [**Array&lt;SubRule&gt;**](SubRule.md) |  | [default to undefined]
 **manual_sub_request** | [**SubFormatEnable**](SubFormatEnable.md) |  | [optional] [default to undefined]
 **applications** | [**Array&lt;ApplicationInput&gt;**](ApplicationInput.md) |  | [optional] [default to undefined]
+**allow_browser_config** | **boolean** |  | [optional] [default to true]
+**disable_sub_template** | **boolean** |  | [optional] [default to false]
+**randomize_order** | **boolean** |  | [optional] [default to false]
 
 ## Example
 
@@ -30,6 +33,9 @@ const instance: SubscriptionInput = {
     rules,
     manual_sub_request,
     applications,
+    allow_browser_config,
+    disable_sub_template,
+    randomize_order,
 };
 ```
 
