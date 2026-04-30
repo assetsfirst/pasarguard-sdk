@@ -15,6 +15,7 @@ Name | Type | Description | Notes
 **sub_domain** | **string** |  | [optional] [default to undefined]
 **profile_title** | **string** |  | [optional] [default to undefined]
 **support_url** | **string** |  | [optional] [default to undefined]
+**note** | **string** |  | [optional] [default to undefined]
 **notification_enable** | [**UserNotificationEnable**](UserNotificationEnable.md) |  | [optional] [default to undefined]
 
 ## Example
@@ -33,6 +34,7 @@ const instance: AdminModify = {
     sub_domain,
     profile_title,
     support_url,
+    note,
     notification_enable,
 };
 ```

@@ -4,6 +4,12 @@ All URIs are relative to *http://localhost*
 
 |Method | HTTP request | Description|
 |------------- | ------------- | -------------|
+|[**bulkDeleteNodes**](#bulkdeletenodes) | **POST** /api/nodes/bulk/delete | Bulk Delete Nodes|
+|[**bulkDisableNodes**](#bulkdisablenodes) | **POST** /api/nodes/bulk/disable | Bulk Disable Nodes|
+|[**bulkEnableNodes**](#bulkenablenodes) | **POST** /api/nodes/bulk/enable | Bulk Enable Nodes|
+|[**bulkReconnectNodes**](#bulkreconnectnodes) | **POST** /api/nodes/bulk/reconnect | Bulk Reconnect Nodes|
+|[**bulkResetNodesUsage**](#bulkresetnodesusage) | **POST** /api/nodes/bulk/reset | Bulk Reset Nodes Usage|
+|[**bulkUpdateNodes**](#bulkupdatenodes) | **POST** /api/nodes/bulk/update | Bulk Update Nodes|
 |[**clearUsageData**](#clearusagedata) | **DELETE** /api/nodes/clear_usage_data/{table} | Clear usage data from a specified table|
 |[**createNode**](#createnode) | **POST** /api/node | Create Node|
 |[**getNode**](#getnode) | **GET** /api/node/{node_id} | Get Node|
@@ -27,6 +33,348 @@ All URIs are relative to *http://localhost*
 |[**userOnlineIpList**](#useronlineiplist) | **GET** /api/node/{node_id}/online_stats/{username}/ip | User Online Ip List|
 |[**userOnlineIpListAllNodes**](#useronlineiplistallnodes) | **GET** /api/node/online_stats/{username}/ip | User Online Ip List All Nodes|
 |[**userOnlineStats**](#useronlinestats) | **GET** /api/node/{node_id}/online_stats/{username} | User Online Stats|
+
+# **bulkDeleteNodes**
+> RemoveNodesResponse bulkDeleteNodes(bulkNodeSelection)
+
+Delete selected nodes by ID.
+
+### Example
+
+```typescript
+import {
+    NodeApi,
+    Configuration,
+    BulkNodeSelection
+} from './api';
+
+const configuration = new Configuration();
+const apiInstance = new NodeApi(configuration);
+
+let bulkNodeSelection: BulkNodeSelection; //
+
+const { status, data } = await apiInstance.bulkDeleteNodes(
+    bulkNodeSelection
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **bulkNodeSelection** | **BulkNodeSelection**|  | |
+
+
+### Return type
+
+**RemoveNodesResponse**
+
+### Authorization
+
+[OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**401** | Unauthorized Error |  * WWW-Authenticate - Authentication type <br>  |
+|**403** | Forbidden Error |  -  |
+|**400** | BadRequest Error |  -  |
+|**404** | NotFound Error |  -  |
+|**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **bulkDisableNodes**
+> BulkNodesActionResponse bulkDisableNodes(bulkNodeSelection)
+
+Disable selected nodes by ID.
+
+### Example
+
+```typescript
+import {
+    NodeApi,
+    Configuration,
+    BulkNodeSelection
+} from './api';
+
+const configuration = new Configuration();
+const apiInstance = new NodeApi(configuration);
+
+let bulkNodeSelection: BulkNodeSelection; //
+
+const { status, data } = await apiInstance.bulkDisableNodes(
+    bulkNodeSelection
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **bulkNodeSelection** | **BulkNodeSelection**|  | |
+
+
+### Return type
+
+**BulkNodesActionResponse**
+
+### Authorization
+
+[OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**401** | Unauthorized Error |  * WWW-Authenticate - Authentication type <br>  |
+|**403** | Forbidden Error |  -  |
+|**400** | BadRequest Error |  -  |
+|**404** | NotFound Error |  -  |
+|**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **bulkEnableNodes**
+> BulkNodesActionResponse bulkEnableNodes(bulkNodeSelection)
+
+Enable selected nodes by ID.
+
+### Example
+
+```typescript
+import {
+    NodeApi,
+    Configuration,
+    BulkNodeSelection
+} from './api';
+
+const configuration = new Configuration();
+const apiInstance = new NodeApi(configuration);
+
+let bulkNodeSelection: BulkNodeSelection; //
+
+const { status, data } = await apiInstance.bulkEnableNodes(
+    bulkNodeSelection
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **bulkNodeSelection** | **BulkNodeSelection**|  | |
+
+
+### Return type
+
+**BulkNodesActionResponse**
+
+### Authorization
+
+[OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**401** | Unauthorized Error |  * WWW-Authenticate - Authentication type <br>  |
+|**403** | Forbidden Error |  -  |
+|**400** | BadRequest Error |  -  |
+|**404** | NotFound Error |  -  |
+|**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **bulkReconnectNodes**
+> BulkNodesActionResponse bulkReconnectNodes(bulkNodeSelection)
+
+Reconnect selected nodes by ID.
+
+### Example
+
+```typescript
+import {
+    NodeApi,
+    Configuration,
+    BulkNodeSelection
+} from './api';
+
+const configuration = new Configuration();
+const apiInstance = new NodeApi(configuration);
+
+let bulkNodeSelection: BulkNodeSelection; //
+
+const { status, data } = await apiInstance.bulkReconnectNodes(
+    bulkNodeSelection
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **bulkNodeSelection** | **BulkNodeSelection**|  | |
+
+
+### Return type
+
+**BulkNodesActionResponse**
+
+### Authorization
+
+[OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**401** | Unauthorized Error |  * WWW-Authenticate - Authentication type <br>  |
+|**403** | Forbidden Error |  -  |
+|**400** | BadRequest Error |  -  |
+|**404** | NotFound Error |  -  |
+|**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **bulkResetNodesUsage**
+> BulkNodesActionResponse bulkResetNodesUsage(bulkNodeSelection)
+
+Reset usage for selected nodes by ID.
+
+### Example
+
+```typescript
+import {
+    NodeApi,
+    Configuration,
+    BulkNodeSelection
+} from './api';
+
+const configuration = new Configuration();
+const apiInstance = new NodeApi(configuration);
+
+let bulkNodeSelection: BulkNodeSelection; //
+
+const { status, data } = await apiInstance.bulkResetNodesUsage(
+    bulkNodeSelection
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **bulkNodeSelection** | **BulkNodeSelection**|  | |
+
+
+### Return type
+
+**BulkNodesActionResponse**
+
+### Authorization
+
+[OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**401** | Unauthorized Error |  * WWW-Authenticate - Authentication type <br>  |
+|**403** | Forbidden Error |  -  |
+|**400** | BadRequest Error |  -  |
+|**404** | NotFound Error |  -  |
+|**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **bulkUpdateNodes**
+> BulkNodesActionResponse bulkUpdateNodes(bulkNodeSelection)
+
+Update selected nodes by ID.
+
+### Example
+
+```typescript
+import {
+    NodeApi,
+    Configuration,
+    BulkNodeSelection
+} from './api';
+
+const configuration = new Configuration();
+const apiInstance = new NodeApi(configuration);
+
+let bulkNodeSelection: BulkNodeSelection; //
+
+const { status, data } = await apiInstance.bulkUpdateNodes(
+    bulkNodeSelection
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **bulkNodeSelection** | **BulkNodeSelection**|  | |
+
+
+### Return type
+
+**BulkNodesActionResponse**
+
+### Authorization
+
+[OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**401** | Unauthorized Error |  * WWW-Authenticate - Authentication type <br>  |
+|**403** | Forbidden Error |  -  |
+|**400** | BadRequest Error |  -  |
+|**404** | NotFound Error |  -  |
+|**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **clearUsageData**
 > any clearUsageData()

@@ -4,6 +4,9 @@ All URIs are relative to *http://localhost*
 
 |Method | HTTP request | Description|
 |------------- | ------------- | -------------|
+|[**bulkDeleteHosts**](#bulkdeletehosts) | **POST** /api/hosts/bulk/delete | Bulk Delete Hosts|
+|[**bulkDisableHosts**](#bulkdisablehosts) | **POST** /api/hosts/bulk/disable | Bulk Disable Hosts|
+|[**bulkEnableHosts**](#bulkenablehosts) | **POST** /api/hosts/bulk/enable | Bulk Enable Hosts|
 |[**createHost**](#createhost) | **POST** /api/host/ | Create Host|
 |[**getHost**](#gethost) | **GET** /api/host/{host_id} | Get Host|
 |[**getHosts**](#gethosts) | **GET** /api/hosts | Get Hosts|
@@ -11,10 +14,181 @@ All URIs are relative to *http://localhost*
 |[**modifyHosts**](#modifyhosts) | **PUT** /api/hosts | Modify Hosts|
 |[**removeHost**](#removehost) | **DELETE** /api/host/{host_id} | Remove Host|
 
+# **bulkDeleteHosts**
+> RemoveHostsResponse bulkDeleteHosts(bulkHostSelection)
+
+Delete selected hosts by ID.
+
+### Example
+
+```typescript
+import {
+    HostApi,
+    Configuration,
+    BulkHostSelection
+} from './api';
+
+const configuration = new Configuration();
+const apiInstance = new HostApi(configuration);
+
+let bulkHostSelection: BulkHostSelection; //
+
+const { status, data } = await apiInstance.bulkDeleteHosts(
+    bulkHostSelection
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **bulkHostSelection** | **BulkHostSelection**|  | |
+
+
+### Return type
+
+**RemoveHostsResponse**
+
+### Authorization
+
+[OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**401** | Unauthorized Error |  * WWW-Authenticate - Authentication type <br>  |
+|**403** | Forbidden Error |  -  |
+|**400** | BadRequest Error |  -  |
+|**404** | NotFound Error |  -  |
+|**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **bulkDisableHosts**
+> BulkHostsActionResponse bulkDisableHosts(bulkHostSelection)
+
+Disable selected hosts by ID.
+
+### Example
+
+```typescript
+import {
+    HostApi,
+    Configuration,
+    BulkHostSelection
+} from './api';
+
+const configuration = new Configuration();
+const apiInstance = new HostApi(configuration);
+
+let bulkHostSelection: BulkHostSelection; //
+
+const { status, data } = await apiInstance.bulkDisableHosts(
+    bulkHostSelection
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **bulkHostSelection** | **BulkHostSelection**|  | |
+
+
+### Return type
+
+**BulkHostsActionResponse**
+
+### Authorization
+
+[OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**401** | Unauthorized Error |  * WWW-Authenticate - Authentication type <br>  |
+|**403** | Forbidden Error |  -  |
+|**400** | BadRequest Error |  -  |
+|**404** | NotFound Error |  -  |
+|**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **bulkEnableHosts**
+> BulkHostsActionResponse bulkEnableHosts(bulkHostSelection)
+
+Enable selected hosts by ID.
+
+### Example
+
+```typescript
+import {
+    HostApi,
+    Configuration,
+    BulkHostSelection
+} from './api';
+
+const configuration = new Configuration();
+const apiInstance = new HostApi(configuration);
+
+let bulkHostSelection: BulkHostSelection; //
+
+const { status, data } = await apiInstance.bulkEnableHosts(
+    bulkHostSelection
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **bulkHostSelection** | **BulkHostSelection**|  | |
+
+
+### Return type
+
+**BulkHostsActionResponse**
+
+### Authorization
+
+[OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**401** | Unauthorized Error |  * WWW-Authenticate - Authentication type <br>  |
+|**403** | Forbidden Error |  -  |
+|**400** | BadRequest Error |  -  |
+|**404** | NotFound Error |  -  |
+|**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **createHost**
 > BaseHost createHost(createHost)
 
-create a new host  **inbound_tag** must be available in one of xray config
+create a new host  **inbound_tag** must be available in one of the configured cores
 
 ### Example
 
@@ -180,7 +354,7 @@ const { status, data } = await apiInstance.getHosts(
 # **modifyHost**
 > BaseHost modifyHost(createHost)
 
-modify host by **id**  **inbound_tag** must be available in one of xray configs
+modify host by **id**  **inbound_tag** must be available in one of the configured cores
 
 ### Example
 

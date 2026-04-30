@@ -29,6 +29,7 @@ Name | Type | Description | Notes
 **downlink** | **number** |  | [optional] [default to 0]
 **lifetime_uplink** | **number** |  | [optional] [default to undefined]
 **lifetime_downlink** | **number** |  | [optional] [default to undefined]
+**core_version** | **string** |  | [default to undefined]
 
 ## Example
 
@@ -60,6 +61,7 @@ const instance: NodeResponse = {
     downlink,
     lifetime_uplink,
     lifetime_downlink,
+    core_version,
 };
 ```
 

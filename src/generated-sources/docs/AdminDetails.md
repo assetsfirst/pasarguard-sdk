@@ -21,6 +21,7 @@ Name | Type | Description | Notes
 **discord_id** | **number** |  | [optional] [default to undefined]
 **sub_template** | **string** |  | [optional] [default to undefined]
 **lifetime_used_traffic** | **number** |  | [optional] [default to undefined]
+**note** | **string** |  | [optional] [default to undefined]
 
 ## Example
 
@@ -43,6 +44,7 @@ const instance: AdminDetails = {
     discord_id,
     sub_template,
     lifetime_used_traffic,
+    note,
 };
 ```
 

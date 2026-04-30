@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **links** | **boolean** |  | [optional] [default to true]
 **links_base64** | **boolean** |  | [optional] [default to true]
 **xray** | **boolean** |  | [optional] [default to true]
+**wireguard** | **boolean** |  | [optional] [default to true]
 **sing_box** | **boolean** |  | [optional] [default to true]
 **clash** | **boolean** |  | [optional] [default to true]
 **clash_meta** | **boolean** |  | [optional] [default to true]
@@ -22,6 +23,7 @@ const instance: SubFormatEnable = {
     links,
     links_base64,
     xray,
+    wireguard,
     sing_box,
     clash,
     clash_meta,

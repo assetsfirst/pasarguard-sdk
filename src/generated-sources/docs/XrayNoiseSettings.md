@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **packet** | **string** |  | [default to undefined]
 **delay** | **string** |  | [default to undefined]
 **apply_to** | **string** |  | [optional] [default to 'ip']
+**rand_range** | **string** |  | [optional] [default to undefined]
 
 ## Example
 
@@ -20,6 +21,7 @@ const instance: XrayNoiseSettings = {
     packet,
     delay,
     apply_to,
+    rand_range,
 };
 ```
 

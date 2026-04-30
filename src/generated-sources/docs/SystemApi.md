@@ -4,9 +4,55 @@ All URIs are relative to *http://localhost*
 
 |Method | HTTP request | Description|
 |------------- | ------------- | -------------|
+|[**getInboundDetails**](#getinbounddetails) | **GET** /api/inbounds/details | Get Inbound Details|
 |[**getInbounds**](#getinbounds) | **GET** /api/inbounds | Get Inbounds|
 |[**getSystemStats**](#getsystemstats) | **GET** /api/system | Get System Stats|
 |[**getWorkersHealth**](#getworkershealth) | **GET** /api/workers/health | Get Workers Health|
+
+# **getInboundDetails**
+> Array<InboundSummary> getInboundDetails()
+
+Retrieve lightweight inbound metadata for dashboard forms.
+
+### Example
+
+```typescript
+import {
+    SystemApi,
+    Configuration
+} from './api';
+
+const configuration = new Configuration();
+const apiInstance = new SystemApi(configuration);
+
+const { status, data } = await apiInstance.getInboundDetails();
+```
+
+### Parameters
+This endpoint does not have any parameters.
+
+
+### Return type
+
+**Array<InboundSummary>**
+
+### Authorization
+
+[OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**401** | Unauthorized Error |  * WWW-Authenticate - Authentication type <br>  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **getInbounds**
 > Array<string | null> getInbounds()

@@ -4,6 +4,7 @@ All URIs are relative to *http://localhost*
 
 |Method | HTTP request | Description|
 |------------- | ------------- | -------------|
+|[**bulkDeleteCores**](#bulkdeletecores) | **POST** /api/cores/bulk/delete | Bulk Delete Cores|
 |[**createCoreConfig**](#createcoreconfig) | **POST** /api/core | Create Core Config|
 |[**deleteCoreConfig**](#deletecoreconfig) | **DELETE** /api/core/{core_id} | Delete Core Config|
 |[**getAllCores**](#getallcores) | **GET** /api/cores | Get All Cores|
@@ -11,6 +12,63 @@ All URIs are relative to *http://localhost*
 |[**getCoresSimple**](#getcoressimple) | **GET** /api/cores/simple | Get lightweight core list|
 |[**modifyCoreConfig**](#modifycoreconfig) | **PUT** /api/core/{core_id} | Modify Core Config|
 |[**restartCore**](#restartcore) | **POST** /api/core/{core_id}/restart | Restart Core|
+
+# **bulkDeleteCores**
+> RemoveCoresResponse bulkDeleteCores(bulkCoreSelection)
+
+Delete selected cores by ID.
+
+### Example
+
+```typescript
+import {
+    CoreApi,
+    Configuration,
+    BulkCoreSelection
+} from './api';
+
+const configuration = new Configuration();
+const apiInstance = new CoreApi(configuration);
+
+let bulkCoreSelection: BulkCoreSelection; //
+
+const { status, data } = await apiInstance.bulkDeleteCores(
+    bulkCoreSelection
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **bulkCoreSelection** | **BulkCoreSelection**|  | |
+
+
+### Return type
+
+**RemoveCoresResponse**
+
+### Authorization
+
+[OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**401** | Unauthorized Error |  * WWW-Authenticate - Authentication type <br>  |
+|**403** | Forbidden Error |  -  |
+|**400** | BadRequest Error |  -  |
+|**404** | NotFound Error |  -  |
+|**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **createCoreConfig**
 > CoreResponse createCoreConfig(coreCreate)

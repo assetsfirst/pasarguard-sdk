@@ -1,6 +1,6 @@
 # CoreSimple
 
-Lightweight core model with only id and name for performance.
+Lightweight core model with only id, name and type for performance.
 
 ## Properties
 
@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **number** |  | [default to undefined]
 **name** | **string** |  | [default to undefined]
+**type** | [**CoreType**](CoreType.md) |  | [optional] [default to undefined]
 
 ## Example
 
@@ -17,6 +18,7 @@ import { CoreSimple } from './api';
 const instance: CoreSimple = {
     id,
     name,
+    type,
 };
 ```
 

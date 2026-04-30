@@ -5,6 +5,9 @@ All URIs are relative to *http://localhost*
 |Method | HTTP request | Description|
 |------------- | ------------- | -------------|
 |[**bulkAddGroupsToUsers**](#bulkaddgroupstousers) | **POST** /api/groups/bulk/add | Bulk add groups to users|
+|[**bulkDeleteGroups**](#bulkdeletegroups) | **POST** /api/groups/bulk/delete | Bulk Delete Groups|
+|[**bulkDisableGroups**](#bulkdisablegroups) | **POST** /api/groups/bulk/disable | Bulk Disable Groups|
+|[**bulkEnableGroups**](#bulkenablegroups) | **POST** /api/groups/bulk/enable | Bulk Enable Groups|
 |[**bulkRemoveUsersFromGroups**](#bulkremoveusersfromgroups) | **POST** /api/groups/bulk/remove | Bulk remove groups from users|
 |[**createGroup**](#creategroup) | **POST** /api/group | Create a new group|
 |[**getAllGroups**](#getallgroups) | **GET** /api/groups | List all groups|
@@ -64,6 +67,177 @@ const { status, data } = await apiInstance.bulkAddGroupsToUsers(
 |**200** | Success confirmation |  -  |
 |**401** | Unauthorized Error |  * WWW-Authenticate - Authentication type <br>  |
 |**403** | Forbidden Error |  -  |
+|**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **bulkDeleteGroups**
+> RemoveGroupsResponse bulkDeleteGroups(bulkGroupSelection)
+
+Delete selected groups by ID.
+
+### Example
+
+```typescript
+import {
+    GroupsApi,
+    Configuration,
+    BulkGroupSelection
+} from './api';
+
+const configuration = new Configuration();
+const apiInstance = new GroupsApi(configuration);
+
+let bulkGroupSelection: BulkGroupSelection; //
+
+const { status, data } = await apiInstance.bulkDeleteGroups(
+    bulkGroupSelection
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **bulkGroupSelection** | **BulkGroupSelection**|  | |
+
+
+### Return type
+
+**RemoveGroupsResponse**
+
+### Authorization
+
+[OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**401** | Unauthorized Error |  * WWW-Authenticate - Authentication type <br>  |
+|**403** | Forbidden Error |  -  |
+|**400** | BadRequest Error |  -  |
+|**404** | NotFound Error |  -  |
+|**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **bulkDisableGroups**
+> BulkGroupsActionResponse bulkDisableGroups(bulkGroupSelection)
+
+Disable selected groups by ID.
+
+### Example
+
+```typescript
+import {
+    GroupsApi,
+    Configuration,
+    BulkGroupSelection
+} from './api';
+
+const configuration = new Configuration();
+const apiInstance = new GroupsApi(configuration);
+
+let bulkGroupSelection: BulkGroupSelection; //
+
+const { status, data } = await apiInstance.bulkDisableGroups(
+    bulkGroupSelection
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **bulkGroupSelection** | **BulkGroupSelection**|  | |
+
+
+### Return type
+
+**BulkGroupsActionResponse**
+
+### Authorization
+
+[OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**401** | Unauthorized Error |  * WWW-Authenticate - Authentication type <br>  |
+|**403** | Forbidden Error |  -  |
+|**400** | BadRequest Error |  -  |
+|**404** | NotFound Error |  -  |
+|**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **bulkEnableGroups**
+> BulkGroupsActionResponse bulkEnableGroups(bulkGroupSelection)
+
+Enable selected groups by ID.
+
+### Example
+
+```typescript
+import {
+    GroupsApi,
+    Configuration,
+    BulkGroupSelection
+} from './api';
+
+const configuration = new Configuration();
+const apiInstance = new GroupsApi(configuration);
+
+let bulkGroupSelection: BulkGroupSelection; //
+
+const { status, data } = await apiInstance.bulkEnableGroups(
+    bulkGroupSelection
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **bulkGroupSelection** | **BulkGroupSelection**|  | |
+
+
+### Return type
+
+**BulkGroupsActionResponse**
+
+### Authorization
+
+[OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**401** | Unauthorized Error |  * WWW-Authenticate - Authentication type <br>  |
+|**403** | Forbidden Error |  -  |
+|**400** | BadRequest Error |  -  |
+|**404** | NotFound Error |  -  |
 |**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

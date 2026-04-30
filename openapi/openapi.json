@@ -3,7 +3,7 @@
   "info": {
     "title": "PasarGuardAPI",
     "description": "Unified GUI Censorship Resistant Solution",
-    "version": "2.2.0"
+    "version": "3.0.2"
   },
   "paths": {
     "/": {
@@ -17,51 +17,6 @@
               "text/html": {
                 "schema": {
                   "type": "string"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/manifest.json": {
-      "get": {
-        "summary": "Get Manifest",
-        "description": "Dynamic PWA manifest generator",
-        "operationId": "get_manifest",
-        "parameters": [
-          {
-            "name": "start_url",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "title": "Start Url"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {}
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
                 }
               }
             }
@@ -211,6 +166,16 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Forbidden"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Conflict"
                 }
               }
             }
@@ -445,6 +410,16 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/NotFound"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Conflict"
                 }
               }
             }
@@ -1299,6 +1274,671 @@
         }
       }
     },
+    "/api/admins/bulk/delete": {
+      "post": {
+        "tags": [
+          "Admin"
+        ],
+        "summary": "Bulk Delete Admins",
+        "description": "Delete selected admins by username.",
+        "operationId": "bulk_delete_admins",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BulkAdminSelection"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RemoveAdminsResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Error",
+            "headers": {
+              "WWW-Authenticate": {
+                "description": "Authentication type",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Forbidden"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "BadRequest Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPException"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "NotFound Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFound"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ]
+      }
+    },
+    "/api/admins/bulk/reset": {
+      "post": {
+        "tags": [
+          "Admin"
+        ],
+        "summary": "Bulk Reset Admins Usage",
+        "description": "Reset usage for selected admins by username.",
+        "operationId": "bulk_reset_admins_usage",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BulkAdminSelection"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BulkAdminsActionResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Error",
+            "headers": {
+              "WWW-Authenticate": {
+                "description": "Authentication type",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Forbidden"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "BadRequest Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPException"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "NotFound Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFound"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ]
+      }
+    },
+    "/api/admins/bulk/disable": {
+      "post": {
+        "tags": [
+          "Admin"
+        ],
+        "summary": "Bulk Disable Admins",
+        "description": "Disable selected admins by username.",
+        "operationId": "bulk_disable_admins",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BulkAdminSelection"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BulkAdminsActionResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Error",
+            "headers": {
+              "WWW-Authenticate": {
+                "description": "Authentication type",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Forbidden"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "BadRequest Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPException"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "NotFound Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFound"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ]
+      }
+    },
+    "/api/admins/bulk/enable": {
+      "post": {
+        "tags": [
+          "Admin"
+        ],
+        "summary": "Bulk Enable Admins",
+        "description": "Enable selected admins by username.",
+        "operationId": "bulk_enable_admins",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BulkAdminSelection"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BulkAdminsActionResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Error",
+            "headers": {
+              "WWW-Authenticate": {
+                "description": "Authentication type",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Forbidden"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "BadRequest Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPException"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "NotFound Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFound"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ]
+      }
+    },
+    "/api/admins/bulk/users/disable": {
+      "post": {
+        "tags": [
+          "Admin"
+        ],
+        "summary": "Bulk Disable All Active Users",
+        "description": "Disable all active users under selected admins.",
+        "operationId": "bulk_disable_all_active_users",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BulkAdminSelection"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BulkAdminsActionResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Error",
+            "headers": {
+              "WWW-Authenticate": {
+                "description": "Authentication type",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Forbidden"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "BadRequest Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPException"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "NotFound Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFound"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ]
+      }
+    },
+    "/api/admins/bulk/users/activate": {
+      "post": {
+        "tags": [
+          "Admin"
+        ],
+        "summary": "Bulk Activate All Disabled Users",
+        "description": "Activate all disabled users under selected admins.",
+        "operationId": "bulk_activate_all_disabled_users",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BulkAdminSelection"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BulkAdminsActionResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Error",
+            "headers": {
+              "WWW-Authenticate": {
+                "description": "Authentication type",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Forbidden"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "BadRequest Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPException"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "NotFound Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFound"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ]
+      }
+    },
+    "/api/admins/bulk/users": {
+      "delete": {
+        "tags": [
+          "Admin"
+        ],
+        "summary": "Bulk Remove All Users",
+        "description": "Remove all users under selected admins.",
+        "operationId": "bulk_remove_all_users",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BulkAdminSelection"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BulkAdminsActionResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Error",
+            "headers": {
+              "WWW-Authenticate": {
+                "description": "Authentication type",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Forbidden"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "BadRequest Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPException"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "NotFound Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFound"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ]
+      }
+    },
     "/api/system": {
       "get": {
         "tags": [
@@ -1391,6 +2031,55 @@
                   },
                   "type": "array",
                   "title": "Response Get Inbounds Api Inbounds Get"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Error",
+            "headers": {
+              "WWW-Authenticate": {
+                "description": "Authentication type",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ]
+      }
+    },
+    "/api/inbounds/details": {
+      "get": {
+        "tags": [
+          "System"
+        ],
+        "summary": "Get Inbound Details",
+        "description": "Retrieve lightweight inbound metadata for dashboard forms.",
+        "operationId": "get_inbound_details",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/InboundSummary"
+                  },
+                  "type": "array",
+                  "title": "Response Get Inbound Details Api Inbounds Details Get"
                 }
               }
             }
@@ -2335,6 +3024,291 @@
         ]
       }
     },
+    "/api/groups/bulk/delete": {
+      "post": {
+        "tags": [
+          "Groups"
+        ],
+        "summary": "Bulk Delete Groups",
+        "description": "Delete selected groups by ID.",
+        "operationId": "bulk_delete_groups",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BulkGroupSelection"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RemoveGroupsResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Error",
+            "headers": {
+              "WWW-Authenticate": {
+                "description": "Authentication type",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Forbidden"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "BadRequest Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPException"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "NotFound Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFound"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ]
+      }
+    },
+    "/api/groups/bulk/disable": {
+      "post": {
+        "tags": [
+          "Groups"
+        ],
+        "summary": "Bulk Disable Groups",
+        "description": "Disable selected groups by ID.",
+        "operationId": "bulk_disable_groups",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BulkGroupSelection"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BulkGroupsActionResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Error",
+            "headers": {
+              "WWW-Authenticate": {
+                "description": "Authentication type",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Forbidden"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "BadRequest Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPException"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "NotFound Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFound"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ]
+      }
+    },
+    "/api/groups/bulk/enable": {
+      "post": {
+        "tags": [
+          "Groups"
+        ],
+        "summary": "Bulk Enable Groups",
+        "description": "Enable selected groups by ID.",
+        "operationId": "bulk_enable_groups",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BulkGroupSelection"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BulkGroupsActionResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Error",
+            "headers": {
+              "WWW-Authenticate": {
+                "description": "Authentication type",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Forbidden"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "BadRequest Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPException"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "NotFound Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFound"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ]
+      }
+    },
     "/api/core": {
       "post": {
         "tags": [
@@ -2965,6 +3939,764 @@
         }
       }
     },
+    "/api/cores/bulk/delete": {
+      "post": {
+        "tags": [
+          "Core"
+        ],
+        "summary": "Bulk Delete Cores",
+        "description": "Delete selected cores by ID.",
+        "operationId": "bulk_delete_cores",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BulkCoreSelection"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RemoveCoresResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Error",
+            "headers": {
+              "WWW-Authenticate": {
+                "description": "Authentication type",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Forbidden"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "BadRequest Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPException"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "NotFound Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFound"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ]
+      }
+    },
+    "/api/client_template": {
+      "post": {
+        "tags": [
+          "Client Template"
+        ],
+        "summary": "Create Client Template",
+        "operationId": "create_client_template",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClientTemplateCreate"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClientTemplateResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Error",
+            "headers": {
+              "WWW-Authenticate": {
+                "description": "Authentication type",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Forbidden"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ]
+      }
+    },
+    "/api/client_template/{template_id}": {
+      "get": {
+        "tags": [
+          "Client Template"
+        ],
+        "summary": "Get Client Template",
+        "operationId": "get_client_template",
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "template_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Template Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClientTemplateResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Error",
+            "headers": {
+              "WWW-Authenticate": {
+                "description": "Authentication type",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Forbidden"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Client Template"
+        ],
+        "summary": "Modify Client Template",
+        "operationId": "modify_client_template",
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "template_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Template Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClientTemplateModify"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClientTemplateResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Error",
+            "headers": {
+              "WWW-Authenticate": {
+                "description": "Authentication type",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Forbidden"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Client Template"
+        ],
+        "summary": "Remove Client Template",
+        "operationId": "remove_client_template",
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "template_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Template Id"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "401": {
+            "description": "Unauthorized Error",
+            "headers": {
+              "WWW-Authenticate": {
+                "description": "Authentication type",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Forbidden"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/client_templates": {
+      "get": {
+        "tags": [
+          "Client Template"
+        ],
+        "summary": "Get Client Templates",
+        "operationId": "get_client_templates",
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "template_type",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/ClientTemplateType"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Template Type"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Offset"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Limit"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClientTemplateResponseList"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Error",
+            "headers": {
+              "WWW-Authenticate": {
+                "description": "Authentication type",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Forbidden"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/client_templates/simple": {
+      "get": {
+        "tags": [
+          "Client Template"
+        ],
+        "summary": "Get Client Templates Simple",
+        "operationId": "get_client_templates_simple",
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "template_type",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/ClientTemplateType"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Template Type"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Offset"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Limit"
+            }
+          },
+          {
+            "name": "search",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Search"
+            }
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Sort"
+            }
+          },
+          {
+            "name": "all",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "title": "All"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClientTemplatesSimpleResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Error",
+            "headers": {
+              "WWW-Authenticate": {
+                "description": "Authentication type",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Forbidden"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/client_templates/bulk/delete": {
+      "post": {
+        "tags": [
+          "Client Template"
+        ],
+        "summary": "Bulk Delete Client Templates",
+        "description": "Delete selected client templates by ID.",
+        "operationId": "bulk_delete_client_templates",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BulkClientTemplateSelection"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RemoveClientTemplatesResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Error",
+            "headers": {
+              "WWW-Authenticate": {
+                "description": "Authentication type",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Forbidden"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "BadRequest Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPException"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "NotFound Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFound"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ]
+      }
+    },
     "/api/host/{host_id}": {
       "get": {
         "tags": [
@@ -3045,7 +4777,7 @@
           "Host"
         ],
         "summary": "Modify Host",
-        "description": "modify host by **id**\n\n**inbound_tag** must be available in one of xray configs",
+        "description": "modify host by **id**\n\n**inbound_tag** must be available in one of the configured cores",
         "operationId": "modify_host",
         "security": [
           {
@@ -3390,7 +5122,7 @@
           "Host"
         ],
         "summary": "Create Host",
-        "description": "create a new host\n\n**inbound_tag** must be available in one of xray config",
+        "description": "create a new host\n\n**inbound_tag** must be available in one of the configured cores",
         "operationId": "create_host",
         "requestBody": {
           "content": {
@@ -3437,6 +5169,291 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Forbidden"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ]
+      }
+    },
+    "/api/hosts/bulk/delete": {
+      "post": {
+        "tags": [
+          "Host"
+        ],
+        "summary": "Bulk Delete Hosts",
+        "description": "Delete selected hosts by ID.",
+        "operationId": "bulk_delete_hosts",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BulkHostSelection"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RemoveHostsResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Error",
+            "headers": {
+              "WWW-Authenticate": {
+                "description": "Authentication type",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Forbidden"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "BadRequest Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPException"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "NotFound Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFound"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ]
+      }
+    },
+    "/api/hosts/bulk/disable": {
+      "post": {
+        "tags": [
+          "Host"
+        ],
+        "summary": "Bulk Disable Hosts",
+        "description": "Disable selected hosts by ID.",
+        "operationId": "bulk_disable_hosts",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BulkHostSelection"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BulkHostsActionResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Error",
+            "headers": {
+              "WWW-Authenticate": {
+                "description": "Authentication type",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Forbidden"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "BadRequest Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPException"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "NotFound Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFound"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ]
+      }
+    },
+    "/api/hosts/bulk/enable": {
+      "post": {
+        "tags": [
+          "Host"
+        ],
+        "summary": "Bulk Enable Hosts",
+        "description": "Enable selected hosts by ID.",
+        "operationId": "bulk_enable_hosts",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BulkHostSelection"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BulkHostsActionResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Error",
+            "headers": {
+              "WWW-Authenticate": {
+                "description": "Authentication type",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Forbidden"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "BadRequest Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPException"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "NotFound Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFound"
                 }
               }
             }
@@ -5538,6 +7555,576 @@
         }
       }
     },
+    "/api/nodes/bulk/delete": {
+      "post": {
+        "tags": [
+          "Node"
+        ],
+        "summary": "Bulk Delete Nodes",
+        "description": "Delete selected nodes by ID.",
+        "operationId": "bulk_delete_nodes",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BulkNodeSelection"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RemoveNodesResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Error",
+            "headers": {
+              "WWW-Authenticate": {
+                "description": "Authentication type",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Forbidden"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "BadRequest Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPException"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "NotFound Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFound"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ]
+      }
+    },
+    "/api/nodes/bulk/disable": {
+      "post": {
+        "tags": [
+          "Node"
+        ],
+        "summary": "Bulk Disable Nodes",
+        "description": "Disable selected nodes by ID.",
+        "operationId": "bulk_disable_nodes",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BulkNodeSelection"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BulkNodesActionResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Error",
+            "headers": {
+              "WWW-Authenticate": {
+                "description": "Authentication type",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Forbidden"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "BadRequest Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPException"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "NotFound Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFound"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ]
+      }
+    },
+    "/api/nodes/bulk/enable": {
+      "post": {
+        "tags": [
+          "Node"
+        ],
+        "summary": "Bulk Enable Nodes",
+        "description": "Enable selected nodes by ID.",
+        "operationId": "bulk_enable_nodes",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BulkNodeSelection"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BulkNodesActionResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Error",
+            "headers": {
+              "WWW-Authenticate": {
+                "description": "Authentication type",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Forbidden"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "BadRequest Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPException"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "NotFound Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFound"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ]
+      }
+    },
+    "/api/nodes/bulk/reset": {
+      "post": {
+        "tags": [
+          "Node"
+        ],
+        "summary": "Bulk Reset Nodes Usage",
+        "description": "Reset usage for selected nodes by ID.",
+        "operationId": "bulk_reset_nodes_usage",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BulkNodeSelection"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BulkNodesActionResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Error",
+            "headers": {
+              "WWW-Authenticate": {
+                "description": "Authentication type",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Forbidden"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "BadRequest Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPException"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "NotFound Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFound"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ]
+      }
+    },
+    "/api/nodes/bulk/reconnect": {
+      "post": {
+        "tags": [
+          "Node"
+        ],
+        "summary": "Bulk Reconnect Nodes",
+        "description": "Reconnect selected nodes by ID.",
+        "operationId": "bulk_reconnect_nodes",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BulkNodeSelection"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BulkNodesActionResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Error",
+            "headers": {
+              "WWW-Authenticate": {
+                "description": "Authentication type",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Forbidden"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "BadRequest Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPException"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "NotFound Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFound"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ]
+      }
+    },
+    "/api/nodes/bulk/update": {
+      "post": {
+        "tags": [
+          "Node"
+        ],
+        "summary": "Bulk Update Nodes",
+        "description": "Update selected nodes by ID.",
+        "operationId": "bulk_update_nodes",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BulkNodeSelection"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BulkNodesActionResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Error",
+            "headers": {
+              "WWW-Authenticate": {
+                "description": "Authentication type",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Forbidden"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "BadRequest Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPException"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "NotFound Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFound"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ]
+      }
+    },
     "/api/user": {
       "post": {
         "tags": [
@@ -7443,6 +10030,576 @@
         }
       }
     },
+    "/api/users/bulk/delete": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Bulk Delete Users",
+        "description": "Delete selected users by ID.",
+        "operationId": "bulk_delete_users",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BulkUsersSelection"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RemoveUsersResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Error",
+            "headers": {
+              "WWW-Authenticate": {
+                "description": "Authentication type",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "BadRequest Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPException"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Forbidden"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "NotFound Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFound"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ]
+      }
+    },
+    "/api/users/bulk/reset": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Bulk Reset Users Data Usage",
+        "description": "Reset usage for selected users by ID.",
+        "operationId": "bulk_reset_users_data_usage",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BulkUsersSelection"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BulkUsersActionResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Error",
+            "headers": {
+              "WWW-Authenticate": {
+                "description": "Authentication type",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "BadRequest Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPException"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Forbidden"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "NotFound Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFound"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ]
+      }
+    },
+    "/api/users/bulk/disable": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Bulk Disable Users",
+        "description": "Disable selected users by ID.",
+        "operationId": "bulk_disable_users",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BulkUsersSelection"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BulkUsersActionResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Error",
+            "headers": {
+              "WWW-Authenticate": {
+                "description": "Authentication type",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "BadRequest Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPException"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Forbidden"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "NotFound Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFound"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ]
+      }
+    },
+    "/api/users/bulk/enable": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Bulk Enable Users",
+        "description": "Enable selected users by ID.",
+        "operationId": "bulk_enable_users",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BulkUsersSelection"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BulkUsersActionResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Error",
+            "headers": {
+              "WWW-Authenticate": {
+                "description": "Authentication type",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "BadRequest Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPException"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Forbidden"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "NotFound Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFound"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ]
+      }
+    },
+    "/api/users/bulk/revoke_sub": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Bulk Revoke Users Subscription",
+        "description": "Revoke subscriptions for selected users by ID.",
+        "operationId": "bulk_revoke_users_subscription",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BulkUsersSelection"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BulkUsersActionResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Error",
+            "headers": {
+              "WWW-Authenticate": {
+                "description": "Authentication type",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "BadRequest Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPException"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Forbidden"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "NotFound Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFound"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ]
+      }
+    },
+    "/api/users/bulk/set_owner": {
+      "put": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Bulk Set Owner",
+        "description": "Set a new owner for selected users by ID.",
+        "operationId": "bulk_set_owner",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BulkUsersSetOwner"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BulkUsersActionResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Error",
+            "headers": {
+              "WWW-Authenticate": {
+                "description": "Authentication type",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "BadRequest Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPException"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Forbidden"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "NotFound Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFound"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ]
+      }
+    },
     "/api/user/from_template": {
       "post": {
         "tags": [
@@ -7612,6 +10769,101 @@
         ]
       }
     },
+    "/api/users/bulk/apply_template": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Bulk Apply Template To Users",
+        "description": "Apply a user template to selected existing users by ID.",
+        "operationId": "bulk_apply_template_to_users",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BulkUsersApplyTemplate"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BulkUsersActionResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Error",
+            "headers": {
+              "WWW-Authenticate": {
+                "description": "Authentication type",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "BadRequest Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPException"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Forbidden"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "NotFound Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFound"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ]
+      }
+    },
     "/api/user/from_template/{username}": {
       "put": {
         "tags": [
@@ -7693,7 +10945,7 @@
           "User"
         ],
         "summary": "Bulk sum/sub to expire of users",
-        "description": "Bulk expire users based on the provided criteria.\n\n- **amount**: amount to adjust the user's quota (in seconds, positive to increase, negative to decrease) required\n- **user_ids**: Optional list of user IDs to modify\n- **admins**: Optional list of admin IDs — their users will be targeted\n- **status**: Optional status to filter users (e.g., \"expired\", \"active\"), Empty means no filtering\n- **group_ids**: Optional list of group IDs to filter users by their group membership",
+        "description": "Bulk expire users based on the provided criteria.\n\n- **amount**: amount to adjust the user's quota (in seconds, positive to increase, negative to decrease) required\n- **user_ids**: Optional list of user IDs to modify\n- **admins**: Optional list of admin IDs — their users will be targeted\n- **status**: Optional status to filter users (e.g., \"expired\", \"active\"), Empty means no filtering\n- **group_ids**: Optional list of group IDs to filter users by their group membership\n- **expired_after**: Optional UTC datetime to filter users who expired after this date (works only if \"expired\" status is selected)\n- **expired_before**: Optional UTC datetime to filter users who expired before this date (works only if \"expired\" status is selected)",
         "operationId": "bulk_modify_users_expire",
         "requestBody": {
           "content": {
@@ -7756,7 +11008,7 @@
           "User"
         ],
         "summary": "Bulk sum/sub to data limit of users",
-        "description": "Bulk modify users' data limit based on the provided criteria.\n\n- **amount**: amount to adjust the user's quota (positive to increase, negative to decrease) required\n- **user_ids**: Optional list of user IDs to modify\n- **admins**: Optional list of admin IDs — their users will be targeted\n- **status**: Optional status to filter users (e.g., \"expired\", \"active\"), Empty means no filtering\n- **group_ids**: Optional list of group IDs to filter users by their group membership",
+        "description": "Bulk modify users' data limit based on the provided criteria.\n\n- **amount**: amount to adjust the user's quota (positive to increase, negative to decrease) required\n- **user_ids**: Optional list of user IDs to modify\n- **admins**: Optional list of admin IDs — their users will be targeted\n- **status**: Optional status to filter users (e.g., \"expired\", \"active\"), Empty means no filtering\n- **group_ids**: Optional list of group IDs to filter users by their group membership\n- **expired_after**: Optional UTC datetime to filter users who expired after this date (works only if \"expired\" status is selected)\n- **expired_before**: Optional UTC datetime to filter users who expired before this date (works only if \"expired\" status is selected)",
         "operationId": "bulk_modify_users_datalimit",
         "requestBody": {
           "content": {
@@ -7836,6 +11088,71 @@
             "content": {
               "application/json": {
                 "schema": {}
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Error",
+            "headers": {
+              "WWW-Authenticate": {
+                "description": "Authentication type",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ]
+      }
+    },
+    "/api/users/bulk/wireguard/reallocate-peer-ips": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Bulk reallocate WireGuard peer IPs",
+        "description": "Same scoping as other bulk user actions (users, admins, group_ids, optional status filter). Non-sudo admins only affect their own users.",
+        "operationId": "bulk_reallocate_wireguard_peer_ips",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BulkWireGuardPeerIPs"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WireGuardPeerIPsReallocateResponse"
+                }
               }
             }
           },
@@ -8550,6 +11867,237 @@
           }
         }
       }
+    },
+    "/api/user_templates/bulk/delete": {
+      "post": {
+        "tags": [
+          "User Template"
+        ],
+        "summary": "Bulk Delete User Templates",
+        "description": "Delete selected user templates by ID.",
+        "operationId": "bulk_delete_user_templates",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BulkUserTemplateSelection"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RemoveUserTemplatesResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "BadRequest Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPException"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Forbidden"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "NotFound Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFound"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ]
+      }
+    },
+    "/api/user_templates/bulk/disable": {
+      "post": {
+        "tags": [
+          "User Template"
+        ],
+        "summary": "Bulk Disable User Templates",
+        "description": "Disable selected user templates by ID.",
+        "operationId": "bulk_disable_user_templates",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BulkUserTemplateSelection"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BulkUserTemplatesActionResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "BadRequest Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPException"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Forbidden"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "NotFound Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFound"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ]
+      }
+    },
+    "/api/user_templates/bulk/enable": {
+      "post": {
+        "tags": [
+          "User Template"
+        ],
+        "summary": "Bulk Enable User Templates",
+        "description": "Enable selected user templates by ID.",
+        "operationId": "bulk_enable_user_templates",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BulkUserTemplateSelection"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BulkUserTemplatesActionResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "BadRequest Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPException"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Forbidden"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "NotFound Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFound"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ]
+      }
     }
   },
   "components": {
@@ -8745,6 +12293,17 @@
             ],
             "title": "Support Url"
           },
+          "note": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Note"
+          },
           "notification_enable": {
             "anyOf": [
               {
@@ -8902,6 +12461,17 @@
               }
             ],
             "title": "Lifetime Used Traffic"
+          },
+          "note": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Note"
           }
         },
         "type": "object",
@@ -9016,6 +12586,17 @@
               }
             ],
             "title": "Support Url"
+          },
+          "note": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Note"
           },
           "notification_enable": {
             "anyOf": [
@@ -9476,6 +13057,16 @@
             ],
             "title": "Ech Config List"
           },
+          "ech_query_strategy": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ECHQueryStrategy"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
           "pinned_peer_cert_sha256": {
             "anyOf": [
               {
@@ -9501,6 +13092,26 @@
               }
             ],
             "title": "Verify Peer Cert By Name"
+          },
+          "wireguard_overrides": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/WireGuardHostOverrides"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "subscription_templates": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SubscriptionTemplates"
+              },
+              {
+                "type": "null"
+              }
+            ]
           }
         },
         "type": "object",
@@ -9613,6 +13224,73 @@
         ],
         "title": "Brutal"
       },
+      "BulkAdminSelection": {
+        "properties": {
+          "usernames": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "uniqueItems": true,
+            "title": "Usernames"
+          }
+        },
+        "type": "object",
+        "title": "BulkAdminSelection",
+        "description": "Model for bulk admin selection by usernames"
+      },
+      "BulkAdminsActionResponse": {
+        "properties": {
+          "admins": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Admins"
+          },
+          "count": {
+            "type": "integer",
+            "title": "Count"
+          }
+        },
+        "type": "object",
+        "required": [
+          "admins",
+          "count"
+        ],
+        "title": "BulkAdminsActionResponse",
+        "description": "Response model for bulk admin actions."
+      },
+      "BulkClientTemplateSelection": {
+        "properties": {
+          "ids": {
+            "items": {
+              "type": "integer"
+            },
+            "type": "array",
+            "uniqueItems": true,
+            "title": "Ids"
+          }
+        },
+        "type": "object",
+        "title": "BulkClientTemplateSelection",
+        "description": "Model for bulk client template selection by IDs"
+      },
+      "BulkCoreSelection": {
+        "properties": {
+          "ids": {
+            "items": {
+              "type": "integer"
+            },
+            "type": "array",
+            "uniqueItems": true,
+            "title": "Ids"
+          }
+        },
+        "type": "object",
+        "title": "BulkCoreSelection",
+        "description": "Model for bulk core selection by IDs"
+      },
       "BulkGroup": {
         "properties": {
           "group_ids": {
@@ -9646,6 +13324,11 @@
             "type": "array",
             "uniqueItems": true,
             "title": "Users"
+          },
+          "dry_run": {
+            "type": "boolean",
+            "title": "Dry Run",
+            "default": false
           }
         },
         "type": "object",
@@ -9654,11 +13337,127 @@
         ],
         "title": "BulkGroup"
       },
+      "BulkGroupSelection": {
+        "properties": {
+          "ids": {
+            "items": {
+              "type": "integer"
+            },
+            "type": "array",
+            "uniqueItems": true,
+            "title": "Ids"
+          }
+        },
+        "type": "object",
+        "title": "BulkGroupSelection",
+        "description": "Model for bulk group selection by IDs"
+      },
+      "BulkGroupsActionResponse": {
+        "properties": {
+          "groups": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Groups"
+          },
+          "count": {
+            "type": "integer",
+            "title": "Count"
+          }
+        },
+        "type": "object",
+        "required": [
+          "groups",
+          "count"
+        ],
+        "title": "BulkGroupsActionResponse",
+        "description": "Response model for bulk group actions."
+      },
+      "BulkHostSelection": {
+        "properties": {
+          "ids": {
+            "items": {
+              "type": "integer"
+            },
+            "type": "array",
+            "uniqueItems": true,
+            "title": "Ids"
+          }
+        },
+        "type": "object",
+        "title": "BulkHostSelection",
+        "description": "Model for bulk host selection by IDs"
+      },
+      "BulkHostsActionResponse": {
+        "properties": {
+          "hosts": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Hosts"
+          },
+          "count": {
+            "type": "integer",
+            "title": "Count"
+          }
+        },
+        "type": "object",
+        "required": [
+          "hosts",
+          "count"
+        ],
+        "title": "BulkHostsActionResponse",
+        "description": "Response model for bulk host actions."
+      },
+      "BulkNodeSelection": {
+        "properties": {
+          "ids": {
+            "items": {
+              "type": "integer"
+            },
+            "type": "array",
+            "uniqueItems": true,
+            "title": "Ids"
+          }
+        },
+        "type": "object",
+        "title": "BulkNodeSelection",
+        "description": "Model for bulk node selection by IDs"
+      },
+      "BulkNodesActionResponse": {
+        "properties": {
+          "nodes": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Nodes"
+          },
+          "count": {
+            "type": "integer",
+            "title": "Count"
+          }
+        },
+        "type": "object",
+        "required": [
+          "nodes",
+          "count"
+        ],
+        "title": "BulkNodesActionResponse",
+        "description": "Response model for bulk node actions."
+      },
       "BulkUser": {
         "properties": {
           "amount": {
             "type": "integer",
             "title": "Amount"
+          },
+          "dry_run": {
+            "type": "boolean",
+            "title": "Dry Run",
+            "default": false
           },
           "group_ids": {
             "items": {
@@ -9691,6 +13490,30 @@
             "type": "array",
             "uniqueItems": true,
             "title": "Status"
+          },
+          "expired_after": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Expired After"
+          },
+          "expired_before": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Expired Before"
           }
         },
         "type": "object",
@@ -9698,6 +13521,98 @@
           "amount"
         ],
         "title": "BulkUser"
+      },
+      "BulkUserTemplateSelection": {
+        "properties": {
+          "ids": {
+            "items": {
+              "type": "integer"
+            },
+            "type": "array",
+            "uniqueItems": true,
+            "title": "Ids"
+          }
+        },
+        "type": "object",
+        "title": "BulkUserTemplateSelection",
+        "description": "Model for bulk user template selection by IDs"
+      },
+      "BulkUserTemplatesActionResponse": {
+        "properties": {
+          "templates": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Templates"
+          },
+          "count": {
+            "type": "integer",
+            "title": "Count"
+          }
+        },
+        "type": "object",
+        "required": [
+          "templates",
+          "count"
+        ],
+        "title": "BulkUserTemplatesActionResponse",
+        "description": "Response model for bulk user template actions."
+      },
+      "BulkUsersActionResponse": {
+        "properties": {
+          "users": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Users"
+          },
+          "count": {
+            "type": "integer",
+            "title": "Count"
+          }
+        },
+        "type": "object",
+        "required": [
+          "users",
+          "count"
+        ],
+        "title": "BulkUsersActionResponse"
+      },
+      "BulkUsersApplyTemplate": {
+        "properties": {
+          "user_template_id": {
+            "type": "integer",
+            "title": "User Template Id"
+          },
+          "note": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 500
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Note"
+          },
+          "ids": {
+            "items": {
+              "type": "integer"
+            },
+            "type": "array",
+            "uniqueItems": true,
+            "title": "Ids"
+          }
+        },
+        "type": "object",
+        "required": [
+          "user_template_id"
+        ],
+        "title": "BulkUsersApplyTemplate",
+        "description": "Apply a user template to a selection of existing users (by ID)."
       },
       "BulkUsersCreateResponse": {
         "properties": {
@@ -9799,6 +13714,11 @@
               }
             ]
           },
+          "dry_run": {
+            "type": "boolean",
+            "title": "Dry Run",
+            "default": false
+          },
           "group_ids": {
             "items": {
               "type": "integer"
@@ -9826,6 +13746,95 @@
         },
         "type": "object",
         "title": "BulkUsersProxy"
+      },
+      "BulkUsersSelection": {
+        "properties": {
+          "ids": {
+            "items": {
+              "type": "integer"
+            },
+            "type": "array",
+            "uniqueItems": true,
+            "title": "Ids"
+          }
+        },
+        "type": "object",
+        "title": "BulkUsersSelection"
+      },
+      "BulkUsersSetOwner": {
+        "properties": {
+          "ids": {
+            "items": {
+              "type": "integer"
+            },
+            "type": "array",
+            "uniqueItems": true,
+            "title": "Ids"
+          },
+          "admin_username": {
+            "type": "string",
+            "title": "Admin Username"
+          }
+        },
+        "type": "object",
+        "required": [
+          "admin_username"
+        ],
+        "title": "BulkUsersSetOwner"
+      },
+      "BulkWireGuardPeerIPs": {
+        "properties": {
+          "confirm": {
+            "type": "boolean",
+            "title": "Confirm",
+            "default": false
+          },
+          "dry_run": {
+            "type": "boolean",
+            "title": "Dry Run",
+            "default": false
+          },
+          "replace_all": {
+            "type": "boolean",
+            "title": "Replace All",
+            "default": false
+          },
+          "group_ids": {
+            "items": {
+              "type": "integer"
+            },
+            "type": "array",
+            "uniqueItems": true,
+            "title": "Group Ids"
+          },
+          "admins": {
+            "items": {
+              "type": "integer"
+            },
+            "type": "array",
+            "uniqueItems": true,
+            "title": "Admins"
+          },
+          "users": {
+            "items": {
+              "type": "integer"
+            },
+            "type": "array",
+            "uniqueItems": true,
+            "title": "Users"
+          },
+          "status": {
+            "items": {
+              "$ref": "#/components/schemas/UserStatus"
+            },
+            "type": "array",
+            "uniqueItems": true,
+            "title": "Status"
+          }
+        },
+        "type": "object",
+        "title": "BulkWireGuardPeerIPs",
+        "description": "Re-seat WireGuard peer IPs (same scoping as BulkUser: users, admins, group_ids, status)."
       },
       "ClashMuxSettings": {
         "properties": {
@@ -9900,12 +13909,198 @@
         "type": "object",
         "title": "ClashMuxSettings"
       },
+      "ClientTemplateCreate": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 64,
+            "title": "Name"
+          },
+          "template_type": {
+            "$ref": "#/components/schemas/ClientTemplateType"
+          },
+          "content": {
+            "type": "string",
+            "title": "Content"
+          },
+          "is_default": {
+            "type": "boolean",
+            "title": "Is Default",
+            "default": false
+          }
+        },
+        "type": "object",
+        "required": [
+          "name",
+          "template_type",
+          "content"
+        ],
+        "title": "ClientTemplateCreate"
+      },
+      "ClientTemplateModify": {
+        "properties": {
+          "name": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 64
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Name"
+          },
+          "content": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Content"
+          },
+          "is_default": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Is Default"
+          }
+        },
+        "type": "object",
+        "title": "ClientTemplateModify"
+      },
+      "ClientTemplateResponse": {
+        "properties": {
+          "id": {
+            "type": "integer",
+            "title": "Id"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "template_type": {
+            "$ref": "#/components/schemas/ClientTemplateType"
+          },
+          "content": {
+            "type": "string",
+            "title": "Content"
+          },
+          "is_default": {
+            "type": "boolean",
+            "title": "Is Default"
+          },
+          "is_system": {
+            "type": "boolean",
+            "title": "Is System"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "template_type",
+          "content",
+          "is_default",
+          "is_system"
+        ],
+        "title": "ClientTemplateResponse"
+      },
+      "ClientTemplateResponseList": {
+        "properties": {
+          "count": {
+            "type": "integer",
+            "title": "Count"
+          },
+          "templates": {
+            "items": {
+              "$ref": "#/components/schemas/ClientTemplateResponse"
+            },
+            "type": "array",
+            "title": "Templates",
+            "default": []
+          }
+        },
+        "type": "object",
+        "required": [
+          "count"
+        ],
+        "title": "ClientTemplateResponseList"
+      },
+      "ClientTemplateSimple": {
+        "properties": {
+          "id": {
+            "type": "integer",
+            "title": "Id"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "template_type": {
+            "$ref": "#/components/schemas/ClientTemplateType"
+          },
+          "is_default": {
+            "type": "boolean",
+            "title": "Is Default"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "template_type",
+          "is_default"
+        ],
+        "title": "ClientTemplateSimple"
+      },
+      "ClientTemplateType": {
+        "type": "string",
+        "enum": [
+          "clash_subscription",
+          "xray_subscription",
+          "singbox_subscription",
+          "user_agent",
+          "grpc_user_agent"
+        ],
+        "title": "ClientTemplateType"
+      },
+      "ClientTemplatesSimpleResponse": {
+        "properties": {
+          "templates": {
+            "items": {
+              "$ref": "#/components/schemas/ClientTemplateSimple"
+            },
+            "type": "array",
+            "title": "Templates"
+          },
+          "total": {
+            "type": "integer",
+            "title": "Total"
+          }
+        },
+        "type": "object",
+        "required": [
+          "templates",
+          "total"
+        ],
+        "title": "ClientTemplatesSimpleResponse"
+      },
       "ConfigFormat": {
         "type": "string",
         "enum": [
           "links",
           "links_base64",
           "xray",
+          "wireguard",
           "sing_box",
           "clash",
           "clash_meta",
@@ -9943,6 +14138,16 @@
             "additionalProperties": true,
             "type": "object",
             "title": "Config"
+          },
+          "type": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/CoreType"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "exclude_inbound_tags": {
             "anyOf": [
@@ -9987,6 +14192,16 @@
             "additionalProperties": true,
             "type": "object",
             "title": "Config"
+          },
+          "type": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/CoreType"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "exclude_inbound_tags": {
             "items": {
@@ -10055,6 +14270,16 @@
           "name": {
             "type": "string",
             "title": "Name"
+          },
+          "type": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/CoreType"
+              },
+              {
+                "type": "null"
+              }
+            ]
           }
         },
         "type": "object",
@@ -10063,7 +14288,17 @@
           "name"
         ],
         "title": "CoreSimple",
-        "description": "Lightweight core model with only id and name for performance."
+        "description": "Lightweight core model with only id, name and type for performance."
+      },
+      "CoreType": {
+        "type": "string",
+        "enum": [
+          "xray",
+          "wg",
+          "mtproto",
+          "singbox"
+        ],
+        "title": "CoreType"
       },
       "CoresSimpleResponse": {
         "properties": {
@@ -10319,6 +14554,16 @@
             ],
             "title": "Ech Config List"
           },
+          "ech_query_strategy": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ECHQueryStrategy"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
           "pinned_peer_cert_sha256": {
             "anyOf": [
               {
@@ -10344,6 +14589,26 @@
               }
             ],
             "title": "Verify Peer Cert By Name"
+          },
+          "wireguard_overrides": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/WireGuardHostOverrides"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "subscription_templates": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SubscriptionTemplates"
+              },
+              {
+                "type": "null"
+              }
+            ]
           }
         },
         "type": "object",
@@ -10449,6 +14714,15 @@
           "language"
         ],
         "title": "DownloadLink"
+      },
+      "ECHQueryStrategy": {
+        "type": "string",
+        "enum": [
+          "none",
+          "half",
+          "full"
+        ],
+        "title": "ECHQueryStrategy"
       },
       "ExtraSettings": {
         "properties": {
@@ -10884,6 +15158,46 @@
         },
         "type": "object",
         "title": "HostNotificationEnable"
+      },
+      "HysteriaSettings": {
+        "properties": {
+          "auth": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Auth"
+          }
+        },
+        "type": "object",
+        "title": "HysteriaSettings"
+      },
+      "InboundSummary": {
+        "properties": {
+          "tag": {
+            "type": "string",
+            "title": "Tag"
+          },
+          "protocol": {
+            "type": "string",
+            "title": "Protocol"
+          },
+          "network": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Network"
+          }
+        },
+        "type": "object",
+        "required": [
+          "tag",
+          "protocol"
+        ],
+        "title": "InboundSummary"
       },
       "KCPSettings": {
         "properties": {
@@ -11687,6 +16001,18 @@
               }
             ],
             "title": "Lifetime Downlink"
+          },
+          "core_version": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Core Version",
+            "readOnly": true
           }
         },
         "type": "object",
@@ -11702,7 +16028,8 @@
           "xray_version",
           "node_version",
           "status",
-          "message"
+          "message",
+          "core_version"
         ],
         "title": "NodeResponse"
       },
@@ -12304,6 +16631,12 @@
           },
           "shadowsocks": {
             "$ref": "#/components/schemas/ShadowsocksSettings"
+          },
+          "wireguard": {
+            "$ref": "#/components/schemas/WireGuardSettings"
+          },
+          "hysteria": {
+            "$ref": "#/components/schemas/HysteriaSettings"
           }
         },
         "type": "object",
@@ -12322,10 +16655,170 @@
           },
           "shadowsocks": {
             "$ref": "#/components/schemas/ShadowsocksSettings"
+          },
+          "wireguard": {
+            "$ref": "#/components/schemas/WireGuardSettings"
+          },
+          "hysteria": {
+            "$ref": "#/components/schemas/HysteriaSettings"
           }
         },
         "type": "object",
         "title": "ProxyTable"
+      },
+      "RemoveAdminsResponse": {
+        "properties": {
+          "admins": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Admins"
+          },
+          "count": {
+            "type": "integer",
+            "title": "Count"
+          }
+        },
+        "type": "object",
+        "required": [
+          "admins",
+          "count"
+        ],
+        "title": "RemoveAdminsResponse",
+        "description": "Response model for bulk admin deletion"
+      },
+      "RemoveClientTemplatesResponse": {
+        "properties": {
+          "templates": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Templates"
+          },
+          "count": {
+            "type": "integer",
+            "title": "Count"
+          }
+        },
+        "type": "object",
+        "required": [
+          "templates",
+          "count"
+        ],
+        "title": "RemoveClientTemplatesResponse",
+        "description": "Response model for bulk client template deletion"
+      },
+      "RemoveCoresResponse": {
+        "properties": {
+          "cores": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Cores"
+          },
+          "count": {
+            "type": "integer",
+            "title": "Count"
+          }
+        },
+        "type": "object",
+        "required": [
+          "cores",
+          "count"
+        ],
+        "title": "RemoveCoresResponse",
+        "description": "Response model for bulk core deletion"
+      },
+      "RemoveGroupsResponse": {
+        "properties": {
+          "groups": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Groups"
+          },
+          "count": {
+            "type": "integer",
+            "title": "Count"
+          }
+        },
+        "type": "object",
+        "required": [
+          "groups",
+          "count"
+        ],
+        "title": "RemoveGroupsResponse",
+        "description": "Response model for bulk group deletion"
+      },
+      "RemoveHostsResponse": {
+        "properties": {
+          "hosts": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Hosts"
+          },
+          "count": {
+            "type": "integer",
+            "title": "Count"
+          }
+        },
+        "type": "object",
+        "required": [
+          "hosts",
+          "count"
+        ],
+        "title": "RemoveHostsResponse",
+        "description": "Response model for bulk host deletion"
+      },
+      "RemoveNodesResponse": {
+        "properties": {
+          "nodes": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Nodes"
+          },
+          "count": {
+            "type": "integer",
+            "title": "Count"
+          }
+        },
+        "type": "object",
+        "required": [
+          "nodes",
+          "count"
+        ],
+        "title": "RemoveNodesResponse",
+        "description": "Response model for bulk node deletion"
+      },
+      "RemoveUserTemplatesResponse": {
+        "properties": {
+          "templates": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Templates"
+          },
+          "count": {
+            "type": "integer",
+            "title": "Count"
+          }
+        },
+        "type": "object",
+        "required": [
+          "templates",
+          "count"
+        ],
+        "title": "RemoveUserTemplatesResponse",
+        "description": "Response model for bulk user template deletion"
       },
       "RemoveUsersResponse": {
         "properties": {
@@ -12635,6 +17128,11 @@
             "title": "Xray",
             "default": true
           },
+          "wireguard": {
+            "type": "boolean",
+            "title": "Wireguard",
+            "default": true
+          },
           "sing_box": {
             "type": "boolean",
             "title": "Sing Box",
@@ -12667,6 +17165,11 @@
           },
           "target": {
             "$ref": "#/components/schemas/ConfigFormat"
+          },
+          "response_headers": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Response Headers"
           }
         },
         "type": "object",
@@ -12819,6 +17322,24 @@
           "rules"
         ],
         "title": "Subscription"
+      },
+      "SubscriptionTemplates": {
+        "properties": {
+          "xray": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 1.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Xray"
+          }
+        },
+        "type": "object",
+        "title": "SubscriptionTemplates"
       },
       "SubscriptionUserResponse": {
         "properties": {
@@ -14775,6 +19296,155 @@
         ],
         "title": "WebhookInfo"
       },
+      "WireGuardHostOverrides": {
+        "properties": {
+          "allowed_ips": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Allowed Ips"
+          },
+          "mtu": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "maximum": 9000.0,
+                "minimum": 576.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Mtu"
+          },
+          "reserved": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 64
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reserved"
+          },
+          "keepalive_seconds": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "maximum": 86400.0,
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Keepalive Seconds"
+          },
+          "dns": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Dns"
+          }
+        },
+        "type": "object",
+        "title": "WireGuardHostOverrides",
+        "description": "Optional per-host values merged into WireGuard subscription output."
+      },
+      "WireGuardPeerIPsReallocateResponse": {
+        "properties": {
+          "wireguard_inbound_tags": {
+            "type": "integer",
+            "title": "Wireguard Inbound Tags"
+          },
+          "candidates": {
+            "type": "integer",
+            "title": "Candidates"
+          },
+          "updated": {
+            "type": "integer",
+            "title": "Updated"
+          },
+          "dry_run": {
+            "type": "boolean",
+            "title": "Dry Run"
+          },
+          "sample_usernames": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Sample Usernames"
+          },
+          "affected_users": {
+            "type": "integer",
+            "title": "Affected Users"
+          }
+        },
+        "type": "object",
+        "required": [
+          "wireguard_inbound_tags",
+          "candidates",
+          "updated",
+          "dry_run",
+          "sample_usernames",
+          "affected_users"
+        ],
+        "title": "WireGuardPeerIPsReallocateResponse"
+      },
+      "WireGuardSettings": {
+        "properties": {
+          "private_key": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Private Key"
+          },
+          "public_key": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Public Key"
+          },
+          "peer_ips": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Peer Ips"
+          }
+        },
+        "type": "object",
+        "title": "WireGuardSettings"
+      },
       "WorkerHealth": {
         "properties": {
           "status": {
@@ -15474,7 +20144,8 @@
         "type": "string",
         "enum": [
           "",
-          "xtls-rprx-vision"
+          "xtls-rprx-vision",
+          "xtls-rprx-vision-udp443"
         ],
         "title": "XTLSFlows"
       },
@@ -15608,6 +20279,18 @@
             "pattern": "ip|ipv4|ipv6",
             "title": "Apply To",
             "default": "ip"
+          },
+          "rand_range": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^\\d{1,16}(-\\d{1,16})?$"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Rand Range"
           }
         },
         "type": "object",

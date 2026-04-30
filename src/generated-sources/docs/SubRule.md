@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **pattern** | **string** |  | [default to undefined]
 **target** | [**ConfigFormat**](ConfigFormat.md) |  | [default to undefined]
+**response_headers** | **{ [key: string]: any; }** |  | [optional] [default to undefined]
 
 ## Example
 
@@ -16,6 +17,7 @@ import { SubRule } from './api';
 const instance: SubRule = {
     pattern,
     target,
+    response_headers,
 };
 ```
 

@@ -7,6 +7,13 @@ All URIs are relative to *http://localhost*
 |[**activateAllDisabledUsers**](#activatealldisabledusers) | **POST** /api/admin/{username}/users/activate | Activate All Disabled Users|
 |[**adminMiniAppToken**](#adminminiapptoken) | **POST** /api/admin/miniapp/token | Admin Mini App Token|
 |[**adminToken**](#admintoken) | **POST** /api/admin/token | Admin Token|
+|[**bulkActivateAllDisabledUsers**](#bulkactivatealldisabledusers) | **POST** /api/admins/bulk/users/activate | Bulk Activate All Disabled Users|
+|[**bulkDeleteAdmins**](#bulkdeleteadmins) | **POST** /api/admins/bulk/delete | Bulk Delete Admins|
+|[**bulkDisableAdmins**](#bulkdisableadmins) | **POST** /api/admins/bulk/disable | Bulk Disable Admins|
+|[**bulkDisableAllActiveUsers**](#bulkdisableallactiveusers) | **POST** /api/admins/bulk/users/disable | Bulk Disable All Active Users|
+|[**bulkEnableAdmins**](#bulkenableadmins) | **POST** /api/admins/bulk/enable | Bulk Enable Admins|
+|[**bulkRemoveAllUsers**](#bulkremoveallusers) | **DELETE** /api/admins/bulk/users | Bulk Remove All Users|
+|[**bulkResetAdminsUsage**](#bulkresetadminsusage) | **POST** /api/admins/bulk/reset | Bulk Reset Admins Usage|
 |[**createAdmin**](#createadmin) | **POST** /api/admin | Create Admin|
 |[**disableAllActiveUsers**](#disableallactiveusers) | **POST** /api/admin/{username}/users/disable | Disable All Active Users|
 |[**getAdminUsage**](#getadminusage) | **GET** /api/admin/{username}/usage | Get Admin Usage|
@@ -123,6 +130,7 @@ No authorization required
 |**200** | Successful Response |  -  |
 |**401** | Unauthorized Error |  * WWW-Authenticate - Authentication type <br>  |
 |**403** | Forbidden Error |  -  |
+|**409** | Conflict Error |  -  |
 |**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -192,6 +200,405 @@ No authorization required
 |**200** | Successful Response |  -  |
 |**401** | Unauthorized Error |  * WWW-Authenticate - Authentication type <br>  |
 |**403** | Forbidden Error |  -  |
+|**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **bulkActivateAllDisabledUsers**
+> BulkAdminsActionResponse bulkActivateAllDisabledUsers(bulkAdminSelection)
+
+Activate all disabled users under selected admins.
+
+### Example
+
+```typescript
+import {
+    AdminApi,
+    Configuration,
+    BulkAdminSelection
+} from './api';
+
+const configuration = new Configuration();
+const apiInstance = new AdminApi(configuration);
+
+let bulkAdminSelection: BulkAdminSelection; //
+
+const { status, data } = await apiInstance.bulkActivateAllDisabledUsers(
+    bulkAdminSelection
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **bulkAdminSelection** | **BulkAdminSelection**|  | |
+
+
+### Return type
+
+**BulkAdminsActionResponse**
+
+### Authorization
+
+[OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**401** | Unauthorized Error |  * WWW-Authenticate - Authentication type <br>  |
+|**403** | Forbidden Error |  -  |
+|**400** | BadRequest Error |  -  |
+|**404** | NotFound Error |  -  |
+|**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **bulkDeleteAdmins**
+> RemoveAdminsResponse bulkDeleteAdmins(bulkAdminSelection)
+
+Delete selected admins by username.
+
+### Example
+
+```typescript
+import {
+    AdminApi,
+    Configuration,
+    BulkAdminSelection
+} from './api';
+
+const configuration = new Configuration();
+const apiInstance = new AdminApi(configuration);
+
+let bulkAdminSelection: BulkAdminSelection; //
+
+const { status, data } = await apiInstance.bulkDeleteAdmins(
+    bulkAdminSelection
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **bulkAdminSelection** | **BulkAdminSelection**|  | |
+
+
+### Return type
+
+**RemoveAdminsResponse**
+
+### Authorization
+
+[OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**401** | Unauthorized Error |  * WWW-Authenticate - Authentication type <br>  |
+|**403** | Forbidden Error |  -  |
+|**400** | BadRequest Error |  -  |
+|**404** | NotFound Error |  -  |
+|**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **bulkDisableAdmins**
+> BulkAdminsActionResponse bulkDisableAdmins(bulkAdminSelection)
+
+Disable selected admins by username.
+
+### Example
+
+```typescript
+import {
+    AdminApi,
+    Configuration,
+    BulkAdminSelection
+} from './api';
+
+const configuration = new Configuration();
+const apiInstance = new AdminApi(configuration);
+
+let bulkAdminSelection: BulkAdminSelection; //
+
+const { status, data } = await apiInstance.bulkDisableAdmins(
+    bulkAdminSelection
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **bulkAdminSelection** | **BulkAdminSelection**|  | |
+
+
+### Return type
+
+**BulkAdminsActionResponse**
+
+### Authorization
+
+[OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**401** | Unauthorized Error |  * WWW-Authenticate - Authentication type <br>  |
+|**403** | Forbidden Error |  -  |
+|**400** | BadRequest Error |  -  |
+|**404** | NotFound Error |  -  |
+|**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **bulkDisableAllActiveUsers**
+> BulkAdminsActionResponse bulkDisableAllActiveUsers(bulkAdminSelection)
+
+Disable all active users under selected admins.
+
+### Example
+
+```typescript
+import {
+    AdminApi,
+    Configuration,
+    BulkAdminSelection
+} from './api';
+
+const configuration = new Configuration();
+const apiInstance = new AdminApi(configuration);
+
+let bulkAdminSelection: BulkAdminSelection; //
+
+const { status, data } = await apiInstance.bulkDisableAllActiveUsers(
+    bulkAdminSelection
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **bulkAdminSelection** | **BulkAdminSelection**|  | |
+
+
+### Return type
+
+**BulkAdminsActionResponse**
+
+### Authorization
+
+[OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**401** | Unauthorized Error |  * WWW-Authenticate - Authentication type <br>  |
+|**403** | Forbidden Error |  -  |
+|**400** | BadRequest Error |  -  |
+|**404** | NotFound Error |  -  |
+|**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **bulkEnableAdmins**
+> BulkAdminsActionResponse bulkEnableAdmins(bulkAdminSelection)
+
+Enable selected admins by username.
+
+### Example
+
+```typescript
+import {
+    AdminApi,
+    Configuration,
+    BulkAdminSelection
+} from './api';
+
+const configuration = new Configuration();
+const apiInstance = new AdminApi(configuration);
+
+let bulkAdminSelection: BulkAdminSelection; //
+
+const { status, data } = await apiInstance.bulkEnableAdmins(
+    bulkAdminSelection
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **bulkAdminSelection** | **BulkAdminSelection**|  | |
+
+
+### Return type
+
+**BulkAdminsActionResponse**
+
+### Authorization
+
+[OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**401** | Unauthorized Error |  * WWW-Authenticate - Authentication type <br>  |
+|**403** | Forbidden Error |  -  |
+|**400** | BadRequest Error |  -  |
+|**404** | NotFound Error |  -  |
+|**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **bulkRemoveAllUsers**
+> BulkAdminsActionResponse bulkRemoveAllUsers(bulkAdminSelection)
+
+Remove all users under selected admins.
+
+### Example
+
+```typescript
+import {
+    AdminApi,
+    Configuration,
+    BulkAdminSelection
+} from './api';
+
+const configuration = new Configuration();
+const apiInstance = new AdminApi(configuration);
+
+let bulkAdminSelection: BulkAdminSelection; //
+
+const { status, data } = await apiInstance.bulkRemoveAllUsers(
+    bulkAdminSelection
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **bulkAdminSelection** | **BulkAdminSelection**|  | |
+
+
+### Return type
+
+**BulkAdminsActionResponse**
+
+### Authorization
+
+[OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**401** | Unauthorized Error |  * WWW-Authenticate - Authentication type <br>  |
+|**403** | Forbidden Error |  -  |
+|**400** | BadRequest Error |  -  |
+|**404** | NotFound Error |  -  |
+|**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **bulkResetAdminsUsage**
+> BulkAdminsActionResponse bulkResetAdminsUsage(bulkAdminSelection)
+
+Reset usage for selected admins by username.
+
+### Example
+
+```typescript
+import {
+    AdminApi,
+    Configuration,
+    BulkAdminSelection
+} from './api';
+
+const configuration = new Configuration();
+const apiInstance = new AdminApi(configuration);
+
+let bulkAdminSelection: BulkAdminSelection; //
+
+const { status, data } = await apiInstance.bulkResetAdminsUsage(
+    bulkAdminSelection
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **bulkAdminSelection** | **BulkAdminSelection**|  | |
+
+
+### Return type
+
+**BulkAdminsActionResponse**
+
+### Authorization
+
+[OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**401** | Unauthorized Error |  * WWW-Authenticate - Authentication type <br>  |
+|**403** | Forbidden Error |  -  |
+|**400** | BadRequest Error |  -  |
+|**404** | NotFound Error |  -  |
 |**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -607,6 +1014,7 @@ const { status, data } = await apiInstance.modifyAdmin(
 |**401** | Unauthorized Error |  * WWW-Authenticate - Authentication type <br>  |
 |**403** | Forbidden Error |  -  |
 |**404** | NotFound Error |  -  |
+|**409** | Conflict Error |  -  |
 |**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

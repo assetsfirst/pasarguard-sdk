@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **has_group_ids** | **Set&lt;number&gt;** |  | [optional] [default to undefined]
 **admins** | **Set&lt;number&gt;** |  | [optional] [default to undefined]
 **users** | **Set&lt;number&gt;** |  | [optional] [default to undefined]
+**dry_run** | **boolean** |  | [optional] [default to false]
 
 ## Example
 
@@ -20,6 +21,7 @@ const instance: BulkGroup = {
     has_group_ids,
     admins,
     users,
+    dry_run,
 };
 ```
 

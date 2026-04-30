@@ -4,12 +4,183 @@ All URIs are relative to *http://localhost*
 
 |Method | HTTP request | Description|
 |------------- | ------------- | -------------|
+|[**bulkDeleteUserTemplates**](#bulkdeleteusertemplates) | **POST** /api/user_templates/bulk/delete | Bulk Delete User Templates|
+|[**bulkDisableUserTemplates**](#bulkdisableusertemplates) | **POST** /api/user_templates/bulk/disable | Bulk Disable User Templates|
+|[**bulkEnableUserTemplates**](#bulkenableusertemplates) | **POST** /api/user_templates/bulk/enable | Bulk Enable User Templates|
 |[**createUserTemplate**](#createusertemplate) | **POST** /api/user_template | Create User Template|
 |[**getUserTemplate**](#getusertemplate) | **GET** /api/user_template/{template_id} | Get User Template|
 |[**getUserTemplates**](#getusertemplates) | **GET** /api/user_templates | Get User Templates|
 |[**getUserTemplatesSimple**](#getusertemplatessimple) | **GET** /api/user_templates/simple | Get lightweight user template list|
 |[**modifyUserTemplate**](#modifyusertemplate) | **PUT** /api/user_template/{template_id} | Modify User Template|
 |[**removeUserTemplate**](#removeusertemplate) | **DELETE** /api/user_template/{template_id} | Remove User Template|
+
+# **bulkDeleteUserTemplates**
+> RemoveUserTemplatesResponse bulkDeleteUserTemplates(bulkUserTemplateSelection)
+
+Delete selected user templates by ID.
+
+### Example
+
+```typescript
+import {
+    UserTemplateApi,
+    Configuration,
+    BulkUserTemplateSelection
+} from './api';
+
+const configuration = new Configuration();
+const apiInstance = new UserTemplateApi(configuration);
+
+let bulkUserTemplateSelection: BulkUserTemplateSelection; //
+
+const { status, data } = await apiInstance.bulkDeleteUserTemplates(
+    bulkUserTemplateSelection
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **bulkUserTemplateSelection** | **BulkUserTemplateSelection**|  | |
+
+
+### Return type
+
+**RemoveUserTemplatesResponse**
+
+### Authorization
+
+[OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**400** | BadRequest Error |  -  |
+|**403** | Forbidden Error |  -  |
+|**404** | NotFound Error |  -  |
+|**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **bulkDisableUserTemplates**
+> BulkUserTemplatesActionResponse bulkDisableUserTemplates(bulkUserTemplateSelection)
+
+Disable selected user templates by ID.
+
+### Example
+
+```typescript
+import {
+    UserTemplateApi,
+    Configuration,
+    BulkUserTemplateSelection
+} from './api';
+
+const configuration = new Configuration();
+const apiInstance = new UserTemplateApi(configuration);
+
+let bulkUserTemplateSelection: BulkUserTemplateSelection; //
+
+const { status, data } = await apiInstance.bulkDisableUserTemplates(
+    bulkUserTemplateSelection
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **bulkUserTemplateSelection** | **BulkUserTemplateSelection**|  | |
+
+
+### Return type
+
+**BulkUserTemplatesActionResponse**
+
+### Authorization
+
+[OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**400** | BadRequest Error |  -  |
+|**403** | Forbidden Error |  -  |
+|**404** | NotFound Error |  -  |
+|**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **bulkEnableUserTemplates**
+> BulkUserTemplatesActionResponse bulkEnableUserTemplates(bulkUserTemplateSelection)
+
+Enable selected user templates by ID.
+
+### Example
+
+```typescript
+import {
+    UserTemplateApi,
+    Configuration,
+    BulkUserTemplateSelection
+} from './api';
+
+const configuration = new Configuration();
+const apiInstance = new UserTemplateApi(configuration);
+
+let bulkUserTemplateSelection: BulkUserTemplateSelection; //
+
+const { status, data } = await apiInstance.bulkEnableUserTemplates(
+    bulkUserTemplateSelection
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **bulkUserTemplateSelection** | **BulkUserTemplateSelection**|  | |
+
+
+### Return type
+
+**BulkUserTemplatesActionResponse**
+
+### Authorization
+
+[OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**400** | BadRequest Error |  -  |
+|**403** | Forbidden Error |  -  |
+|**404** | NotFound Error |  -  |
+|**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **createUserTemplate**
 > UserTemplateResponse createUserTemplate(userTemplateCreate)

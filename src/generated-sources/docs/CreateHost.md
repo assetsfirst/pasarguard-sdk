@@ -29,8 +29,11 @@ Name | Type | Description | Notes
 **priority** | **number** |  | [default to undefined]
 **status** | [**Set&lt;UserStatus&gt;**](UserStatus.md) |  | [optional] [default to undefined]
 **ech_config_list** | **string** |  | [optional] [default to undefined]
+**ech_query_strategy** | [**ECHQueryStrategy**](ECHQueryStrategy.md) |  | [optional] [default to undefined]
 **pinned_peer_cert_sha256** | **string** |  | [optional] [default to undefined]
 **verify_peer_cert_by_name** | **Set&lt;string&gt;** |  | [optional] [default to undefined]
+**wireguard_overrides** | [**WireGuardHostOverrides**](WireGuardHostOverrides.md) |  | [optional] [default to undefined]
+**subscription_templates** | [**SubscriptionTemplates**](SubscriptionTemplates.md) |  | [optional] [default to undefined]
 
 ## Example
 
@@ -62,8 +65,11 @@ const instance: CreateHost = {
     priority,
     status,
     ech_config_list,
+    ech_query_strategy,
     pinned_peer_cert_sha256,
     verify_peer_cert_by_name,
+    wireguard_overrides,
+    subscription_templates,
 };
 ```
 

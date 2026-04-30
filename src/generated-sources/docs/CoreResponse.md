@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **name** | **string** |  | [default to undefined]
 **config** | **{ [key: string]: any; }** |  | [default to undefined]
+**type** | [**CoreType**](CoreType.md) |  | [optional] [default to undefined]
 **exclude_inbound_tags** | **Set&lt;string&gt;** |  | [default to undefined]
 **fallbacks_inbound_tags** | **Set&lt;string&gt;** |  | [default to undefined]
 **id** | **number** |  | [default to undefined]
@@ -20,6 +21,7 @@ import { CoreResponse } from './api';
 const instance: CoreResponse = {
     name,
     config,
+    type,
     exclude_inbound_tags,
     fallbacks_inbound_tags,
     id,

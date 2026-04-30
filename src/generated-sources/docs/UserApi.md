@@ -5,10 +5,18 @@ All URIs are relative to *http://localhost*
 |Method | HTTP request | Description|
 |------------- | ------------- | -------------|
 |[**activeNextPlan**](#activenextplan) | **POST** /api/user/{username}/active_next | Active Next Plan|
+|[**bulkApplyTemplateToUsers**](#bulkapplytemplatetousers) | **POST** /api/users/bulk/apply_template | Bulk Apply Template To Users|
 |[**bulkCreateUsersFromTemplate**](#bulkcreateusersfromtemplate) | **POST** /api/users/bulk/from_template | Bulk Create Users From Template|
+|[**bulkDeleteUsers**](#bulkdeleteusers) | **POST** /api/users/bulk/delete | Bulk Delete Users|
+|[**bulkDisableUsers**](#bulkdisableusers) | **POST** /api/users/bulk/disable | Bulk Disable Users|
+|[**bulkEnableUsers**](#bulkenableusers) | **POST** /api/users/bulk/enable | Bulk Enable Users|
 |[**bulkModifyUsersDatalimit**](#bulkmodifyusersdatalimit) | **POST** /api/users/bulk/data_limit | Bulk sum/sub to data limit of users|
 |[**bulkModifyUsersExpire**](#bulkmodifyusersexpire) | **POST** /api/users/bulk/expire | Bulk sum/sub to expire of users|
 |[**bulkModifyUsersProxySettings**](#bulkmodifyusersproxysettings) | **POST** /api/users/bulk/proxy_settings | Bulk modify users proxy settings|
+|[**bulkReallocateWireguardPeerIps**](#bulkreallocatewireguardpeerips) | **POST** /api/users/bulk/wireguard/reallocate-peer-ips | Bulk reallocate WireGuard peer IPs|
+|[**bulkResetUsersDataUsage**](#bulkresetusersdatausage) | **POST** /api/users/bulk/reset | Bulk Reset Users Data Usage|
+|[**bulkRevokeUsersSubscription**](#bulkrevokeuserssubscription) | **POST** /api/users/bulk/revoke_sub | Bulk Revoke Users Subscription|
+|[**bulkSetOwner**](#bulksetowner) | **PUT** /api/users/bulk/set_owner | Bulk Set Owner|
 |[**createUser**](#createuser) | **POST** /api/user | Create User|
 |[**createUserFromTemplate**](#createuserfromtemplate) | **POST** /api/user/from_template | Create User From Template|
 |[**deleteExpiredUsers**](#deleteexpiredusers) | **DELETE** /api/users/expired | Delete Expired Users|
@@ -83,6 +91,63 @@ const { status, data } = await apiInstance.activeNextPlan(
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **bulkApplyTemplateToUsers**
+> BulkUsersActionResponse bulkApplyTemplateToUsers(bulkUsersApplyTemplate)
+
+Apply a user template to selected existing users by ID.
+
+### Example
+
+```typescript
+import {
+    UserApi,
+    Configuration,
+    BulkUsersApplyTemplate
+} from './api';
+
+const configuration = new Configuration();
+const apiInstance = new UserApi(configuration);
+
+let bulkUsersApplyTemplate: BulkUsersApplyTemplate; //
+
+const { status, data } = await apiInstance.bulkApplyTemplateToUsers(
+    bulkUsersApplyTemplate
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **bulkUsersApplyTemplate** | **BulkUsersApplyTemplate**|  | |
+
+
+### Return type
+
+**BulkUsersActionResponse**
+
+### Authorization
+
+[OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**401** | Unauthorized Error |  * WWW-Authenticate - Authentication type <br>  |
+|**400** | BadRequest Error |  -  |
+|**403** | Forbidden Error |  -  |
+|**404** | NotFound Error |  -  |
+|**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **bulkCreateUsersFromTemplate**
 > BulkUsersCreateResponse bulkCreateUsersFromTemplate(bulkUsersFromTemplate)
 
@@ -141,10 +206,181 @@ const { status, data } = await apiInstance.bulkCreateUsersFromTemplate(
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **bulkDeleteUsers**
+> RemoveUsersResponse bulkDeleteUsers(bulkUsersSelection)
+
+Delete selected users by ID.
+
+### Example
+
+```typescript
+import {
+    UserApi,
+    Configuration,
+    BulkUsersSelection
+} from './api';
+
+const configuration = new Configuration();
+const apiInstance = new UserApi(configuration);
+
+let bulkUsersSelection: BulkUsersSelection; //
+
+const { status, data } = await apiInstance.bulkDeleteUsers(
+    bulkUsersSelection
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **bulkUsersSelection** | **BulkUsersSelection**|  | |
+
+
+### Return type
+
+**RemoveUsersResponse**
+
+### Authorization
+
+[OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**401** | Unauthorized Error |  * WWW-Authenticate - Authentication type <br>  |
+|**400** | BadRequest Error |  -  |
+|**403** | Forbidden Error |  -  |
+|**404** | NotFound Error |  -  |
+|**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **bulkDisableUsers**
+> BulkUsersActionResponse bulkDisableUsers(bulkUsersSelection)
+
+Disable selected users by ID.
+
+### Example
+
+```typescript
+import {
+    UserApi,
+    Configuration,
+    BulkUsersSelection
+} from './api';
+
+const configuration = new Configuration();
+const apiInstance = new UserApi(configuration);
+
+let bulkUsersSelection: BulkUsersSelection; //
+
+const { status, data } = await apiInstance.bulkDisableUsers(
+    bulkUsersSelection
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **bulkUsersSelection** | **BulkUsersSelection**|  | |
+
+
+### Return type
+
+**BulkUsersActionResponse**
+
+### Authorization
+
+[OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**401** | Unauthorized Error |  * WWW-Authenticate - Authentication type <br>  |
+|**400** | BadRequest Error |  -  |
+|**403** | Forbidden Error |  -  |
+|**404** | NotFound Error |  -  |
+|**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **bulkEnableUsers**
+> BulkUsersActionResponse bulkEnableUsers(bulkUsersSelection)
+
+Enable selected users by ID.
+
+### Example
+
+```typescript
+import {
+    UserApi,
+    Configuration,
+    BulkUsersSelection
+} from './api';
+
+const configuration = new Configuration();
+const apiInstance = new UserApi(configuration);
+
+let bulkUsersSelection: BulkUsersSelection; //
+
+const { status, data } = await apiInstance.bulkEnableUsers(
+    bulkUsersSelection
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **bulkUsersSelection** | **BulkUsersSelection**|  | |
+
+
+### Return type
+
+**BulkUsersActionResponse**
+
+### Authorization
+
+[OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**401** | Unauthorized Error |  * WWW-Authenticate - Authentication type <br>  |
+|**400** | BadRequest Error |  -  |
+|**403** | Forbidden Error |  -  |
+|**404** | NotFound Error |  -  |
+|**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **bulkModifyUsersDatalimit**
 > any bulkModifyUsersDatalimit(bulkUser)
 
-Bulk modify users\' data limit based on the provided criteria.  - **amount**: amount to adjust the user\'s quota (positive to increase, negative to decrease) required - **user_ids**: Optional list of user IDs to modify - **admins**: Optional list of admin IDs — their users will be targeted - **status**: Optional status to filter users (e.g., \"expired\", \"active\"), Empty means no filtering - **group_ids**: Optional list of group IDs to filter users by their group membership
+Bulk modify users\' data limit based on the provided criteria.  - **amount**: amount to adjust the user\'s quota (positive to increase, negative to decrease) required - **user_ids**: Optional list of user IDs to modify - **admins**: Optional list of admin IDs — their users will be targeted - **status**: Optional status to filter users (e.g., \"expired\", \"active\"), Empty means no filtering - **group_ids**: Optional list of group IDs to filter users by their group membership - **expired_after**: Optional UTC datetime to filter users who expired after this date (works only if \"expired\" status is selected) - **expired_before**: Optional UTC datetime to filter users who expired before this date (works only if \"expired\" status is selected)
 
 ### Example
 
@@ -198,7 +434,7 @@ const { status, data } = await apiInstance.bulkModifyUsersDatalimit(
 # **bulkModifyUsersExpire**
 > any bulkModifyUsersExpire(bulkUser)
 
-Bulk expire users based on the provided criteria.  - **amount**: amount to adjust the user\'s quota (in seconds, positive to increase, negative to decrease) required - **user_ids**: Optional list of user IDs to modify - **admins**: Optional list of admin IDs — their users will be targeted - **status**: Optional status to filter users (e.g., \"expired\", \"active\"), Empty means no filtering - **group_ids**: Optional list of group IDs to filter users by their group membership
+Bulk expire users based on the provided criteria.  - **amount**: amount to adjust the user\'s quota (in seconds, positive to increase, negative to decrease) required - **user_ids**: Optional list of user IDs to modify - **admins**: Optional list of admin IDs — their users will be targeted - **status**: Optional status to filter users (e.g., \"expired\", \"active\"), Empty means no filtering - **group_ids**: Optional list of group IDs to filter users by their group membership - **expired_after**: Optional UTC datetime to filter users who expired after this date (works only if \"expired\" status is selected) - **expired_before**: Optional UTC datetime to filter users who expired before this date (works only if \"expired\" status is selected)
 
 ### Example
 
@@ -298,6 +534,231 @@ const { status, data } = await apiInstance.bulkModifyUsersProxySettings(
 |-------------|-------------|------------------|
 |**200** | Success confirmation |  -  |
 |**401** | Unauthorized Error |  * WWW-Authenticate - Authentication type <br>  |
+|**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **bulkReallocateWireguardPeerIps**
+> WireGuardPeerIPsReallocateResponse bulkReallocateWireguardPeerIps(bulkWireGuardPeerIPs)
+
+Same scoping as other bulk user actions (users, admins, group_ids, optional status filter). Non-sudo admins only affect their own users.
+
+### Example
+
+```typescript
+import {
+    UserApi,
+    Configuration,
+    BulkWireGuardPeerIPs
+} from './api';
+
+const configuration = new Configuration();
+const apiInstance = new UserApi(configuration);
+
+let bulkWireGuardPeerIPs: BulkWireGuardPeerIPs; //
+
+const { status, data } = await apiInstance.bulkReallocateWireguardPeerIps(
+    bulkWireGuardPeerIPs
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **bulkWireGuardPeerIPs** | **BulkWireGuardPeerIPs**|  | |
+
+
+### Return type
+
+**WireGuardPeerIPsReallocateResponse**
+
+### Authorization
+
+[OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**401** | Unauthorized Error |  * WWW-Authenticate - Authentication type <br>  |
+|**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **bulkResetUsersDataUsage**
+> BulkUsersActionResponse bulkResetUsersDataUsage(bulkUsersSelection)
+
+Reset usage for selected users by ID.
+
+### Example
+
+```typescript
+import {
+    UserApi,
+    Configuration,
+    BulkUsersSelection
+} from './api';
+
+const configuration = new Configuration();
+const apiInstance = new UserApi(configuration);
+
+let bulkUsersSelection: BulkUsersSelection; //
+
+const { status, data } = await apiInstance.bulkResetUsersDataUsage(
+    bulkUsersSelection
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **bulkUsersSelection** | **BulkUsersSelection**|  | |
+
+
+### Return type
+
+**BulkUsersActionResponse**
+
+### Authorization
+
+[OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**401** | Unauthorized Error |  * WWW-Authenticate - Authentication type <br>  |
+|**400** | BadRequest Error |  -  |
+|**403** | Forbidden Error |  -  |
+|**404** | NotFound Error |  -  |
+|**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **bulkRevokeUsersSubscription**
+> BulkUsersActionResponse bulkRevokeUsersSubscription(bulkUsersSelection)
+
+Revoke subscriptions for selected users by ID.
+
+### Example
+
+```typescript
+import {
+    UserApi,
+    Configuration,
+    BulkUsersSelection
+} from './api';
+
+const configuration = new Configuration();
+const apiInstance = new UserApi(configuration);
+
+let bulkUsersSelection: BulkUsersSelection; //
+
+const { status, data } = await apiInstance.bulkRevokeUsersSubscription(
+    bulkUsersSelection
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **bulkUsersSelection** | **BulkUsersSelection**|  | |
+
+
+### Return type
+
+**BulkUsersActionResponse**
+
+### Authorization
+
+[OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**401** | Unauthorized Error |  * WWW-Authenticate - Authentication type <br>  |
+|**400** | BadRequest Error |  -  |
+|**403** | Forbidden Error |  -  |
+|**404** | NotFound Error |  -  |
+|**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **bulkSetOwner**
+> BulkUsersActionResponse bulkSetOwner(bulkUsersSetOwner)
+
+Set a new owner for selected users by ID.
+
+### Example
+
+```typescript
+import {
+    UserApi,
+    Configuration,
+    BulkUsersSetOwner
+} from './api';
+
+const configuration = new Configuration();
+const apiInstance = new UserApi(configuration);
+
+let bulkUsersSetOwner: BulkUsersSetOwner; //
+
+const { status, data } = await apiInstance.bulkSetOwner(
+    bulkUsersSetOwner
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **bulkUsersSetOwner** | **BulkUsersSetOwner**|  | |
+
+
+### Return type
+
+**BulkUsersActionResponse**
+
+### Authorization
+
+[OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**401** | Unauthorized Error |  * WWW-Authenticate - Authentication type <br>  |
+|**400** | BadRequest Error |  -  |
+|**403** | Forbidden Error |  -  |
+|**404** | NotFound Error |  -  |
 |**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

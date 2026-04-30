@@ -9,6 +9,8 @@
 
 * `Xray` (value: `'xray'`)
 
+* `Wireguard` (value: `'wireguard'`)
+
 * `SingBox` (value: `'sing_box'`)
 
 * `Clash` (value: `'clash'`)

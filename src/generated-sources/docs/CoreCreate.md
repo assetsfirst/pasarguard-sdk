@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **name** | **string** |  | [optional] [default to undefined]
 **config** | **{ [key: string]: any; }** |  | [default to undefined]
+**type** | [**CoreType**](CoreType.md) |  | [optional] [default to undefined]
 **exclude_inbound_tags** | **Set&lt;any&gt;** |  | [optional] [default to undefined]
 **fallbacks_inbound_tags** | **Set&lt;any&gt;** |  | [optional] [default to undefined]
 
@@ -18,6 +19,7 @@ import { CoreCreate } from './api';
 const instance: CoreCreate = {
     name,
     config,
+    type,
     exclude_inbound_tags,
     fallbacks_inbound_tags,
 };

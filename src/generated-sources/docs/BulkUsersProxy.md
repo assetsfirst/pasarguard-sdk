@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **flow** | [**XTLSFlows**](XTLSFlows.md) |  | [optional] [default to undefined]
 **method** | [**ShadowsocksMethods**](ShadowsocksMethods.md) |  | [optional] [default to undefined]
+**dry_run** | **boolean** |  | [optional] [default to false]
 **group_ids** | **Set&lt;number&gt;** |  | [optional] [default to undefined]
 **admins** | **Set&lt;number&gt;** |  | [optional] [default to undefined]
 **users** | **Set&lt;number&gt;** |  | [optional] [default to undefined]
@@ -19,6 +20,7 @@ import { BulkUsersProxy } from './api';
 const instance: BulkUsersProxy = {
     flow,
     method,
+    dry_run,
     group_ids,
     admins,
     users,

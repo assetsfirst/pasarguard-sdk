@@ -9,6 +9,8 @@ Name | Type | Description | Notes
 **vless** | [**VlessSettings**](VlessSettings.md) |  | [optional] [default to undefined]
 **trojan** | [**TrojanSettings**](TrojanSettings.md) |  | [optional] [default to undefined]
 **shadowsocks** | [**ShadowsocksSettings**](ShadowsocksSettings.md) |  | [optional] [default to undefined]
+**wireguard** | [**WireGuardSettings**](WireGuardSettings.md) |  | [optional] [default to undefined]
+**hysteria** | [**HysteriaSettings**](HysteriaSettings.md) |  | [optional] [default to undefined]
 
 ## Example
 
@@ -20,6 +22,8 @@ const instance: ProxyTableInput = {
     vless,
     trojan,
     shadowsocks,
+    wireguard,
+    hysteria,
 };
 ```
 
