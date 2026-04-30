@@ -18,6 +18,9 @@ Or using yarn:
 yarn add pasarguard-sdk
 ```
 
+## Versions
+Version of library is aligned with pasarguard panel version
+
 ## 📑 Configuration Options
 
 The `Config` object is used to initialize the PasarGuardSDK instance. Below are all available options:
