@@ -5,6 +5,8 @@ All URIs are relative to *http://localhost*
 |Method | HTTP request | Description|
 |------------- | ------------- | -------------|
 |[**activateAllDisabledUsers**](#activatealldisabledusers) | **POST** /api/admin/{username}/users/activate | Activate All Disabled Users|
+|[**activateAllDisabledUsersById**](#activatealldisabledusersbyid) | **POST** /api/admin/by-id/{admin_id}/users/activate | Activate All Disabled Users By Id|
+|[**activateAllDisabledUsersByUsername**](#activatealldisabledusersbyusername) | **POST** /api/admin/by-username/{username}/users/activate | Activate All Disabled Users By Username|
 |[**adminMiniAppToken**](#adminminiapptoken) | **POST** /api/admin/miniapp/token | Admin Mini App Token|
 |[**adminToken**](#admintoken) | **POST** /api/admin/token | Admin Token|
 |[**bulkActivateAllDisabledUsers**](#bulkactivatealldisabledusers) | **POST** /api/admins/bulk/users/activate | Bulk Activate All Disabled Users|
@@ -16,14 +18,26 @@ All URIs are relative to *http://localhost*
 |[**bulkResetAdminsUsage**](#bulkresetadminsusage) | **POST** /api/admins/bulk/reset | Bulk Reset Admins Usage|
 |[**createAdmin**](#createadmin) | **POST** /api/admin | Create Admin|
 |[**disableAllActiveUsers**](#disableallactiveusers) | **POST** /api/admin/{username}/users/disable | Disable All Active Users|
+|[**disableAllActiveUsersById**](#disableallactiveusersbyid) | **POST** /api/admin/by-id/{admin_id}/users/disable | Disable All Active Users By Id|
+|[**disableAllActiveUsersByUsername**](#disableallactiveusersbyusername) | **POST** /api/admin/by-username/{username}/users/disable | Disable All Active Users By Username|
 |[**getAdminUsage**](#getadminusage) | **GET** /api/admin/{username}/usage | Get Admin Usage|
+|[**getAdminUsageById**](#getadminusagebyid) | **GET** /api/admin/by-id/{admin_id}/usage | Get Admin Usage By Id|
+|[**getAdminUsageByUsername**](#getadminusagebyusername) | **GET** /api/admin/by-username/{username}/usage | Get Admin Usage By Username|
 |[**getAdmins**](#getadmins) | **GET** /api/admins | Get Admins|
 |[**getAdminsSimple**](#getadminssimple) | **GET** /api/admins/simple | Get lightweight admin list|
 |[**getCurrentAdmin**](#getcurrentadmin) | **GET** /api/admin | Get Current Admin|
 |[**modifyAdmin**](#modifyadmin) | **PUT** /api/admin/{username} | Modify Admin|
+|[**modifyAdminById**](#modifyadminbyid) | **PUT** /api/admin/by-id/{admin_id} | Modify Admin By Id|
+|[**modifyAdminByUsername**](#modifyadminbyusername) | **PUT** /api/admin/by-username/{username} | Modify Admin By Username|
 |[**removeAdmin**](#removeadmin) | **DELETE** /api/admin/{username} | Remove Admin|
+|[**removeAdminById**](#removeadminbyid) | **DELETE** /api/admin/by-id/{admin_id} | Remove Admin By Id|
+|[**removeAdminByUsername**](#removeadminbyusername) | **DELETE** /api/admin/by-username/{username} | Remove Admin By Username|
 |[**removeAllUsers**](#removeallusers) | **DELETE** /api/admin/{username}/users | Remove All Users|
+|[**removeAllUsersById**](#removeallusersbyid) | **DELETE** /api/admin/by-id/{admin_id}/users | Remove All Users By Id|
+|[**removeAllUsersByUsername**](#removeallusersbyusername) | **DELETE** /api/admin/by-username/{username}/users | Remove All Users By Username|
 |[**resetAdminUsage**](#resetadminusage) | **POST** /api/admin/{username}/reset | Reset Admin Usage|
+|[**resetAdminUsageById**](#resetadminusagebyid) | **POST** /api/admin/by-id/{admin_id}/reset | Reset Admin Usage By Id|
+|[**resetAdminUsageByUsername**](#resetadminusagebyusername) | **POST** /api/admin/by-username/{username}/reset | Reset Admin Usage By Username|
 
 # **activateAllDisabledUsers**
 > any activateAllDisabledUsers()
@@ -44,6 +58,114 @@ const apiInstance = new AdminApi(configuration);
 let username: string; // (default to undefined)
 
 const { status, data } = await apiInstance.activateAllDisabledUsers(
+    username
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **username** | [**string**] |  | defaults to undefined|
+
+
+### Return type
+
+**any**
+
+### Authorization
+
+[OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**401** | Unauthorized Error |  * WWW-Authenticate - Authentication type <br>  |
+|**403** | Forbidden Error |  -  |
+|**404** | NotFound Error |  -  |
+|**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **activateAllDisabledUsersById**
+> any activateAllDisabledUsersById()
+
+
+### Example
+
+```typescript
+import {
+    AdminApi,
+    Configuration
+} from './api';
+
+const configuration = new Configuration();
+const apiInstance = new AdminApi(configuration);
+
+let adminId: number; // (default to undefined)
+
+const { status, data } = await apiInstance.activateAllDisabledUsersById(
+    adminId
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **adminId** | [**number**] |  | defaults to undefined|
+
+
+### Return type
+
+**any**
+
+### Authorization
+
+[OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**401** | Unauthorized Error |  * WWW-Authenticate - Authentication type <br>  |
+|**403** | Forbidden Error |  -  |
+|**404** | NotFound Error |  -  |
+|**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **activateAllDisabledUsersByUsername**
+> any activateAllDisabledUsersByUsername()
+
+
+### Example
+
+```typescript
+import {
+    AdminApi,
+    Configuration
+} from './api';
+
+const configuration = new Configuration();
+const apiInstance = new AdminApi(configuration);
+
+let username: string; // (default to undefined)
+
+const { status, data } = await apiInstance.activateAllDisabledUsersByUsername(
     username
 );
 ```
@@ -714,6 +836,114 @@ const { status, data } = await apiInstance.disableAllActiveUsers(
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **disableAllActiveUsersById**
+> any disableAllActiveUsersById()
+
+
+### Example
+
+```typescript
+import {
+    AdminApi,
+    Configuration
+} from './api';
+
+const configuration = new Configuration();
+const apiInstance = new AdminApi(configuration);
+
+let adminId: number; // (default to undefined)
+
+const { status, data } = await apiInstance.disableAllActiveUsersById(
+    adminId
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **adminId** | [**number**] |  | defaults to undefined|
+
+
+### Return type
+
+**any**
+
+### Authorization
+
+[OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**401** | Unauthorized Error |  * WWW-Authenticate - Authentication type <br>  |
+|**403** | Forbidden Error |  -  |
+|**404** | NotFound Error |  -  |
+|**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **disableAllActiveUsersByUsername**
+> any disableAllActiveUsersByUsername()
+
+
+### Example
+
+```typescript
+import {
+    AdminApi,
+    Configuration
+} from './api';
+
+const configuration = new Configuration();
+const apiInstance = new AdminApi(configuration);
+
+let username: string; // (default to undefined)
+
+const { status, data } = await apiInstance.disableAllActiveUsersByUsername(
+    username
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **username** | [**string**] |  | defaults to undefined|
+
+
+### Return type
+
+**any**
+
+### Authorization
+
+[OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**401** | Unauthorized Error |  * WWW-Authenticate - Authentication type <br>  |
+|**403** | Forbidden Error |  -  |
+|**404** | NotFound Error |  -  |
+|**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **getAdminUsage**
 > UserUsageStatsList getAdminUsage()
 
@@ -738,6 +968,144 @@ let start: string; // (optional) (default to undefined)
 let end: string; // (optional) (default to undefined)
 
 const { status, data } = await apiInstance.getAdminUsage(
+    username,
+    period,
+    nodeId,
+    groupByNode,
+    start,
+    end
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **username** | [**string**] |  | defaults to undefined|
+| **period** | **Period** |  | defaults to undefined|
+| **nodeId** | [**number**] |  | (optional) defaults to undefined|
+| **groupByNode** | [**boolean**] |  | (optional) defaults to false|
+| **start** | [**string**] |  | (optional) defaults to undefined|
+| **end** | [**string**] |  | (optional) defaults to undefined|
+
+
+### Return type
+
+**UserUsageStatsList**
+
+### Authorization
+
+[OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**401** | Unauthorized Error |  * WWW-Authenticate - Authentication type <br>  |
+|**403** | Forbidden Error |  -  |
+|**404** | NotFound Error |  -  |
+|**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **getAdminUsageById**
+> UserUsageStatsList getAdminUsageById()
+
+
+### Example
+
+```typescript
+import {
+    AdminApi,
+    Configuration
+} from './api';
+
+const configuration = new Configuration();
+const apiInstance = new AdminApi(configuration);
+
+let adminId: number; // (default to undefined)
+let period: Period; // (default to undefined)
+let nodeId: number; // (optional) (default to undefined)
+let groupByNode: boolean; // (optional) (default to false)
+let start: string; // (optional) (default to undefined)
+let end: string; // (optional) (default to undefined)
+
+const { status, data } = await apiInstance.getAdminUsageById(
+    adminId,
+    period,
+    nodeId,
+    groupByNode,
+    start,
+    end
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **adminId** | [**number**] |  | defaults to undefined|
+| **period** | **Period** |  | defaults to undefined|
+| **nodeId** | [**number**] |  | (optional) defaults to undefined|
+| **groupByNode** | [**boolean**] |  | (optional) defaults to false|
+| **start** | [**string**] |  | (optional) defaults to undefined|
+| **end** | [**string**] |  | (optional) defaults to undefined|
+
+
+### Return type
+
+**UserUsageStatsList**
+
+### Authorization
+
+[OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**401** | Unauthorized Error |  * WWW-Authenticate - Authentication type <br>  |
+|**403** | Forbidden Error |  -  |
+|**404** | NotFound Error |  -  |
+|**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **getAdminUsageByUsername**
+> UserUsageStatsList getAdminUsageByUsername()
+
+
+### Example
+
+```typescript
+import {
+    AdminApi,
+    Configuration
+} from './api';
+
+const configuration = new Configuration();
+const apiInstance = new AdminApi(configuration);
+
+let username: string; // (default to undefined)
+let period: Period; // (default to undefined)
+let nodeId: number; // (optional) (default to undefined)
+let groupByNode: boolean; // (optional) (default to false)
+let start: string; // (optional) (default to undefined)
+let end: string; // (optional) (default to undefined)
+
+const { status, data } = await apiInstance.getAdminUsageByUsername(
     username,
     period,
     nodeId,
@@ -1019,6 +1387,124 @@ const { status, data } = await apiInstance.modifyAdmin(
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **modifyAdminById**
+> AdminDetails modifyAdminById(adminModify)
+
+
+### Example
+
+```typescript
+import {
+    AdminApi,
+    Configuration,
+    AdminModify
+} from './api';
+
+const configuration = new Configuration();
+const apiInstance = new AdminApi(configuration);
+
+let adminId: number; // (default to undefined)
+let adminModify: AdminModify; //
+
+const { status, data } = await apiInstance.modifyAdminById(
+    adminId,
+    adminModify
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **adminModify** | **AdminModify**|  | |
+| **adminId** | [**number**] |  | defaults to undefined|
+
+
+### Return type
+
+**AdminDetails**
+
+### Authorization
+
+[OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**401** | Unauthorized Error |  * WWW-Authenticate - Authentication type <br>  |
+|**403** | Forbidden Error |  -  |
+|**404** | NotFound Error |  -  |
+|**409** | Conflict Error |  -  |
+|**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **modifyAdminByUsername**
+> AdminDetails modifyAdminByUsername(adminModify)
+
+
+### Example
+
+```typescript
+import {
+    AdminApi,
+    Configuration,
+    AdminModify
+} from './api';
+
+const configuration = new Configuration();
+const apiInstance = new AdminApi(configuration);
+
+let username: string; // (default to undefined)
+let adminModify: AdminModify; //
+
+const { status, data } = await apiInstance.modifyAdminByUsername(
+    username,
+    adminModify
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **adminModify** | **AdminModify**|  | |
+| **username** | [**string**] |  | defaults to undefined|
+
+
+### Return type
+
+**AdminDetails**
+
+### Authorization
+
+[OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**401** | Unauthorized Error |  * WWW-Authenticate - Authentication type <br>  |
+|**403** | Forbidden Error |  -  |
+|**404** | NotFound Error |  -  |
+|**409** | Conflict Error |  -  |
+|**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **removeAdmin**
 > removeAdmin()
 
@@ -1038,6 +1524,112 @@ const apiInstance = new AdminApi(configuration);
 let username: string; // (default to undefined)
 
 const { status, data } = await apiInstance.removeAdmin(
+    username
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **username** | [**string**] |  | defaults to undefined|
+
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**204** | Successful Response |  -  |
+|**401** | Unauthorized Error |  * WWW-Authenticate - Authentication type <br>  |
+|**403** | Forbidden Error |  -  |
+|**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **removeAdminById**
+> removeAdminById()
+
+
+### Example
+
+```typescript
+import {
+    AdminApi,
+    Configuration
+} from './api';
+
+const configuration = new Configuration();
+const apiInstance = new AdminApi(configuration);
+
+let adminId: number; // (default to undefined)
+
+const { status, data } = await apiInstance.removeAdminById(
+    adminId
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **adminId** | [**number**] |  | defaults to undefined|
+
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**204** | Successful Response |  -  |
+|**401** | Unauthorized Error |  * WWW-Authenticate - Authentication type <br>  |
+|**403** | Forbidden Error |  -  |
+|**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **removeAdminByUsername**
+> removeAdminByUsername()
+
+
+### Example
+
+```typescript
+import {
+    AdminApi,
+    Configuration
+} from './api';
+
+const configuration = new Configuration();
+const apiInstance = new AdminApi(configuration);
+
+let username: string; // (default to undefined)
+
+const { status, data } = await apiInstance.removeAdminByUsername(
     username
 );
 ```
@@ -1128,6 +1720,114 @@ const { status, data } = await apiInstance.removeAllUsers(
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **removeAllUsersById**
+> any removeAllUsersById()
+
+
+### Example
+
+```typescript
+import {
+    AdminApi,
+    Configuration
+} from './api';
+
+const configuration = new Configuration();
+const apiInstance = new AdminApi(configuration);
+
+let adminId: number; // (default to undefined)
+
+const { status, data } = await apiInstance.removeAllUsersById(
+    adminId
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **adminId** | [**number**] |  | defaults to undefined|
+
+
+### Return type
+
+**any**
+
+### Authorization
+
+[OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**401** | Unauthorized Error |  * WWW-Authenticate - Authentication type <br>  |
+|**403** | Forbidden Error |  -  |
+|**404** | NotFound Error |  -  |
+|**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **removeAllUsersByUsername**
+> any removeAllUsersByUsername()
+
+
+### Example
+
+```typescript
+import {
+    AdminApi,
+    Configuration
+} from './api';
+
+const configuration = new Configuration();
+const apiInstance = new AdminApi(configuration);
+
+let username: string; // (default to undefined)
+
+const { status, data } = await apiInstance.removeAllUsersByUsername(
+    username
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **username** | [**string**] |  | defaults to undefined|
+
+
+### Return type
+
+**any**
+
+### Authorization
+
+[OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**401** | Unauthorized Error |  * WWW-Authenticate - Authentication type <br>  |
+|**403** | Forbidden Error |  -  |
+|**404** | NotFound Error |  -  |
+|**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **resetAdminUsage**
 > AdminDetails resetAdminUsage()
 
@@ -1147,6 +1847,114 @@ const apiInstance = new AdminApi(configuration);
 let username: string; // (default to undefined)
 
 const { status, data } = await apiInstance.resetAdminUsage(
+    username
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **username** | [**string**] |  | defaults to undefined|
+
+
+### Return type
+
+**AdminDetails**
+
+### Authorization
+
+[OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**401** | Unauthorized Error |  * WWW-Authenticate - Authentication type <br>  |
+|**403** | Forbidden Error |  -  |
+|**404** | NotFound Error |  -  |
+|**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **resetAdminUsageById**
+> AdminDetails resetAdminUsageById()
+
+
+### Example
+
+```typescript
+import {
+    AdminApi,
+    Configuration
+} from './api';
+
+const configuration = new Configuration();
+const apiInstance = new AdminApi(configuration);
+
+let adminId: number; // (default to undefined)
+
+const { status, data } = await apiInstance.resetAdminUsageById(
+    adminId
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **adminId** | [**number**] |  | defaults to undefined|
+
+
+### Return type
+
+**AdminDetails**
+
+### Authorization
+
+[OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**401** | Unauthorized Error |  * WWW-Authenticate - Authentication type <br>  |
+|**403** | Forbidden Error |  -  |
+|**404** | NotFound Error |  -  |
+|**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **resetAdminUsageByUsername**
+> AdminDetails resetAdminUsageByUsername()
+
+
+### Example
+
+```typescript
+import {
+    AdminApi,
+    Configuration
+} from './api';
+
+const configuration = new Configuration();
+const apiInstance = new AdminApi(configuration);
+
+let username: string; // (default to undefined)
+
+const { status, data } = await apiInstance.resetAdminUsageByUsername(
     username
 );
 ```

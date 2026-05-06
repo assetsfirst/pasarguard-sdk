@@ -5,6 +5,8 @@ All URIs are relative to *http://localhost*
 |Method | HTTP request | Description|
 |------------- | ------------- | -------------|
 |[**activeNextPlan**](#activenextplan) | **POST** /api/user/{username}/active_next | Active Next Plan|
+|[**activeNextPlanById**](#activenextplanbyid) | **POST** /api/user/by-id/{user_id}/active_next | Active Next Plan By Id|
+|[**activeNextPlanByUsername**](#activenextplanbyusername) | **POST** /api/user/by-username/{username}/active_next | Active Next Plan By Username|
 |[**bulkApplyTemplateToUsers**](#bulkapplytemplatetousers) | **POST** /api/users/bulk/apply_template | Bulk Apply Template To Users|
 |[**bulkCreateUsersFromTemplate**](#bulkcreateusersfromtemplate) | **POST** /api/users/bulk/from_template | Bulk Create Users From Template|
 |[**bulkDeleteUsers**](#bulkdeleteusers) | **POST** /api/users/bulk/delete | Bulk Delete Users|
@@ -22,19 +24,38 @@ All URIs are relative to *http://localhost*
 |[**deleteExpiredUsers**](#deleteexpiredusers) | **DELETE** /api/users/expired | Delete Expired Users|
 |[**getExpiredUsers**](#getexpiredusers) | **GET** /api/users/expired | Get Expired Users|
 |[**getUser**](#getuser) | **GET** /api/user/{username} | Get User|
+|[**getUserById**](#getuserbyid) | **GET** /api/user/by-id/{user_id} | Get User By Id|
+|[**getUserByUsername**](#getuserbyusername) | **GET** /api/user/by-username/{username} | Get User By Username|
 |[**getUserSubUpdateList**](#getusersubupdatelist) | **GET** /api/user/{username}/sub_update | Get User Sub Update List|
+|[**getUserSubUpdateListById**](#getusersubupdatelistbyid) | **GET** /api/user/by-id/{user_id}/sub_update | Get User Sub Update List By Id|
+|[**getUserSubUpdateListByUsername**](#getusersubupdatelistbyusername) | **GET** /api/user/by-username/{username}/sub_update | Get User Sub Update List By Username|
+|[**getUserSubscriptionById**](#getusersubscriptionbyid) | **GET** /api/user/{user_id}/subscription/{client_type} | Get User Subscription By Id|
 |[**getUserUsage**](#getuserusage) | **GET** /api/user/{username}/usage | Get User Usage|
+|[**getUserUsageById**](#getuserusagebyid) | **GET** /api/user/by-id/{user_id}/usage | Get User Usage By Id|
+|[**getUserUsageByUsername**](#getuserusagebyusername) | **GET** /api/user/by-username/{username}/usage | Get User Usage By Username|
 |[**getUsers**](#getusers) | **GET** /api/users | Get Users|
 |[**getUsersSimple**](#getuserssimple) | **GET** /api/users/simple | Get lightweight user list|
 |[**getUsersSubUpdateChart**](#getuserssubupdatechart) | **GET** /api/users/sub_update/chart | Get Users Sub Update Chart|
 |[**getUsersUsage**](#getusersusage) | **GET** /api/users/usage | Get Users Usage|
 |[**modifyUser**](#modifyuser) | **PUT** /api/user/{username} | Modify User|
+|[**modifyUserById**](#modifyuserbyid) | **PUT** /api/user/by-id/{user_id} | Modify User By Id|
+|[**modifyUserByUsername**](#modifyuserbyusername) | **PUT** /api/user/by-username/{username} | Modify User By Username|
 |[**modifyUserWithTemplate**](#modifyuserwithtemplate) | **PUT** /api/user/from_template/{username} | Modify User With Template|
+|[**modifyUserWithTemplateById**](#modifyuserwithtemplatebyid) | **PUT** /api/user/from_template/by-id/{user_id} | Modify User With Template By Id|
+|[**modifyUserWithTemplateByUsername**](#modifyuserwithtemplatebyusername) | **PUT** /api/user/from_template/by-username/{username} | Modify User With Template By Username|
 |[**removeUser**](#removeuser) | **DELETE** /api/user/{username} | Remove User|
+|[**removeUserById**](#removeuserbyid) | **DELETE** /api/user/by-id/{user_id} | Remove User By Id|
+|[**removeUserByUsername**](#removeuserbyusername) | **DELETE** /api/user/by-username/{username} | Remove User By Username|
 |[**resetUserDataUsage**](#resetuserdatausage) | **POST** /api/user/{username}/reset | Reset User Data Usage|
+|[**resetUserDataUsageById**](#resetuserdatausagebyid) | **POST** /api/user/by-id/{user_id}/reset | Reset User Data Usage By Id|
+|[**resetUserDataUsageByUsername**](#resetuserdatausagebyusername) | **POST** /api/user/by-username/{username}/reset | Reset User Data Usage By Username|
 |[**resetUsersDataUsage**](#resetusersdatausage) | **POST** /api/users/reset | Reset Users Data Usage|
 |[**revokeUserSubscription**](#revokeusersubscription) | **POST** /api/user/{username}/revoke_sub | Revoke User Subscription|
+|[**revokeUserSubscriptionById**](#revokeusersubscriptionbyid) | **POST** /api/user/by-id/{user_id}/revoke_sub | Revoke User Subscription By Id|
+|[**revokeUserSubscriptionByUsername**](#revokeusersubscriptionbyusername) | **POST** /api/user/by-username/{username}/revoke_sub | Revoke User Subscription By Username|
 |[**setOwner**](#setowner) | **PUT** /api/user/{username}/set_owner | Set Owner|
+|[**setOwnerById**](#setownerbyid) | **PUT** /api/user/by-id/{user_id}/set_owner | Set Owner By Id|
+|[**setOwnerByUsername**](#setownerbyusername) | **PUT** /api/user/by-username/{username}/set_owner | Set Owner By Username|
 
 # **activeNextPlan**
 > UserResponse activeNextPlan()
@@ -55,6 +76,114 @@ const apiInstance = new UserApi(configuration);
 let username: string; // (default to undefined)
 
 const { status, data } = await apiInstance.activeNextPlan(
+    username
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **username** | [**string**] |  | defaults to undefined|
+
+
+### Return type
+
+**UserResponse**
+
+### Authorization
+
+[OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**401** | Unauthorized Error |  * WWW-Authenticate - Authentication type <br>  |
+|**403** | Forbidden Error |  -  |
+|**404** | NotFound Error |  -  |
+|**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **activeNextPlanById**
+> UserResponse activeNextPlanById()
+
+
+### Example
+
+```typescript
+import {
+    UserApi,
+    Configuration
+} from './api';
+
+const configuration = new Configuration();
+const apiInstance = new UserApi(configuration);
+
+let userId: number; // (default to undefined)
+
+const { status, data } = await apiInstance.activeNextPlanById(
+    userId
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **userId** | [**number**] |  | defaults to undefined|
+
+
+### Return type
+
+**UserResponse**
+
+### Authorization
+
+[OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**401** | Unauthorized Error |  * WWW-Authenticate - Authentication type <br>  |
+|**403** | Forbidden Error |  -  |
+|**404** | NotFound Error |  -  |
+|**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **activeNextPlanByUsername**
+> UserResponse activeNextPlanByUsername()
+
+
+### Example
+
+```typescript
+import {
+    UserApi,
+    Configuration
+} from './api';
+
+const configuration = new Configuration();
+const apiInstance = new UserApi(configuration);
+
+let username: string; // (default to undefined)
+
+const { status, data } = await apiInstance.activeNextPlanByUsername(
     username
 );
 ```
@@ -380,7 +509,7 @@ const { status, data } = await apiInstance.bulkEnableUsers(
 # **bulkModifyUsersDatalimit**
 > any bulkModifyUsersDatalimit(bulkUser)
 
-Bulk modify users\' data limit based on the provided criteria.  - **amount**: amount to adjust the user\'s quota (positive to increase, negative to decrease) required - **user_ids**: Optional list of user IDs to modify - **admins**: Optional list of admin IDs — their users will be targeted - **status**: Optional status to filter users (e.g., \"expired\", \"active\"), Empty means no filtering - **group_ids**: Optional list of group IDs to filter users by their group membership - **expired_after**: Optional UTC datetime to filter users who expired after this date (works only if \"expired\" status is selected) - **expired_before**: Optional UTC datetime to filter users who expired before this date (works only if \"expired\" status is selected)
+Bulk modify users\' data limit based on the provided criteria.  - **amount**: amount to adjust the user\'s quota (positive to increase, negative to decrease) required - **user_ids**: Optional list of user IDs to modify - **admins**: Optional list of admin IDs — their users will be targeted - **status**: Optional status to filter users (e.g., \"expired\", \"active\"), Empty means no filtering - **group_ids**: Optional list of group IDs to filter users by their group membership - **expire_after**: Optional UTC datetime to filter users whose expire date is on or after this date - **expire_before**: Optional UTC datetime to filter users whose expire date is on or before this date
 
 ### Example
 
@@ -434,7 +563,7 @@ const { status, data } = await apiInstance.bulkModifyUsersDatalimit(
 # **bulkModifyUsersExpire**
 > any bulkModifyUsersExpire(bulkUser)
 
-Bulk expire users based on the provided criteria.  - **amount**: amount to adjust the user\'s quota (in seconds, positive to increase, negative to decrease) required - **user_ids**: Optional list of user IDs to modify - **admins**: Optional list of admin IDs — their users will be targeted - **status**: Optional status to filter users (e.g., \"expired\", \"active\"), Empty means no filtering - **group_ids**: Optional list of group IDs to filter users by their group membership - **expired_after**: Optional UTC datetime to filter users who expired after this date (works only if \"expired\" status is selected) - **expired_before**: Optional UTC datetime to filter users who expired before this date (works only if \"expired\" status is selected)
+Bulk expire users based on the provided criteria.  - **amount**: amount to adjust the user\'s quota (in seconds, positive to increase, negative to decrease) required - **user_ids**: Optional list of user IDs to modify - **admins**: Optional list of admin IDs — their users will be targeted - **status**: Optional status to filter users (e.g., \"expired\", \"active\"), Empty means no filtering - **group_ids**: Optional list of group IDs to filter users by their group membership - **expire_after**: Optional UTC datetime to filter users whose expire date is on or after this date - **expire_before**: Optional UTC datetime to filter users whose expire date is on or before this date
 
 ### Example
 
@@ -1051,6 +1180,114 @@ const { status, data } = await apiInstance.getUser(
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **getUserById**
+> UserResponse getUserById()
+
+
+### Example
+
+```typescript
+import {
+    UserApi,
+    Configuration
+} from './api';
+
+const configuration = new Configuration();
+const apiInstance = new UserApi(configuration);
+
+let userId: number; // (default to undefined)
+
+const { status, data } = await apiInstance.getUserById(
+    userId
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **userId** | [**number**] |  | defaults to undefined|
+
+
+### Return type
+
+**UserResponse**
+
+### Authorization
+
+[OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**401** | Unauthorized Error |  * WWW-Authenticate - Authentication type <br>  |
+|**403** | Forbidden Error |  -  |
+|**404** | NotFound Error |  -  |
+|**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **getUserByUsername**
+> UserResponse getUserByUsername()
+
+
+### Example
+
+```typescript
+import {
+    UserApi,
+    Configuration
+} from './api';
+
+const configuration = new Configuration();
+const apiInstance = new UserApi(configuration);
+
+let username: string; // (default to undefined)
+
+const { status, data } = await apiInstance.getUserByUsername(
+    username
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **username** | [**string**] |  | defaults to undefined|
+
+
+### Return type
+
+**UserResponse**
+
+### Authorization
+
+[OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**401** | Unauthorized Error |  * WWW-Authenticate - Authentication type <br>  |
+|**403** | Forbidden Error |  -  |
+|**404** | NotFound Error |  -  |
+|**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **getUserSubUpdateList**
 > UserSubscriptionUpdateList getUserSubUpdateList()
 
@@ -1112,6 +1349,184 @@ const { status, data } = await apiInstance.getUserSubUpdateList(
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **getUserSubUpdateListById**
+> UserSubscriptionUpdateList getUserSubUpdateListById()
+
+
+### Example
+
+```typescript
+import {
+    UserApi,
+    Configuration
+} from './api';
+
+const configuration = new Configuration();
+const apiInstance = new UserApi(configuration);
+
+let userId: number; // (default to undefined)
+let offset: number; // (optional) (default to 0)
+let limit: number; // (optional) (default to 10)
+
+const { status, data } = await apiInstance.getUserSubUpdateListById(
+    userId,
+    offset,
+    limit
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **userId** | [**number**] |  | defaults to undefined|
+| **offset** | [**number**] |  | (optional) defaults to 0|
+| **limit** | [**number**] |  | (optional) defaults to 10|
+
+
+### Return type
+
+**UserSubscriptionUpdateList**
+
+### Authorization
+
+[OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**401** | Unauthorized Error |  * WWW-Authenticate - Authentication type <br>  |
+|**403** | Forbidden Error |  -  |
+|**404** | NotFound Error |  -  |
+|**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **getUserSubUpdateListByUsername**
+> UserSubscriptionUpdateList getUserSubUpdateListByUsername()
+
+
+### Example
+
+```typescript
+import {
+    UserApi,
+    Configuration
+} from './api';
+
+const configuration = new Configuration();
+const apiInstance = new UserApi(configuration);
+
+let username: string; // (default to undefined)
+let offset: number; // (optional) (default to 0)
+let limit: number; // (optional) (default to 10)
+
+const { status, data } = await apiInstance.getUserSubUpdateListByUsername(
+    username,
+    offset,
+    limit
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **username** | [**string**] |  | defaults to undefined|
+| **offset** | [**number**] |  | (optional) defaults to 0|
+| **limit** | [**number**] |  | (optional) defaults to 10|
+
+
+### Return type
+
+**UserSubscriptionUpdateList**
+
+### Authorization
+
+[OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**401** | Unauthorized Error |  * WWW-Authenticate - Authentication type <br>  |
+|**403** | Forbidden Error |  -  |
+|**404** | NotFound Error |  -  |
+|**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **getUserSubscriptionById**
+> any getUserSubscriptionById()
+
+Get a user\'s subscription content in the requested format.
+
+### Example
+
+```typescript
+import {
+    UserApi,
+    Configuration
+} from './api';
+
+const configuration = new Configuration();
+const apiInstance = new UserApi(configuration);
+
+let userId: number; // (default to undefined)
+let clientType: ConfigFormat; // (default to undefined)
+
+const { status, data } = await apiInstance.getUserSubscriptionById(
+    userId,
+    clientType
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **userId** | [**number**] |  | defaults to undefined|
+| **clientType** | **ConfigFormat** |  | defaults to undefined|
+
+
+### Return type
+
+**any**
+
+### Authorization
+
+[OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**401** | Unauthorized Error |  * WWW-Authenticate - Authentication type <br>  |
+|**403** | Forbidden Error |  -  |
+|**404** | NotFound Error |  -  |
+|**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **getUserUsage**
 > UserUsageStatsList getUserUsage()
 
@@ -1136,6 +1551,144 @@ let start: string; // (optional) (default to undefined)
 let end: string; // (optional) (default to undefined)
 
 const { status, data } = await apiInstance.getUserUsage(
+    username,
+    period,
+    nodeId,
+    groupByNode,
+    start,
+    end
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **username** | [**string**] |  | defaults to undefined|
+| **period** | **Period** |  | defaults to undefined|
+| **nodeId** | [**number**] |  | (optional) defaults to undefined|
+| **groupByNode** | [**boolean**] |  | (optional) defaults to false|
+| **start** | [**string**] |  | (optional) defaults to undefined|
+| **end** | [**string**] |  | (optional) defaults to undefined|
+
+
+### Return type
+
+**UserUsageStatsList**
+
+### Authorization
+
+[OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**401** | Unauthorized Error |  * WWW-Authenticate - Authentication type <br>  |
+|**403** | Forbidden Error |  -  |
+|**404** | NotFound Error |  -  |
+|**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **getUserUsageById**
+> UserUsageStatsList getUserUsageById()
+
+
+### Example
+
+```typescript
+import {
+    UserApi,
+    Configuration
+} from './api';
+
+const configuration = new Configuration();
+const apiInstance = new UserApi(configuration);
+
+let userId: number; // (default to undefined)
+let period: Period; // (default to undefined)
+let nodeId: number; // (optional) (default to undefined)
+let groupByNode: boolean; // (optional) (default to false)
+let start: string; // (optional) (default to undefined)
+let end: string; // (optional) (default to undefined)
+
+const { status, data } = await apiInstance.getUserUsageById(
+    userId,
+    period,
+    nodeId,
+    groupByNode,
+    start,
+    end
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **userId** | [**number**] |  | defaults to undefined|
+| **period** | **Period** |  | defaults to undefined|
+| **nodeId** | [**number**] |  | (optional) defaults to undefined|
+| **groupByNode** | [**boolean**] |  | (optional) defaults to false|
+| **start** | [**string**] |  | (optional) defaults to undefined|
+| **end** | [**string**] |  | (optional) defaults to undefined|
+
+
+### Return type
+
+**UserUsageStatsList**
+
+### Authorization
+
+[OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**401** | Unauthorized Error |  * WWW-Authenticate - Authentication type <br>  |
+|**403** | Forbidden Error |  -  |
+|**404** | NotFound Error |  -  |
+|**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **getUserUsageByUsername**
+> UserUsageStatsList getUserUsageByUsername()
+
+
+### Example
+
+```typescript
+import {
+    UserApi,
+    Configuration
+} from './api';
+
+const configuration = new Configuration();
+const apiInstance = new UserApi(configuration);
+
+let username: string; // (default to undefined)
+let period: Period; // (default to undefined)
+let nodeId: number; // (optional) (default to undefined)
+let groupByNode: boolean; // (optional) (default to false)
+let start: string; // (optional) (default to undefined)
+let end: string; // (optional) (default to undefined)
+
+const { status, data } = await apiInstance.getUserUsageByUsername(
     username,
     period,
     nodeId,
@@ -1335,7 +1888,7 @@ const { status, data } = await apiInstance.getUsersSimple(
 # **getUsersSubUpdateChart**
 > UserSubscriptionUpdateChart getUsersSubUpdateChart()
 
-Get subscription agent distribution percentages (optionally filtered by username)
+Get subscription agent distribution percentages (optionally filtered by user_id/username).
 
 ### Example
 
@@ -1348,10 +1901,12 @@ import {
 const configuration = new Configuration();
 const apiInstance = new UserApi(configuration);
 
+let userId: number; // (optional) (default to undefined)
 let username: string; // (optional) (default to undefined)
 let adminId: number; // (optional) (default to undefined)
 
 const { status, data } = await apiInstance.getUsersSubUpdateChart(
+    userId,
     username,
     adminId
 );
@@ -1361,6 +1916,7 @@ const { status, data } = await apiInstance.getUsersSubUpdateChart(
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
+| **userId** | [**number**] |  | (optional) defaults to undefined|
 | **username** | [**string**] |  | (optional) defaults to undefined|
 | **adminId** | [**number**] |  | (optional) defaults to undefined|
 
@@ -1518,6 +2074,124 @@ const { status, data } = await apiInstance.modifyUser(
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **modifyUserById**
+> UserResponse modifyUserById(userModify)
+
+
+### Example
+
+```typescript
+import {
+    UserApi,
+    Configuration,
+    UserModify
+} from './api';
+
+const configuration = new Configuration();
+const apiInstance = new UserApi(configuration);
+
+let userId: number; // (default to undefined)
+let userModify: UserModify; //
+
+const { status, data } = await apiInstance.modifyUserById(
+    userId,
+    userModify
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **userModify** | **UserModify**|  | |
+| **userId** | [**number**] |  | defaults to undefined|
+
+
+### Return type
+
+**UserResponse**
+
+### Authorization
+
+[OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**401** | Unauthorized Error |  * WWW-Authenticate - Authentication type <br>  |
+|**400** | BadRequest Error |  -  |
+|**403** | Forbidden Error |  -  |
+|**404** | NotFound Error |  -  |
+|**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **modifyUserByUsername**
+> UserResponse modifyUserByUsername(userModify)
+
+
+### Example
+
+```typescript
+import {
+    UserApi,
+    Configuration,
+    UserModify
+} from './api';
+
+const configuration = new Configuration();
+const apiInstance = new UserApi(configuration);
+
+let username: string; // (default to undefined)
+let userModify: UserModify; //
+
+const { status, data } = await apiInstance.modifyUserByUsername(
+    username,
+    userModify
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **userModify** | **UserModify**|  | |
+| **username** | [**string**] |  | defaults to undefined|
+
+
+### Return type
+
+**UserResponse**
+
+### Authorization
+
+[OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**401** | Unauthorized Error |  * WWW-Authenticate - Authentication type <br>  |
+|**400** | BadRequest Error |  -  |
+|**403** | Forbidden Error |  -  |
+|**404** | NotFound Error |  -  |
+|**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **modifyUserWithTemplate**
 > UserResponse modifyUserWithTemplate(modifyUserByTemplate)
 
@@ -1538,6 +2212,118 @@ let username: string; // (default to undefined)
 let modifyUserByTemplate: ModifyUserByTemplate; //
 
 const { status, data } = await apiInstance.modifyUserWithTemplate(
+    username,
+    modifyUserByTemplate
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **modifyUserByTemplate** | **ModifyUserByTemplate**|  | |
+| **username** | [**string**] |  | defaults to undefined|
+
+
+### Return type
+
+**UserResponse**
+
+### Authorization
+
+[OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**401** | Unauthorized Error |  * WWW-Authenticate - Authentication type <br>  |
+|**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **modifyUserWithTemplateById**
+> UserResponse modifyUserWithTemplateById(modifyUserByTemplate)
+
+
+### Example
+
+```typescript
+import {
+    UserApi,
+    Configuration,
+    ModifyUserByTemplate
+} from './api';
+
+const configuration = new Configuration();
+const apiInstance = new UserApi(configuration);
+
+let userId: number; // (default to undefined)
+let modifyUserByTemplate: ModifyUserByTemplate; //
+
+const { status, data } = await apiInstance.modifyUserWithTemplateById(
+    userId,
+    modifyUserByTemplate
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **modifyUserByTemplate** | **ModifyUserByTemplate**|  | |
+| **userId** | [**number**] |  | defaults to undefined|
+
+
+### Return type
+
+**UserResponse**
+
+### Authorization
+
+[OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**401** | Unauthorized Error |  * WWW-Authenticate - Authentication type <br>  |
+|**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **modifyUserWithTemplateByUsername**
+> UserResponse modifyUserWithTemplateByUsername(modifyUserByTemplate)
+
+
+### Example
+
+```typescript
+import {
+    UserApi,
+    Configuration,
+    ModifyUserByTemplate
+} from './api';
+
+const configuration = new Configuration();
+const apiInstance = new UserApi(configuration);
+
+let username: string; // (default to undefined)
+let modifyUserByTemplate: ModifyUserByTemplate; //
+
+const { status, data } = await apiInstance.modifyUserWithTemplateByUsername(
     username,
     modifyUserByTemplate
 );
@@ -1629,6 +2415,114 @@ void (empty response body)
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **removeUserById**
+> removeUserById()
+
+
+### Example
+
+```typescript
+import {
+    UserApi,
+    Configuration
+} from './api';
+
+const configuration = new Configuration();
+const apiInstance = new UserApi(configuration);
+
+let userId: number; // (default to undefined)
+
+const { status, data } = await apiInstance.removeUserById(
+    userId
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **userId** | [**number**] |  | defaults to undefined|
+
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**204** | Successful Response |  -  |
+|**401** | Unauthorized Error |  * WWW-Authenticate - Authentication type <br>  |
+|**403** | Forbidden Error |  -  |
+|**404** | NotFound Error |  -  |
+|**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **removeUserByUsername**
+> removeUserByUsername()
+
+
+### Example
+
+```typescript
+import {
+    UserApi,
+    Configuration
+} from './api';
+
+const configuration = new Configuration();
+const apiInstance = new UserApi(configuration);
+
+let username: string; // (default to undefined)
+
+const { status, data } = await apiInstance.removeUserByUsername(
+    username
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **username** | [**string**] |  | defaults to undefined|
+
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**204** | Successful Response |  -  |
+|**401** | Unauthorized Error |  * WWW-Authenticate - Authentication type <br>  |
+|**403** | Forbidden Error |  -  |
+|**404** | NotFound Error |  -  |
+|**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **resetUserDataUsage**
 > UserResponse resetUserDataUsage()
 
@@ -1648,6 +2542,114 @@ const apiInstance = new UserApi(configuration);
 let username: string; // (default to undefined)
 
 const { status, data } = await apiInstance.resetUserDataUsage(
+    username
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **username** | [**string**] |  | defaults to undefined|
+
+
+### Return type
+
+**UserResponse**
+
+### Authorization
+
+[OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**401** | Unauthorized Error |  * WWW-Authenticate - Authentication type <br>  |
+|**403** | Forbidden Error |  -  |
+|**404** | NotFound Error |  -  |
+|**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **resetUserDataUsageById**
+> UserResponse resetUserDataUsageById()
+
+
+### Example
+
+```typescript
+import {
+    UserApi,
+    Configuration
+} from './api';
+
+const configuration = new Configuration();
+const apiInstance = new UserApi(configuration);
+
+let userId: number; // (default to undefined)
+
+const { status, data } = await apiInstance.resetUserDataUsageById(
+    userId
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **userId** | [**number**] |  | defaults to undefined|
+
+
+### Return type
+
+**UserResponse**
+
+### Authorization
+
+[OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**401** | Unauthorized Error |  * WWW-Authenticate - Authentication type <br>  |
+|**403** | Forbidden Error |  -  |
+|**404** | NotFound Error |  -  |
+|**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **resetUserDataUsageByUsername**
+> UserResponse resetUserDataUsageByUsername()
+
+
+### Example
+
+```typescript
+import {
+    UserApi,
+    Configuration
+} from './api';
+
+const configuration = new Configuration();
+const apiInstance = new UserApi(configuration);
+
+let username: string; // (default to undefined)
+
+const { status, data } = await apiInstance.resetUserDataUsageByUsername(
     username
 );
 ```
@@ -1786,6 +2788,114 @@ const { status, data } = await apiInstance.revokeUserSubscription(
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **revokeUserSubscriptionById**
+> UserResponse revokeUserSubscriptionById()
+
+
+### Example
+
+```typescript
+import {
+    UserApi,
+    Configuration
+} from './api';
+
+const configuration = new Configuration();
+const apiInstance = new UserApi(configuration);
+
+let userId: number; // (default to undefined)
+
+const { status, data } = await apiInstance.revokeUserSubscriptionById(
+    userId
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **userId** | [**number**] |  | defaults to undefined|
+
+
+### Return type
+
+**UserResponse**
+
+### Authorization
+
+[OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**401** | Unauthorized Error |  * WWW-Authenticate - Authentication type <br>  |
+|**403** | Forbidden Error |  -  |
+|**404** | NotFound Error |  -  |
+|**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **revokeUserSubscriptionByUsername**
+> UserResponse revokeUserSubscriptionByUsername()
+
+
+### Example
+
+```typescript
+import {
+    UserApi,
+    Configuration
+} from './api';
+
+const configuration = new Configuration();
+const apiInstance = new UserApi(configuration);
+
+let username: string; // (default to undefined)
+
+const { status, data } = await apiInstance.revokeUserSubscriptionByUsername(
+    username
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **username** | [**string**] |  | defaults to undefined|
+
+
+### Return type
+
+**UserResponse**
+
+### Authorization
+
+[OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**401** | Unauthorized Error |  * WWW-Authenticate - Authentication type <br>  |
+|**403** | Forbidden Error |  -  |
+|**404** | NotFound Error |  -  |
+|**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **setOwner**
 > UserResponse setOwner()
 
@@ -1806,6 +2916,118 @@ let username: string; // (default to undefined)
 let adminUsername: string; // (default to undefined)
 
 const { status, data } = await apiInstance.setOwner(
+    username,
+    adminUsername
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **username** | [**string**] |  | defaults to undefined|
+| **adminUsername** | [**string**] |  | defaults to undefined|
+
+
+### Return type
+
+**UserResponse**
+
+### Authorization
+
+[OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**401** | Unauthorized Error |  * WWW-Authenticate - Authentication type <br>  |
+|**403** | Forbidden Error |  -  |
+|**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **setOwnerById**
+> UserResponse setOwnerById()
+
+
+### Example
+
+```typescript
+import {
+    UserApi,
+    Configuration
+} from './api';
+
+const configuration = new Configuration();
+const apiInstance = new UserApi(configuration);
+
+let userId: number; // (default to undefined)
+let adminUsername: string; // (default to undefined)
+
+const { status, data } = await apiInstance.setOwnerById(
+    userId,
+    adminUsername
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **userId** | [**number**] |  | defaults to undefined|
+| **adminUsername** | [**string**] |  | defaults to undefined|
+
+
+### Return type
+
+**UserResponse**
+
+### Authorization
+
+[OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**401** | Unauthorized Error |  * WWW-Authenticate - Authentication type <br>  |
+|**403** | Forbidden Error |  -  |
+|**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **setOwnerByUsername**
+> UserResponse setOwnerByUsername()
+
+
+### Example
+
+```typescript
+import {
+    UserApi,
+    Configuration
+} from './api';
+
+const configuration = new Configuration();
+const apiInstance = new UserApi(configuration);
+
+let username: string; // (default to undefined)
+let adminUsername: string; // (default to undefined)
+
+const { status, data } = await apiInstance.setOwnerByUsername(
     username,
     adminUsername
 );

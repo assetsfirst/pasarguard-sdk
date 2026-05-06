@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **cpu_usage** | **number** |  | [default to undefined]
 **incoming_bandwidth_speed** | **number** |  | [default to undefined]
 **outgoing_bandwidth_speed** | **number** |  | [default to undefined]
+**uptime** | **number** |  | [default to undefined]
 
 ## Example
 
@@ -24,6 +25,7 @@ const instance: NodeRealtimeStats = {
     cpu_usage,
     incoming_bandwidth_speed,
     outgoing_bandwidth_speed,
+    uptime,
 };
 ```
 

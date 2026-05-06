@@ -16,7 +16,7 @@ Name | Type | Description | Notes
 **auto_delete_in_days** | **number** |  | [optional] [default to undefined]
 **next_plan** | [**NextPlanModel**](NextPlanModel.md) |  | [optional] [default to undefined]
 **username** | **string** |  | [default to undefined]
-**status** | [**UserStatusCreate**](UserStatusCreate.md) |  | [optional] [default to undefined]
+**status** | [**UserStatus**](UserStatus.md) |  | [optional] [default to undefined]
 
 ## Example
 

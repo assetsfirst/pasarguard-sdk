@@ -15,7 +15,7 @@ Name | Type | Description | Notes
 **group_ids** | **Array&lt;number&gt;** |  | [optional] [default to undefined]
 **auto_delete_in_days** | **number** |  | [optional] [default to undefined]
 **next_plan** | [**NextPlanModel**](NextPlanModel.md) |  | [optional] [default to undefined]
-**status** | [**UserStatusModify**](UserStatusModify.md) |  | [optional] [default to undefined]
+**status** | [**UserStatus**](UserStatus.md) |  | [optional] [default to undefined]
 
 ## Example
 

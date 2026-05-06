@@ -192,7 +192,6 @@ docs/UserResponse.md
 docs/UserSimple.md
 docs/UserStatus.md
 docs/UserStatusCreate.md
-docs/UserStatusModify.md
 docs/UserSubscriptionUpdateChart.md
 docs/UserSubscriptionUpdateChartSegment.md
 docs/UserSubscriptionUpdateList.md
@@ -399,7 +398,6 @@ models/user-notification-enable.ts
 models/user-response.ts
 models/user-simple.ts
 models/user-status-create.ts
-models/user-status-modify.ts
 models/user-status.ts
 models/user-subscription-update-chart-segment.ts
 models/user-subscription-update-chart.ts

@@ -20,6 +20,7 @@ Name | Type | Description | Notes
 **reset_time** | **number** |  | [optional] [default to -1]
 **default_timeout** | **number** |  | [optional] [default to 10]
 **internal_timeout** | **number** |  | [optional] [default to 15]
+**proxy_url** | **string** |  | [optional] [default to undefined]
 
 ## Example
 
@@ -42,6 +43,7 @@ const instance: NodeCreate = {
     reset_time,
     default_timeout,
     internal_timeout,
+    proxy_url,
 };
 ```
 

@@ -5,12 +5,15 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**flow** | [**XTLSFlows**](XTLSFlows.md) |  | [optional] [default to undefined]
-**method** | [**ShadowsocksMethods**](ShadowsocksMethods.md) |  | [optional] [default to undefined]
 **dry_run** | **boolean** |  | [optional] [default to false]
 **group_ids** | **Set&lt;number&gt;** |  | [optional] [default to undefined]
 **admins** | **Set&lt;number&gt;** |  | [optional] [default to undefined]
 **users** | **Set&lt;number&gt;** |  | [optional] [default to undefined]
+**status** | [**Set&lt;UserStatus&gt;**](UserStatus.md) |  | [optional] [default to undefined]
+**expire_after** | **string** |  | [optional] [default to undefined]
+**expire_before** | **string** |  | [optional] [default to undefined]
+**flow** | [**XTLSFlows**](XTLSFlows.md) |  | [optional] [default to undefined]
+**method** | [**ShadowsocksMethods**](ShadowsocksMethods.md) |  | [optional] [default to undefined]
 
 ## Example
 
@@ -18,12 +21,15 @@ Name | Type | Description | Notes
 import { BulkUsersProxy } from './api';
 
 const instance: BulkUsersProxy = {
-    flow,
-    method,
     dry_run,
     group_ids,
     admins,
     users,
+    status,
+    expire_after,
+    expire_before,
+    flow,
+    method,
 };
 ```
 

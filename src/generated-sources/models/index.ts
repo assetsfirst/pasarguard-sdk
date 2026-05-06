@@ -163,7 +163,6 @@ export * from './user-response';
 export * from './user-simple';
 export * from './user-status';
 export * from './user-status-create';
-export * from './user-status-modify';
 export * from './user-subscription-update-chart';
 export * from './user-subscription-update-chart-segment';
 export * from './user-subscription-update-list';

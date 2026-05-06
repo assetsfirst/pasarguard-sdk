@@ -20,6 +20,7 @@ Name | Type | Description | Notes
 **reset_time** | **number** |  | [optional] [default to undefined]
 **default_timeout** | **number** |  | [optional] [default to undefined]
 **internal_timeout** | **number** |  | [optional] [default to undefined]
+**proxy_url** | **string** |  | [optional] [default to undefined]
 **status** | [**NodeStatus**](NodeStatus.md) |  | [optional] [default to undefined]
 
 ## Example
@@ -43,6 +44,7 @@ const instance: NodeModify = {
     reset_time,
     default_timeout,
     internal_timeout,
+    proxy_url,
     status,
 };
 ```
