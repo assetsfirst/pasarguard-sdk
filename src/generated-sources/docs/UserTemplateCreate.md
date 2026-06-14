@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **name** | **string** |  | [optional] [default to undefined]
 **data_limit** | **number** |  | [optional] [default to undefined]
+**hwid_limit** | **number** |  | [optional] [default to undefined]
 **expire_duration** | **number** |  | [optional] [default to undefined]
 **username_prefix** | **string** |  | [optional] [default to undefined]
 **username_suffix** | **string** |  | [optional] [default to undefined]
@@ -26,6 +27,7 @@ import { UserTemplateCreate } from './api';
 const instance: UserTemplateCreate = {
     name,
     data_limit,
+    hwid_limit,
     expire_duration,
     username_prefix,
     username_suffix,

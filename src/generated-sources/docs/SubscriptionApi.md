@@ -8,6 +8,7 @@ All URIs are relative to *http://localhost*
 |[**userSubscription**](#usersubscription) | **GET** /sub/{token}/ | User Subscription|
 |[**userSubscriptionApps**](#usersubscriptionapps) | **GET** /sub/{token}/apps | User Subscription Apps|
 |[**userSubscriptionInfo**](#usersubscriptioninfo) | **GET** /sub/{token}/info | User Subscription Info|
+|[**userSubscriptionRaw**](#usersubscriptionraw) | **GET** /sub/{token}/raw | User Subscription Raw|
 |[**userSubscriptionWithClientType**](#usersubscriptionwithclienttype) | **GET** /sub/{token}/{client_type} | User Subscription With Client Type|
 
 # **getSubUserUsage**
@@ -27,15 +28,15 @@ const configuration = new Configuration();
 const apiInstance = new SubscriptionApi(configuration);
 
 let token: string; // (default to undefined)
+let period: Period; // (optional) (default to undefined)
 let start: string; // (optional) (default to undefined)
 let end: string; // (optional) (default to undefined)
-let period: Period; // (optional) (default to undefined)
 
 const { status, data } = await apiInstance.getSubUserUsage(
     token,
+    period,
     start,
-    end,
-    period
+    end
 );
 ```
 
@@ -44,9 +45,9 @@ const { status, data } = await apiInstance.getSubUserUsage(
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 | **token** | [**string**] |  | defaults to undefined|
+| **period** | **Period** |  | (optional) defaults to undefined|
 | **start** | [**string**] |  | (optional) defaults to undefined|
 | **end** | [**string**] |  | (optional) defaults to undefined|
-| **period** | **Period** |  | (optional) defaults to undefined|
 
 
 ### Return type
@@ -89,10 +90,18 @@ const apiInstance = new SubscriptionApi(configuration);
 
 let token: string; // (default to undefined)
 let userAgent: string; // (optional) (default to '')
+let xHWID: string; // (optional) (default to undefined)
+let xDeviceOS: string; // (optional) (default to undefined)
+let xVerOS: string; // (optional) (default to undefined)
+let xDeviceModel: string; // (optional) (default to undefined)
 
 const { status, data } = await apiInstance.userSubscription(
     token,
-    userAgent
+    userAgent,
+    xHWID,
+    xDeviceOS,
+    xVerOS,
+    xDeviceModel
 );
 ```
 
@@ -102,6 +111,10 @@ const { status, data } = await apiInstance.userSubscription(
 |------------- | ------------- | ------------- | -------------|
 | **token** | [**string**] |  | defaults to undefined|
 | **userAgent** | [**string**] |  | (optional) defaults to ''|
+| **xHWID** | [**string**] |  | (optional) defaults to undefined|
+| **xDeviceOS** | [**string**] |  | (optional) defaults to undefined|
+| **xVerOS** | [**string**] |  | (optional) defaults to undefined|
+| **xDeviceModel** | [**string**] |  | (optional) defaults to undefined|
 
 
 ### Return type
@@ -127,7 +140,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **userSubscriptionApps**
-> Array<ApplicationOutput> userSubscriptionApps()
+> Array<Application> userSubscriptionApps()
 
 Get applications available for user\'s subscription.
 
@@ -158,7 +171,7 @@ const { status, data } = await apiInstance.userSubscriptionApps(
 
 ### Return type
 
-**Array<ApplicationOutput>**
+**Array<Application>**
 
 ### Authorization
 
@@ -230,6 +243,57 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **userSubscriptionRaw**
+> any userSubscriptionRaw()
+
+
+### Example
+
+```typescript
+import {
+    SubscriptionApi,
+    Configuration
+} from './api';
+
+const configuration = new Configuration();
+const apiInstance = new SubscriptionApi(configuration);
+
+let token: string; // (default to undefined)
+
+const { status, data } = await apiInstance.userSubscriptionRaw(
+    token
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **token** | [**string**] |  | defaults to undefined|
+
+
+### Return type
+
+**any**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **userSubscriptionWithClientType**
 > any userSubscriptionWithClientType()
 
@@ -248,10 +312,18 @@ const apiInstance = new SubscriptionApi(configuration);
 
 let token: string; // (default to undefined)
 let clientType: ConfigFormat; // (default to undefined)
+let xHWID: string; // (optional) (default to undefined)
+let xDeviceOS: string; // (optional) (default to undefined)
+let xVerOS: string; // (optional) (default to undefined)
+let xDeviceModel: string; // (optional) (default to undefined)
 
 const { status, data } = await apiInstance.userSubscriptionWithClientType(
     token,
-    clientType
+    clientType,
+    xHWID,
+    xDeviceOS,
+    xVerOS,
+    xDeviceModel
 );
 ```
 
@@ -261,6 +333,10 @@ const { status, data } = await apiInstance.userSubscriptionWithClientType(
 |------------- | ------------- | ------------- | -------------|
 | **token** | [**string**] |  | defaults to undefined|
 | **clientType** | **ConfigFormat** |  | defaults to undefined|
+| **xHWID** | [**string**] |  | (optional) defaults to undefined|
+| **xDeviceOS** | [**string**] |  | (optional) defaults to undefined|
+| **xVerOS** | [**string**] |  | (optional) defaults to undefined|
+| **xDeviceModel** | [**string**] |  | (optional) defaults to undefined|
 
 
 ### Return type

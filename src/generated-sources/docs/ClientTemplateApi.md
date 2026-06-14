@@ -191,11 +191,13 @@ import {
 const configuration = new Configuration();
 const apiInstance = new ClientTemplateApi(configuration);
 
+let ids: Array<number>; // (optional) (default to undefined)
 let templateType: ClientTemplateType; // (optional) (default to undefined)
 let offset: number; // (optional) (default to undefined)
 let limit: number; // (optional) (default to undefined)
 
 const { status, data } = await apiInstance.getClientTemplates(
+    ids,
     templateType,
     offset,
     limit
@@ -206,6 +208,7 @@ const { status, data } = await apiInstance.getClientTemplates(
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
+| **ids** | **Array&lt;number&gt;** |  | (optional) defaults to undefined|
 | **templateType** | **ClientTemplateType** |  | (optional) defaults to undefined|
 | **offset** | [**number**] |  | (optional) defaults to undefined|
 | **limit** | [**number**] |  | (optional) defaults to undefined|
@@ -250,6 +253,7 @@ import {
 const configuration = new Configuration();
 const apiInstance = new ClientTemplateApi(configuration);
 
+let ids: Array<number>; // (optional) (default to undefined)
 let templateType: ClientTemplateType; // (optional) (default to undefined)
 let offset: number; // (optional) (default to undefined)
 let limit: number; // (optional) (default to undefined)
@@ -258,6 +262,7 @@ let sort: string; // (optional) (default to undefined)
 let all: boolean; // (optional) (default to false)
 
 const { status, data } = await apiInstance.getClientTemplatesSimple(
+    ids,
     templateType,
     offset,
     limit,
@@ -271,6 +276,7 @@ const { status, data } = await apiInstance.getClientTemplatesSimple(
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
+| **ids** | **Array&lt;number&gt;** |  | (optional) defaults to undefined|
 | **templateType** | **ClientTemplateType** |  | (optional) defaults to undefined|
 | **offset** | [**number**] |  | (optional) defaults to undefined|
 | **limit** | [**number**] |  | (optional) defaults to undefined|

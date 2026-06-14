@@ -310,10 +310,12 @@ import {
 const configuration = new Configuration();
 const apiInstance = new HostApi(configuration);
 
+let ids: Array<number>; // (optional) (default to undefined)
 let offset: number; // (optional) (default to 0)
 let limit: number; // (optional) (default to 0)
 
 const { status, data } = await apiInstance.getHosts(
+    ids,
     offset,
     limit
 );
@@ -323,6 +325,7 @@ const { status, data } = await apiInstance.getHosts(
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
+| **ids** | **Array&lt;number&gt;** |  | (optional) defaults to undefined|
 | **offset** | [**number**] |  | (optional) defaults to 0|
 | **limit** | [**number**] |  | (optional) defaults to 0|
 

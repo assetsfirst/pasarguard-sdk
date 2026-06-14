@@ -5,13 +5,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**proxy_settings** | [**ProxyTableOutput**](ProxyTableOutput.md) |  | [optional] [default to undefined]
+**proxy_settings** | [**ProxyTable**](ProxyTable.md) |  | [optional] [default to undefined]
 **expire** | [**Expire**](Expire.md) |  | [optional] [default to undefined]
 **data_limit** | **number** |  | [optional] [default to undefined]
 **data_limit_reset_strategy** | [**DataLimitResetStrategy**](DataLimitResetStrategy.md) |  | [optional] [default to undefined]
 **on_hold_expire_duration** | **number** |  | [optional] [default to undefined]
 **on_hold_timeout** | [**OnHoldTimeout**](OnHoldTimeout.md) |  | [optional] [default to undefined]
 **group_ids** | **Array&lt;number&gt;** |  | [optional] [default to undefined]
+**hwid_limit** | **number** |  | [optional] [default to undefined]
 **next_plan** | [**NextPlanModel**](NextPlanModel.md) |  | [optional] [default to undefined]
 **id** | **number** |  | [default to undefined]
 **username** | **string** |  | [default to undefined]
@@ -21,6 +22,7 @@ Name | Type | Description | Notes
 **created_at** | **string** |  | [default to undefined]
 **edit_at** | **string** |  | [optional] [default to undefined]
 **online_at** | **string** |  | [optional] [default to undefined]
+**ip** | **string** |  | [optional] [default to undefined]
 
 ## Example
 
@@ -35,6 +37,7 @@ const instance: SubscriptionUserResponse = {
     on_hold_expire_duration,
     on_hold_timeout,
     group_ids,
+    hwid_limit,
     next_plan,
     id,
     username,
@@ -44,6 +47,7 @@ const instance: SubscriptionUserResponse = {
     created_at,
     edit_at,
     online_at,
+    ip,
 };
 ```
 

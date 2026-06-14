@@ -6,7 +6,6 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **string** |  | [optional] [default to undefined]
-**flow** | [**XTLSFlows**](XTLSFlows.md) |  | [optional] [default to undefined]
 
 ## Example
 
@@ -15,7 +14,6 @@ import { VlessSettings } from './api';
 
 const instance: VlessSettings = {
     id,
-    flow,
 };
 ```
 

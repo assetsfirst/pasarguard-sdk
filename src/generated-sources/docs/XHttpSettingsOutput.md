@@ -20,7 +20,7 @@ Name | Type | Description | Notes
 **seq_key** | **string** |  | [optional] [default to undefined]
 **uplink_data_placement** | **string** |  | [optional] [default to undefined]
 **uplink_data_key** | **string** |  | [optional] [default to undefined]
-**uplink_chunk_size** | **number** |  | [optional] [default to undefined]
+**uplink_chunk_size** | **string** |  | [optional] [default to undefined]
 **sc_max_each_post_bytes** | **string** |  | [optional] [default to undefined]
 **sc_min_posts_interval_ms** | **string** |  | [optional] [default to undefined]
 **xmux** | [**XMuxSettingsOutput**](XMuxSettingsOutput.md) |  | [optional] [default to undefined]

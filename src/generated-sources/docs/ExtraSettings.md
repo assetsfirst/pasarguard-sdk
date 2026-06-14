@@ -5,7 +5,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**flow** | [**XTLSFlows**](XTLSFlows.md) |  | [optional] [default to undefined]
 **method** | [**ShadowsocksMethods**](ShadowsocksMethods.md) |  | [optional] [default to undefined]
 
 ## Example
@@ -14,7 +13,6 @@ Name | Type | Description | Notes
 import { ExtraSettings } from './api';
 
 const instance: ExtraSettings = {
-    flow,
     method,
 };
 ```

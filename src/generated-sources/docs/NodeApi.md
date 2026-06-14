@@ -18,8 +18,10 @@ All URIs are relative to *http://localhost*
 |[**getNodes**](#getnodes) | **GET** /api/nodes | Get Nodes|
 |[**getNodesSimple**](#getnodessimple) | **GET** /api/nodes/simple | Get lightweight node list|
 |[**getUsage**](#getusage) | **GET** /api/node/usage | Get Usage|
+|[**getUserCountMetric**](#getusercountmetric) | **GET** /api/node/user_counts/{metric} | Get User Count Metric|
 |[**modifyNode**](#modifynode) | **PUT** /api/node/{node_id} | Modify Node|
 |[**nodeLogs**](#nodelogs) | **GET** /api/node/{node_id}/logs | Node Logs|
+|[**nodeOutboundsLatency**](#nodeoutboundslatency) | **GET** /api/node/{node_id}/outbounds_latency | Node Outbounds Latency|
 |[**realtimeNodeStats**](#realtimenodestats) | **GET** /api/node/{node_id}/realtime_stats | Realtime Node Stats|
 |[**realtimeNodesStats**](#realtimenodesstats) | **GET** /api/nodes/realtime_stats | Realtime Nodes Stats|
 |[**reconnectAllNode**](#reconnectallnode) | **POST** /api/nodes/reconnect | Reconnect All Node|
@@ -608,15 +610,15 @@ const configuration = new Configuration();
 const apiInstance = new NodeApi(configuration);
 
 let nodeId: number; // (default to undefined)
+let period: Period; // (optional) (default to undefined)
 let start: string; // (optional) (default to undefined)
 let end: string; // (optional) (default to undefined)
-let period: Period; // (optional) (default to undefined)
 
 const { status, data } = await apiInstance.getNodeStatsPeriodic(
     nodeId,
+    period,
     start,
-    end,
-    period
+    end
 );
 ```
 
@@ -625,9 +627,9 @@ const { status, data } = await apiInstance.getNodeStatsPeriodic(
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 | **nodeId** | [**number**] |  | defaults to undefined|
+| **period** | **Period** |  | (optional) defaults to undefined|
 | **start** | [**string**] |  | (optional) defaults to undefined|
 | **end** | [**string**] |  | (optional) defaults to undefined|
-| **period** | **Period** |  | (optional) defaults to undefined|
 
 
 ### Return type
@@ -664,7 +666,8 @@ Retrieve a list of all nodes. Accessible only to sudo admins.
 ```typescript
 import {
     NodeApi,
-    Configuration
+    Configuration,
+    Status
 } from './api';
 
 const configuration = new Configuration();
@@ -673,18 +676,18 @@ const apiInstance = new NodeApi(configuration);
 let coreId: number; // (optional) (default to undefined)
 let offset: number; // (optional) (default to undefined)
 let limit: number; // (optional) (default to undefined)
-let status: Array<NodeStatus>; // (optional) (default to undefined)
-let enabled: boolean; // (optional) (default to false)
 let ids: Array<number>; // (optional) (default to undefined)
+let status: Status; // (optional) (default to undefined)
+let enabled: boolean; // (optional) (default to false)
 let search: string; // (optional) (default to undefined)
 
 const { status, data } = await apiInstance.getNodes(
     coreId,
     offset,
     limit,
+    ids,
     status,
     enabled,
-    ids,
     search
 );
 ```
@@ -696,9 +699,9 @@ const { status, data } = await apiInstance.getNodes(
 | **coreId** | [**number**] |  | (optional) defaults to undefined|
 | **offset** | [**number**] |  | (optional) defaults to undefined|
 | **limit** | [**number**] |  | (optional) defaults to undefined|
-| **status** | **Array&lt;NodeStatus&gt;** |  | (optional) defaults to undefined|
-| **enabled** | [**boolean**] |  | (optional) defaults to false|
 | **ids** | **Array&lt;number&gt;** |  | (optional) defaults to undefined|
+| **status** | **Status** |  | (optional) defaults to undefined|
+| **enabled** | [**boolean**] |  | (optional) defaults to false|
 | **search** | [**string**] |  | (optional) defaults to undefined|
 
 
@@ -742,6 +745,7 @@ import {
 const configuration = new Configuration();
 const apiInstance = new NodeApi(configuration);
 
+let ids: Array<number>; // (optional) (default to undefined)
 let offset: number; // (optional) (default to undefined)
 let limit: number; // (optional) (default to undefined)
 let search: string; // (optional) (default to undefined)
@@ -749,6 +753,7 @@ let sort: string; // (optional) (default to undefined)
 let all: boolean; // (optional) (default to false)
 
 const { status, data } = await apiInstance.getNodesSimple(
+    ids,
     offset,
     limit,
     search,
@@ -761,6 +766,7 @@ const { status, data } = await apiInstance.getNodesSimple(
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
+| **ids** | **Array&lt;number&gt;** |  | (optional) defaults to undefined|
 | **offset** | [**number**] |  | (optional) defaults to undefined|
 | **limit** | [**number**] |  | (optional) defaults to undefined|
 | **search** | [**string**] |  | (optional) defaults to undefined|
@@ -808,18 +814,18 @@ import {
 const configuration = new Configuration();
 const apiInstance = new NodeApi(configuration);
 
-let start: string; // (optional) (default to undefined)
-let end: string; // (optional) (default to undefined)
 let period: Period; // (optional) (default to undefined)
 let nodeId: number; // (optional) (default to undefined)
 let groupByNode: boolean; // (optional) (default to false)
+let start: string; // (optional) (default to undefined)
+let end: string; // (optional) (default to undefined)
 
 const { status, data } = await apiInstance.getUsage(
-    start,
-    end,
     period,
     nodeId,
-    groupByNode
+    groupByNode,
+    start,
+    end
 );
 ```
 
@@ -827,16 +833,85 @@ const { status, data } = await apiInstance.getUsage(
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **start** | [**string**] |  | (optional) defaults to undefined|
-| **end** | [**string**] |  | (optional) defaults to undefined|
 | **period** | **Period** |  | (optional) defaults to undefined|
 | **nodeId** | [**number**] |  | (optional) defaults to undefined|
 | **groupByNode** | [**boolean**] |  | (optional) defaults to false|
+| **start** | [**string**] |  | (optional) defaults to undefined|
+| **end** | [**string**] |  | (optional) defaults to undefined|
 
 
 ### Return type
 
 **NodeUsageStatsList**
+
+### Authorization
+
+[OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**401** | Unauthorized Error |  * WWW-Authenticate - Authentication type <br>  |
+|**403** | Forbidden Error |  -  |
+|**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **getUserCountMetric**
+> UserCountMetricStatsList getUserCountMetric()
+
+Retrieve one user activity/status count metric from node user usage rows.
+
+### Example
+
+```typescript
+import {
+    NodeApi,
+    Configuration
+} from './api';
+
+const configuration = new Configuration();
+const apiInstance = new NodeApi(configuration);
+
+let metric: UserCountMetric; // (default to undefined)
+let period: Period; // (optional) (default to undefined)
+let nodeId: number; // (optional) (default to undefined)
+let groupByNode: boolean; // (optional) (default to false)
+let start: string; // (optional) (default to undefined)
+let end: string; // (optional) (default to undefined)
+
+const { status, data } = await apiInstance.getUserCountMetric(
+    metric,
+    period,
+    nodeId,
+    groupByNode,
+    start,
+    end
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **metric** | **UserCountMetric** |  | defaults to undefined|
+| **period** | **Period** |  | (optional) defaults to undefined|
+| **nodeId** | [**number**] |  | (optional) defaults to undefined|
+| **groupByNode** | [**boolean**] |  | (optional) defaults to false|
+| **start** | [**string**] |  | (optional) defaults to undefined|
+| **end** | [**string**] |  | (optional) defaults to undefined|
+
+
+### Return type
+
+**UserCountMetricStatsList**
 
 ### Authorization
 
@@ -949,6 +1024,66 @@ const { status, data } = await apiInstance.nodeLogs(
 ### Return type
 
 **any**
+
+### Authorization
+
+[OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**401** | Unauthorized Error |  * WWW-Authenticate - Authentication type <br>  |
+|**403** | Forbidden Error |  -  |
+|**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **nodeOutboundsLatency**
+> NodeOutboundsLatencyResponse nodeOutboundsLatency()
+
+Retrieve outbound latency for one outbound or all outbounds of a node.
+
+### Example
+
+```typescript
+import {
+    NodeApi,
+    Configuration
+} from './api';
+
+const configuration = new Configuration();
+const apiInstance = new NodeApi(configuration);
+
+let nodeId: number; // (default to undefined)
+let name: string; // (optional) (default to '')
+let timeout: number; // (optional) (default to undefined)
+
+const { status, data } = await apiInstance.nodeOutboundsLatency(
+    nodeId,
+    name,
+    timeout
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **nodeId** | [**number**] |  | defaults to undefined|
+| **name** | [**string**] |  | (optional) defaults to ''|
+| **timeout** | [**number**] |  | (optional) defaults to undefined|
+
+
+### Return type
+
+**NodeOutboundsLatencyResponse**
 
 ### Authorization
 

@@ -961,7 +961,7 @@ const configuration = new Configuration();
 const apiInstance = new AdminApi(configuration);
 
 let username: string; // (default to undefined)
-let period: Period; // (default to undefined)
+let period: Period; // (optional) (default to undefined)
 let nodeId: number; // (optional) (default to undefined)
 let groupByNode: boolean; // (optional) (default to false)
 let start: string; // (optional) (default to undefined)
@@ -982,7 +982,7 @@ const { status, data } = await apiInstance.getAdminUsage(
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 | **username** | [**string**] |  | defaults to undefined|
-| **period** | **Period** |  | defaults to undefined|
+| **period** | **Period** |  | (optional) defaults to undefined|
 | **nodeId** | [**number**] |  | (optional) defaults to undefined|
 | **groupByNode** | [**boolean**] |  | (optional) defaults to false|
 | **start** | [**string**] |  | (optional) defaults to undefined|
@@ -1030,7 +1030,7 @@ const configuration = new Configuration();
 const apiInstance = new AdminApi(configuration);
 
 let adminId: number; // (default to undefined)
-let period: Period; // (default to undefined)
+let period: Period; // (optional) (default to undefined)
 let nodeId: number; // (optional) (default to undefined)
 let groupByNode: boolean; // (optional) (default to false)
 let start: string; // (optional) (default to undefined)
@@ -1051,7 +1051,7 @@ const { status, data } = await apiInstance.getAdminUsageById(
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 | **adminId** | [**number**] |  | defaults to undefined|
-| **period** | **Period** |  | defaults to undefined|
+| **period** | **Period** |  | (optional) defaults to undefined|
 | **nodeId** | [**number**] |  | (optional) defaults to undefined|
 | **groupByNode** | [**boolean**] |  | (optional) defaults to false|
 | **start** | [**string**] |  | (optional) defaults to undefined|
@@ -1099,7 +1099,7 @@ const configuration = new Configuration();
 const apiInstance = new AdminApi(configuration);
 
 let username: string; // (default to undefined)
-let period: Period; // (default to undefined)
+let period: Period; // (optional) (default to undefined)
 let nodeId: number; // (optional) (default to undefined)
 let groupByNode: boolean; // (optional) (default to false)
 let start: string; // (optional) (default to undefined)
@@ -1120,7 +1120,7 @@ const { status, data } = await apiInstance.getAdminUsageByUsername(
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 | **username** | [**string**] |  | defaults to undefined|
-| **period** | **Period** |  | defaults to undefined|
+| **period** | **Period** |  | (optional) defaults to undefined|
 | **nodeId** | [**number**] |  | (optional) defaults to undefined|
 | **groupByNode** | [**boolean**] |  | (optional) defaults to false|
 | **start** | [**string**] |  | (optional) defaults to undefined|
@@ -1168,12 +1168,16 @@ import {
 const configuration = new Configuration();
 const apiInstance = new AdminApi(configuration);
 
+let ids: Array<number>; // (optional) (default to undefined)
+let usernames: Array<string>; // (optional) (default to undefined)
 let username: string; // (optional) (default to undefined)
 let offset: number; // (optional) (default to undefined)
 let limit: number; // (optional) (default to undefined)
 let sort: string; // (optional) (default to undefined)
 
 const { status, data } = await apiInstance.getAdmins(
+    ids,
+    usernames,
     username,
     offset,
     limit,
@@ -1185,6 +1189,8 @@ const { status, data } = await apiInstance.getAdmins(
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
+| **ids** | **Array&lt;number&gt;** |  | (optional) defaults to undefined|
+| **usernames** | **Array&lt;string&gt;** |  | (optional) defaults to undefined|
 | **username** | [**string**] |  | (optional) defaults to undefined|
 | **offset** | [**number**] |  | (optional) defaults to undefined|
 | **limit** | [**number**] |  | (optional) defaults to undefined|
@@ -1231,6 +1237,8 @@ import {
 const configuration = new Configuration();
 const apiInstance = new AdminApi(configuration);
 
+let ids: Array<number>; // (optional) (default to undefined)
+let usernames: Array<string>; // (optional) (default to undefined)
 let search: string; // (optional) (default to undefined)
 let offset: number; // (optional) (default to undefined)
 let limit: number; // (optional) (default to undefined)
@@ -1238,6 +1246,8 @@ let sort: string; // (optional) (default to undefined)
 let all: boolean; // (optional) (default to false)
 
 const { status, data } = await apiInstance.getAdminsSimple(
+    ids,
+    usernames,
     search,
     offset,
     limit,
@@ -1250,6 +1260,8 @@ const { status, data } = await apiInstance.getAdminsSimple(
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
+| **ids** | **Array&lt;number&gt;** |  | (optional) defaults to undefined|
+| **usernames** | **Array&lt;string&gt;** |  | (optional) defaults to undefined|
 | **search** | [**string**] |  | (optional) defaults to undefined|
 | **offset** | [**number**] |  | (optional) defaults to undefined|
 | **limit** | [**number**] |  | (optional) defaults to undefined|

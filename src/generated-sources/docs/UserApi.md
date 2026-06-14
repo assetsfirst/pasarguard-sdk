@@ -34,6 +34,7 @@ All URIs are relative to *http://localhost*
 |[**getUserUsageById**](#getuserusagebyid) | **GET** /api/user/by-id/{user_id}/usage | Get User Usage By Id|
 |[**getUserUsageByUsername**](#getuserusagebyusername) | **GET** /api/user/by-username/{username}/usage | Get User Usage By Username|
 |[**getUsers**](#getusers) | **GET** /api/users | Get Users|
+|[**getUsersCountMetric**](#getuserscountmetric) | **GET** /api/users/counts/{metric} | Get Users Count Metric|
 |[**getUsersSimple**](#getuserssimple) | **GET** /api/users/simple | Get lightweight user list|
 |[**getUsersSubUpdateChart**](#getuserssubupdatechart) | **GET** /api/users/sub_update/chart | Get Users Sub Update Chart|
 |[**getUsersUsage**](#getusersusage) | **GET** /api/users/usage | Get Users Usage|
@@ -1544,7 +1545,7 @@ const configuration = new Configuration();
 const apiInstance = new UserApi(configuration);
 
 let username: string; // (default to undefined)
-let period: Period; // (default to undefined)
+let period: Period; // (optional) (default to undefined)
 let nodeId: number; // (optional) (default to undefined)
 let groupByNode: boolean; // (optional) (default to false)
 let start: string; // (optional) (default to undefined)
@@ -1565,7 +1566,7 @@ const { status, data } = await apiInstance.getUserUsage(
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 | **username** | [**string**] |  | defaults to undefined|
-| **period** | **Period** |  | defaults to undefined|
+| **period** | **Period** |  | (optional) defaults to undefined|
 | **nodeId** | [**number**] |  | (optional) defaults to undefined|
 | **groupByNode** | [**boolean**] |  | (optional) defaults to false|
 | **start** | [**string**] |  | (optional) defaults to undefined|
@@ -1613,7 +1614,7 @@ const configuration = new Configuration();
 const apiInstance = new UserApi(configuration);
 
 let userId: number; // (default to undefined)
-let period: Period; // (default to undefined)
+let period: Period; // (optional) (default to undefined)
 let nodeId: number; // (optional) (default to undefined)
 let groupByNode: boolean; // (optional) (default to false)
 let start: string; // (optional) (default to undefined)
@@ -1634,7 +1635,7 @@ const { status, data } = await apiInstance.getUserUsageById(
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 | **userId** | [**number**] |  | defaults to undefined|
-| **period** | **Period** |  | defaults to undefined|
+| **period** | **Period** |  | (optional) defaults to undefined|
 | **nodeId** | [**number**] |  | (optional) defaults to undefined|
 | **groupByNode** | [**boolean**] |  | (optional) defaults to false|
 | **start** | [**string**] |  | (optional) defaults to undefined|
@@ -1682,7 +1683,7 @@ const configuration = new Configuration();
 const apiInstance = new UserApi(configuration);
 
 let username: string; // (default to undefined)
-let period: Period; // (default to undefined)
+let period: Period; // (optional) (default to undefined)
 let nodeId: number; // (optional) (default to undefined)
 let groupByNode: boolean; // (optional) (default to false)
 let start: string; // (optional) (default to undefined)
@@ -1703,7 +1704,7 @@ const { status, data } = await apiInstance.getUserUsageByUsername(
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 | **username** | [**string**] |  | defaults to undefined|
-| **period** | **Period** |  | defaults to undefined|
+| **period** | **Period** |  | (optional) defaults to undefined|
 | **nodeId** | [**number**] |  | (optional) defaults to undefined|
 | **groupByNode** | [**boolean**] |  | (optional) defaults to false|
 | **start** | [**string**] |  | (optional) defaults to undefined|
@@ -1745,7 +1746,9 @@ Get all users
 ```typescript
 import {
     UserApi,
-    Configuration
+    Configuration,
+    Status1,
+    DataLimitResetStrategy
 } from './api';
 
 const configuration = new Configuration();
@@ -1753,25 +1756,51 @@ const apiInstance = new UserApi(configuration);
 
 let offset: number; // (optional) (default to undefined)
 let limit: number; // (optional) (default to undefined)
+let ids: Array<number>; // (optional) (default to undefined)
 let username: Array<string>; // (optional) (default to undefined)
+let usernames: Array<string>; // (optional) (default to undefined)
 let admin: Array<string>; // (optional) (default to undefined)
+let adminIds: Array<number>; // (optional) (default to undefined)
 let group: Array<number>; // (optional) (default to undefined)
 let search: string; // (optional) (default to undefined)
-let status: UserStatus; // (optional) (default to undefined)
+let status: Status1; // (optional) (default to undefined)
 let sort: string; // (optional) (default to undefined)
 let proxyId: string; // (optional) (default to undefined)
+let dataLimitResetStrategy: DataLimitResetStrategy; // (optional) (default to undefined)
+let dataLimitMin: number; // (optional) (default to undefined)
+let dataLimitMax: number; // (optional) (default to undefined)
+let expireAfter: string; // (optional) (default to undefined)
+let expireBefore: string; // (optional) (default to undefined)
+let onlineAfter: string; // (optional) (default to undefined)
+let onlineBefore: string; // (optional) (default to undefined)
+let online: boolean; // (optional) (default to false)
+let noDataLimit: boolean; // (optional) (default to false)
+let noExpire: boolean; // (optional) (default to false)
 let loadSub: boolean; // (optional) (default to false)
 
 const { status, data } = await apiInstance.getUsers(
     offset,
     limit,
+    ids,
     username,
+    usernames,
     admin,
+    adminIds,
     group,
     search,
     status,
     sort,
     proxyId,
+    dataLimitResetStrategy,
+    dataLimitMin,
+    dataLimitMax,
+    expireAfter,
+    expireBefore,
+    onlineAfter,
+    onlineBefore,
+    online,
+    noDataLimit,
+    noExpire,
     loadSub
 );
 ```
@@ -1782,13 +1811,26 @@ const { status, data } = await apiInstance.getUsers(
 |------------- | ------------- | ------------- | -------------|
 | **offset** | [**number**] |  | (optional) defaults to undefined|
 | **limit** | [**number**] |  | (optional) defaults to undefined|
+| **ids** | **Array&lt;number&gt;** |  | (optional) defaults to undefined|
 | **username** | **Array&lt;string&gt;** |  | (optional) defaults to undefined|
+| **usernames** | **Array&lt;string&gt;** |  | (optional) defaults to undefined|
 | **admin** | **Array&lt;string&gt;** |  | (optional) defaults to undefined|
+| **adminIds** | **Array&lt;number&gt;** |  | (optional) defaults to undefined|
 | **group** | **Array&lt;number&gt;** |  | (optional) defaults to undefined|
 | **search** | [**string**] |  | (optional) defaults to undefined|
-| **status** | **UserStatus** |  | (optional) defaults to undefined|
+| **status** | **Status1** |  | (optional) defaults to undefined|
 | **sort** | [**string**] |  | (optional) defaults to undefined|
 | **proxyId** | [**string**] |  | (optional) defaults to undefined|
+| **dataLimitResetStrategy** | **DataLimitResetStrategy** |  | (optional) defaults to undefined|
+| **dataLimitMin** | [**number**] |  | (optional) defaults to undefined|
+| **dataLimitMax** | [**number**] |  | (optional) defaults to undefined|
+| **expireAfter** | [**string**] |  | (optional) defaults to undefined|
+| **expireBefore** | [**string**] |  | (optional) defaults to undefined|
+| **onlineAfter** | [**string**] |  | (optional) defaults to undefined|
+| **onlineBefore** | [**string**] |  | (optional) defaults to undefined|
+| **online** | [**boolean**] |  | (optional) defaults to false|
+| **noDataLimit** | [**boolean**] |  | (optional) defaults to false|
+| **noExpire** | [**boolean**] |  | (optional) defaults to false|
 | **loadSub** | [**boolean**] |  | (optional) defaults to false|
 
 
@@ -1818,6 +1860,77 @@ const { status, data } = await apiInstance.getUsers(
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **getUsersCountMetric**
+> UserCountMetricStatsList getUsersCountMetric()
+
+Get one users activity/status count metric from usage rows.
+
+### Example
+
+```typescript
+import {
+    UserApi,
+    Configuration
+} from './api';
+
+const configuration = new Configuration();
+const apiInstance = new UserApi(configuration);
+
+let metric: UserCountMetric; // (default to undefined)
+let period: Period; // (optional) (default to undefined)
+let nodeId: number; // (optional) (default to undefined)
+let groupByNode: boolean; // (optional) (default to false)
+let start: string; // (optional) (default to undefined)
+let end: string; // (optional) (default to undefined)
+let admin: Array<string>; // (optional) (default to undefined)
+
+const { status, data } = await apiInstance.getUsersCountMetric(
+    metric,
+    period,
+    nodeId,
+    groupByNode,
+    start,
+    end,
+    admin
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **metric** | **UserCountMetric** |  | defaults to undefined|
+| **period** | **Period** |  | (optional) defaults to undefined|
+| **nodeId** | [**number**] |  | (optional) defaults to undefined|
+| **groupByNode** | [**boolean**] |  | (optional) defaults to false|
+| **start** | [**string**] |  | (optional) defaults to undefined|
+| **end** | [**string**] |  | (optional) defaults to undefined|
+| **admin** | **Array&lt;string&gt;** |  | (optional) defaults to undefined|
+
+
+### Return type
+
+**UserCountMetricStatsList**
+
+### Authorization
+
+[OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**401** | Unauthorized Error |  * WWW-Authenticate - Authentication type <br>  |
+|**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **getUsersSimple**
 > UsersSimpleResponse getUsersSimple()
 
@@ -1834,6 +1947,8 @@ import {
 const configuration = new Configuration();
 const apiInstance = new UserApi(configuration);
 
+let ids: Array<number>; // (optional) (default to undefined)
+let usernames: Array<string>; // (optional) (default to undefined)
 let offset: number; // (optional) (default to undefined)
 let limit: number; // (optional) (default to undefined)
 let search: string; // (optional) (default to undefined)
@@ -1841,6 +1956,8 @@ let sort: string; // (optional) (default to undefined)
 let all: boolean; // (optional) (default to false)
 
 const { status, data } = await apiInstance.getUsersSimple(
+    ids,
+    usernames,
     offset,
     limit,
     search,
@@ -1853,6 +1970,8 @@ const { status, data } = await apiInstance.getUsersSimple(
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
+| **ids** | **Array&lt;number&gt;** |  | (optional) defaults to undefined|
+| **usernames** | **Array&lt;string&gt;** |  | (optional) defaults to undefined|
 | **offset** | [**number**] |  | (optional) defaults to undefined|
 | **limit** | [**number**] |  | (optional) defaults to undefined|
 | **search** | [**string**] |  | (optional) defaults to undefined|
@@ -1962,7 +2081,7 @@ import {
 const configuration = new Configuration();
 const apiInstance = new UserApi(configuration);
 
-let period: Period; // (default to undefined)
+let period: Period; // (optional) (default to undefined)
 let nodeId: number; // (optional) (default to undefined)
 let groupByNode: boolean; // (optional) (default to false)
 let start: string; // (optional) (default to undefined)
@@ -1983,7 +2102,7 @@ const { status, data } = await apiInstance.getUsersUsage(
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **period** | **Period** |  | defaults to undefined|
+| **period** | **Period** |  | (optional) defaults to undefined|
 | **nodeId** | [**number**] |  | (optional) defaults to undefined|
 | **groupByNode** | [**boolean**] |  | (optional) defaults to false|
 | **start** | [**string**] |  | (optional) defaults to undefined|

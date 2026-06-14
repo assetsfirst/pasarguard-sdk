@@ -54,7 +54,7 @@ This endpoint does not have any parameters.
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **getSettings**
-> SettingsSchemaOutput getSettings()
+> SettingsSchema getSettings()
 
 
 ### Example
@@ -77,7 +77,7 @@ This endpoint does not have any parameters.
 
 ### Return type
 
-**SettingsSchemaOutput**
+**SettingsSchema**
 
 ### Authorization
 
@@ -99,7 +99,7 @@ This endpoint does not have any parameters.
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **modifySettings**
-> SettingsSchemaOutput modifySettings(settingsSchemaInput)
+> SettingsSchema modifySettings(settingsSchema)
 
 
 ### Example
@@ -108,16 +108,16 @@ This endpoint does not have any parameters.
 import {
     SettingsApi,
     Configuration,
-    SettingsSchemaInput
+    SettingsSchema
 } from './api';
 
 const configuration = new Configuration();
 const apiInstance = new SettingsApi(configuration);
 
-let settingsSchemaInput: SettingsSchemaInput; //
+let settingsSchema: SettingsSchema; //
 
 const { status, data } = await apiInstance.modifySettings(
-    settingsSchemaInput
+    settingsSchema
 );
 ```
 
@@ -125,12 +125,12 @@ const { status, data } = await apiInstance.modifySettings(
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **settingsSchemaInput** | **SettingsSchemaInput**|  | |
+| **settingsSchema** | **SettingsSchema**|  | |
 
 
 ### Return type
 
-**SettingsSchemaOutput**
+**SettingsSchema**
 
 ### Authorization
 

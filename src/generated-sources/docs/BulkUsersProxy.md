@@ -12,7 +12,6 @@ Name | Type | Description | Notes
 **status** | [**Set&lt;UserStatus&gt;**](UserStatus.md) |  | [optional] [default to undefined]
 **expire_after** | **string** |  | [optional] [default to undefined]
 **expire_before** | **string** |  | [optional] [default to undefined]
-**flow** | [**XTLSFlows**](XTLSFlows.md) |  | [optional] [default to undefined]
 **method** | [**ShadowsocksMethods**](ShadowsocksMethods.md) |  | [optional] [default to undefined]
 
 ## Example
@@ -28,7 +27,6 @@ const instance: BulkUsersProxy = {
     status,
     expire_after,
     expire_before,
-    flow,
     method,
 };
 ```

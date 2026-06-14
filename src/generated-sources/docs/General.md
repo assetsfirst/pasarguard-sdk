@@ -5,7 +5,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**default_flow** | [**XTLSFlows**](XTLSFlows.md) |  | [optional] [default to undefined]
 **default_method** | [**ShadowsocksMethods**](ShadowsocksMethods.md) |  | [optional] [default to undefined]
 
 ## Example
@@ -14,7 +13,6 @@ Name | Type | Description | Notes
 import { General } from './api';
 
 const instance: General = {
-    default_flow,
     default_method,
 };
 ```

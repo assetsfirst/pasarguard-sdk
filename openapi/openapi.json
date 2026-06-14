@@ -3,7 +3,7 @@
   "info": {
     "title": "PasarGuardAPI",
     "description": "Unified GUI Censorship Resistant Solution",
-    "version": "3.1.0"
+    "version": "4.0.2"
   },
   "paths": {
     "/": {
@@ -861,6 +861,44 @@
         ],
         "parameters": [
           {
+            "name": "ids",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "integer"
+                  }
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Ids"
+            }
+          },
+          {
+            "name": "usernames",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Usernames"
+            }
+          },
+          {
             "name": "username",
             "in": "query",
             "required": false,
@@ -991,6 +1029,44 @@
           }
         ],
         "parameters": [
+          {
+            "name": "ids",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "integer"
+                  }
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Ids"
+            }
+          },
+          {
+            "name": "usernames",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Usernames"
+            }
+          },
           {
             "name": "search",
             "in": "query",
@@ -1144,9 +1220,10 @@
           {
             "name": "period",
             "in": "query",
-            "required": true,
+            "required": false,
             "schema": {
-              "$ref": "#/components/schemas/Period"
+              "$ref": "#/components/schemas/Period",
+              "default": "hour"
             }
           },
           {
@@ -1303,9 +1380,10 @@
           {
             "name": "period",
             "in": "query",
-            "required": true,
+            "required": false,
             "schema": {
-              "$ref": "#/components/schemas/Period"
+              "$ref": "#/components/schemas/Period",
+              "default": "hour"
             }
           },
           {
@@ -1462,9 +1540,10 @@
           {
             "name": "period",
             "in": "query",
-            "required": true,
+            "required": false,
             "schema": {
-              "$ref": "#/components/schemas/Period"
+              "$ref": "#/components/schemas/Period",
+              "default": "hour"
             }
           },
           {
@@ -3495,7 +3574,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/SettingsSchema-Output"
+                  "$ref": "#/components/schemas/SettingsSchema"
                 }
               }
             }
@@ -3545,7 +3624,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/SettingsSchema-Input"
+                "$ref": "#/components/schemas/SettingsSchema"
               }
             }
           },
@@ -3557,7 +3636,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/SettingsSchema-Output"
+                  "$ref": "#/components/schemas/SettingsSchema"
                 }
               }
             }
@@ -3752,11 +3831,37 @@
         ],
         "parameters": [
           {
+            "name": "ids",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "integer"
+                  }
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Ids"
+            }
+          },
+          {
             "name": "offset",
             "in": "query",
             "required": false,
             "schema": {
-              "type": "integer",
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
               "title": "Offset"
             }
           },
@@ -3765,7 +3870,14 @@
             "in": "query",
             "required": false,
             "schema": {
-              "type": "integer",
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
               "title": "Limit"
             }
           }
@@ -3837,11 +3949,37 @@
         ],
         "parameters": [
           {
+            "name": "ids",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "integer"
+                  }
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Ids"
+            }
+          },
+          {
             "name": "offset",
             "in": "query",
             "required": false,
             "schema": {
-              "type": "integer",
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
               "title": "Offset"
             }
           },
@@ -3850,7 +3988,14 @@
             "in": "query",
             "required": false,
             "schema": {
-              "type": "integer",
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
               "title": "Limit"
             }
           },
@@ -4973,6 +5118,25 @@
         ],
         "parameters": [
           {
+            "name": "ids",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "integer"
+                  }
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Ids"
+            }
+          },
+          {
             "name": "offset",
             "in": "query",
             "required": false,
@@ -5071,6 +5235,25 @@
           }
         ],
         "parameters": [
+          {
+            "name": "ids",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "integer"
+                  }
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Ids"
+            }
+          },
           {
             "name": "offset",
             "in": "query",
@@ -5674,6 +5857,25 @@
         ],
         "parameters": [
           {
+            "name": "ids",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "integer"
+                  }
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Ids"
+            }
+          },
+          {
             "name": "template_type",
             "in": "query",
             "required": false,
@@ -5787,6 +5989,25 @@
           }
         ],
         "parameters": [
+          {
+            "name": "ids",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "integer"
+                  }
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Ids"
+            }
+          },
           {
             "name": "template_type",
             "in": "query",
@@ -6286,6 +6507,25 @@
           }
         ],
         "parameters": [
+          {
+            "name": "ids",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "integer"
+                  }
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Ids"
+            }
+          },
           {
             "name": "offset",
             "in": "query",
@@ -6874,6 +7114,41 @@
         ],
         "parameters": [
           {
+            "name": "period",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/Period",
+              "default": "hour"
+            }
+          },
+          {
+            "name": "node_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Node Id"
+            }
+          },
+          {
+            "name": "group_by_node",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "title": "Group By Node"
+            }
+          },
+          {
             "name": "start",
             "in": "query",
             "required": false,
@@ -6912,6 +7187,81 @@
               ],
               "title": "End"
             }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NodeUsageStatsList"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Error",
+            "headers": {
+              "WWW-Authenticate": {
+                "description": "Authentication type",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Forbidden"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/node/user_counts/{metric}": {
+      "get": {
+        "tags": [
+          "Node"
+        ],
+        "summary": "Get User Count Metric",
+        "description": "Retrieve one user activity/status count metric from node user usage rows.",
+        "operationId": "get_user_count_metric",
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "metric",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/UserCountMetric"
+            }
           },
           {
             "name": "period",
@@ -6947,6 +7297,46 @@
               "default": false,
               "title": "Group By Node"
             }
+          },
+          {
+            "name": "start",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "examples": [
+                "2024-01-01T00:00:00+03:30"
+              ],
+              "title": "Start"
+            }
+          },
+          {
+            "name": "end",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "examples": [
+                "2024-01-31T23:59:59+03:30"
+              ],
+              "title": "End"
+            }
           }
         ],
         "responses": {
@@ -6955,7 +7345,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/NodeUsageStatsList"
+                  "$ref": "#/components/schemas/UserCountMetricStatsList"
                 }
               }
             }
@@ -7064,11 +7454,33 @@
             }
           },
           {
+            "name": "ids",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "integer"
+                  }
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Ids"
+            }
+          },
+          {
             "name": "status",
             "in": "query",
             "required": false,
             "schema": {
               "anyOf": [
+                {
+                  "$ref": "#/components/schemas/NodeStatus"
+                },
                 {
                   "type": "array",
                   "items": {
@@ -7090,25 +7502,6 @@
               "type": "boolean",
               "default": false,
               "title": "Enabled"
-            }
-          },
-          {
-            "name": "ids",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "array",
-                  "items": {
-                    "type": "integer"
-                  }
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "title": "Ids"
             }
           },
           {
@@ -7194,6 +7587,25 @@
           }
         ],
         "parameters": [
+          {
+            "name": "ids",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "integer"
+                  }
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Ids"
+            }
+          },
           {
             "name": "offset",
             "in": "query",
@@ -8283,6 +8695,15 @@
             }
           },
           {
+            "name": "period",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/Period",
+              "default": "hour"
+            }
+          },
+          {
             "name": "start",
             "in": "query",
             "required": false,
@@ -8320,15 +8741,6 @@
                 "2024-01-31T23:59:59+03:30"
               ],
               "title": "End"
-            }
-          },
-          {
-            "name": "period",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "$ref": "#/components/schemas/Period",
-              "default": "hour"
             }
           }
         ],
@@ -8415,6 +8827,108 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/NodeRealtimeStats"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Error",
+            "headers": {
+              "WWW-Authenticate": {
+                "description": "Authentication type",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Forbidden"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/node/{node_id}/outbounds_latency": {
+      "get": {
+        "tags": [
+          "Node"
+        ],
+        "summary": "Node Outbounds Latency",
+        "description": "Retrieve outbound latency for one outbound or all outbounds of a node.",
+        "operationId": "node_outbounds_latency",
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "node_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Node Id"
+            }
+          },
+          {
+            "name": "name",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "",
+              "title": "Name"
+            }
+          },
+          {
+            "name": "timeout",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Timeout"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NodeOutboundsLatencyResponse"
                 }
               }
             }
@@ -11969,7 +12483,14 @@
             "in": "query",
             "required": false,
             "schema": {
-              "type": "integer",
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
               "title": "Offset"
             }
           },
@@ -11978,8 +12499,34 @@
             "in": "query",
             "required": false,
             "schema": {
-              "type": "integer",
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
               "title": "Limit"
+            }
+          },
+          {
+            "name": "ids",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "integer"
+                  }
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Ids"
             }
           },
           {
@@ -11987,11 +12534,37 @@
             "in": "query",
             "required": false,
             "schema": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              },
+              "anyOf": [
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                {
+                  "type": "null"
+                }
+              ],
               "title": "Username"
+            }
+          },
+          {
+            "name": "usernames",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Usernames"
             }
           },
           {
@@ -12011,6 +12584,25 @@
                 }
               ],
               "title": "Admin"
+            }
+          },
+          {
+            "name": "admin_ids",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "integer"
+                  }
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Admin Ids"
             }
           },
           {
@@ -12058,6 +12650,12 @@
                   "$ref": "#/components/schemas/UserStatus"
                 },
                 {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/UserStatus"
+                  }
+                },
+                {
                   "type": "null"
                 }
               ],
@@ -12094,6 +12692,172 @@
                 }
               ],
               "title": "Proxy Id"
+            }
+          },
+          {
+            "name": "data_limit_reset_strategy",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/DataLimitResetStrategy"
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/DataLimitResetStrategy"
+                  }
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Data Limit Reset Strategy"
+            }
+          },
+          {
+            "name": "data_limit_min",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Data Limit Min"
+            }
+          },
+          {
+            "name": "data_limit_max",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Data Limit Max"
+            }
+          },
+          {
+            "name": "expire_after",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "examples": [
+                "2026-01-01T00:00:00+03:30"
+              ],
+              "title": "Expire After"
+            }
+          },
+          {
+            "name": "expire_before",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "examples": [
+                "2026-01-31T23:59:59+03:30"
+              ],
+              "title": "Expire Before"
+            }
+          },
+          {
+            "name": "online_after",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "examples": [
+                "2026-01-01T00:00:00+03:30"
+              ],
+              "title": "Online After"
+            }
+          },
+          {
+            "name": "online_before",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "examples": [
+                "2026-01-31T23:59:59+03:30"
+              ],
+              "title": "Online Before"
+            }
+          },
+          {
+            "name": "online",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "title": "Online"
+            }
+          },
+          {
+            "name": "no_data_limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "title": "No Data Limit"
+            }
+          },
+          {
+            "name": "no_expire",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "title": "No Expire"
             }
           },
           {
@@ -12194,11 +12958,56 @@
         ],
         "parameters": [
           {
+            "name": "ids",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "integer"
+                  }
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Ids"
+            }
+          },
+          {
+            "name": "usernames",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Usernames"
+            }
+          },
+          {
             "name": "offset",
             "in": "query",
             "required": false,
             "schema": {
-              "type": "integer",
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
               "title": "Offset"
             }
           },
@@ -12207,7 +13016,14 @@
             "in": "query",
             "required": false,
             "schema": {
-              "type": "integer",
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
               "title": "Limit"
             }
           },
@@ -12342,9 +13158,10 @@
           {
             "name": "period",
             "in": "query",
-            "required": true,
+            "required": false,
             "schema": {
-              "$ref": "#/components/schemas/Period"
+              "$ref": "#/components/schemas/Period",
+              "default": "hour"
             }
           },
           {
@@ -12501,9 +13318,10 @@
           {
             "name": "period",
             "in": "query",
-            "required": true,
+            "required": false,
             "schema": {
-              "$ref": "#/components/schemas/Period"
+              "$ref": "#/components/schemas/Period",
+              "default": "hour"
             }
           },
           {
@@ -12660,9 +13478,10 @@
           {
             "name": "period",
             "in": "query",
-            "required": true,
+            "required": false,
             "schema": {
-              "$ref": "#/components/schemas/Period"
+              "$ref": "#/components/schemas/Period",
+              "default": "hour"
             }
           },
           {
@@ -12811,9 +13630,10 @@
           {
             "name": "period",
             "in": "query",
-            "required": true,
+            "required": false,
             "schema": {
-              "$ref": "#/components/schemas/Period"
+              "$ref": "#/components/schemas/Period",
+              "default": "hour"
             }
           },
           {
@@ -12909,6 +13729,165 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/UserUsageStatsList"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Error",
+            "headers": {
+              "WWW-Authenticate": {
+                "description": "Authentication type",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/users/counts/{metric}": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Get Users Count Metric",
+        "description": "Get one users activity/status count metric from usage rows.",
+        "operationId": "get_users_count_metric",
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "metric",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/UserCountMetric"
+            }
+          },
+          {
+            "name": "period",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/Period",
+              "default": "hour"
+            }
+          },
+          {
+            "name": "node_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Node Id"
+            }
+          },
+          {
+            "name": "group_by_node",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "title": "Group By Node"
+            }
+          },
+          {
+            "name": "start",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "examples": [
+                "2024-01-01T00:00:00+03:30"
+              ],
+              "title": "Start"
+            }
+          },
+          {
+            "name": "end",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "examples": [
+                "2024-01-31T23:59:59+03:30"
+              ],
+              "title": "End"
+            }
+          },
+          {
+            "name": "admin",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Admin"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserCountMetricStatsList"
                 }
               }
             }
@@ -14539,6 +15518,70 @@
               "default": "",
               "title": "User-Agent"
             }
+          },
+          {
+            "name": "X-HWID",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Hwid"
+            }
+          },
+          {
+            "name": "X-Device-OS",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Device-Os"
+            }
+          },
+          {
+            "name": "X-Ver-OS",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Ver-Os"
+            }
+          },
+          {
+            "name": "X-Device-Model",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Device-Model"
+            }
           }
         ],
         "responses": {
@@ -14606,6 +15649,46 @@
         }
       }
     },
+    "/sub/{token}/raw": {
+      "get": {
+        "tags": [
+          "Subscription"
+        ],
+        "summary": "User Subscription Raw",
+        "operationId": "user_subscription_raw",
+        "parameters": [
+          {
+            "name": "token",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Token"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/sub/{token}/apps": {
       "get": {
         "tags": [
@@ -14633,7 +15716,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/Application-Output"
+                    "$ref": "#/components/schemas/Application"
                   },
                   "title": "Response User Subscription Apps Sub  Token  Apps Get"
                 }
@@ -14669,6 +15752,15 @@
             "schema": {
               "type": "string",
               "title": "Token"
+            }
+          },
+          {
+            "name": "period",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/Period",
+              "default": "hour"
             }
           },
           {
@@ -14709,15 +15801,6 @@
                 "2024-01-31T23:59:59+03:30"
               ],
               "title": "End"
-            }
-          },
-          {
-            "name": "period",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "$ref": "#/components/schemas/Period",
-              "default": "hour"
             }
           }
         ],
@@ -14769,6 +15852,70 @@
             "required": true,
             "schema": {
               "$ref": "#/components/schemas/ConfigFormat"
+            }
+          },
+          {
+            "name": "X-HWID",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Hwid"
+            }
+          },
+          {
+            "name": "X-Device-OS",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Device-Os"
+            }
+          },
+          {
+            "name": "X-Ver-OS",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Ver-Os"
+            }
+          },
+          {
+            "name": "X-Device-Model",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Device-Model"
             }
           }
         ],
@@ -15029,11 +16176,37 @@
         ],
         "parameters": [
           {
+            "name": "ids",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "integer"
+                  }
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Ids"
+            }
+          },
+          {
             "name": "offset",
             "in": "query",
             "required": false,
             "schema": {
-              "type": "integer",
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
               "title": "Offset"
             }
           },
@@ -15042,7 +16215,14 @@
             "in": "query",
             "required": false,
             "schema": {
-              "type": "integer",
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
               "title": "Limit"
             }
           }
@@ -15089,6 +16269,25 @@
           }
         ],
         "parameters": [
+          {
+            "name": "ids",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "integer"
+                  }
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Ids"
+            }
+          },
           {
             "name": "offset",
             "in": "query",
@@ -15417,6 +16616,269 @@
             "OAuth2PasswordBearer": []
           }
         ]
+      }
+    },
+    "/api/user/{user_id}/hwids": {
+      "get": {
+        "tags": [
+          "User HWID"
+        ],
+        "summary": "Get User Hwids",
+        "description": "Get user's registered hardware IDs",
+        "operationId": "get_user_hwids",
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "User Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserHWIDListResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Error",
+            "headers": {
+              "WWW-Authenticate": {
+                "description": "Authentication type",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Forbidden"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "NotFound Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFound"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/user/{user_id}/hwids/{hwid}": {
+      "delete": {
+        "tags": [
+          "User HWID"
+        ],
+        "summary": "Delete User Hwid",
+        "description": "Delete a specific hardware ID from user",
+        "operationId": "delete_user_hwid",
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "User Id"
+            }
+          },
+          {
+            "name": "hwid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Hwid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Error",
+            "headers": {
+              "WWW-Authenticate": {
+                "description": "Authentication type",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Forbidden"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "NotFound Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFound"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/user/{user_id}/hwids/reset": {
+      "post": {
+        "tags": [
+          "User HWID"
+        ],
+        "summary": "Reset User Hwids",
+        "description": "Delete all hardware IDs for user",
+        "operationId": "reset_user_hwids",
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "User Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Error",
+            "headers": {
+              "WWW-Authenticate": {
+                "description": "Authentication type",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Forbidden"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "NotFound Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFound"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
       }
     }
   },
@@ -16039,60 +17501,7 @@
         "title": "AdminsSimpleResponse",
         "description": "Response model for lightweight admin list."
       },
-      "Application-Input": {
-        "properties": {
-          "name": {
-            "type": "string",
-            "maxLength": 32,
-            "title": "Name"
-          },
-          "icon_url": {
-            "type": "string",
-            "maxLength": 512,
-            "title": "Icon Url",
-            "default": ""
-          },
-          "import_url": {
-            "type": "string",
-            "maxLength": 256,
-            "title": "Import Url",
-            "default": ""
-          },
-          "description": {
-            "additionalProperties": {
-              "type": "string"
-            },
-            "propertyNames": {
-              "$ref": "#/components/schemas/Language"
-            },
-            "type": "object",
-            "title": "Description"
-          },
-          "recommended": {
-            "type": "boolean",
-            "title": "Recommended",
-            "default": false
-          },
-          "platform": {
-            "$ref": "#/components/schemas/Platform"
-          },
-          "download_links": {
-            "items": {
-              "$ref": "#/components/schemas/DownloadLink"
-            },
-            "type": "array",
-            "title": "Download Links"
-          }
-        },
-        "type": "object",
-        "required": [
-          "name",
-          "platform",
-          "download_links"
-        ],
-        "title": "Application"
-      },
-      "Application-Output": {
+      "Application": {
         "properties": {
           "name": {
             "type": "string",
@@ -17074,16 +18483,6 @@
               }
             ],
             "title": "Expire Before"
-          },
-          "flow": {
-            "anyOf": [
-              {
-                "$ref": "#/components/schemas/XTLSFlows"
-              },
-              {
-                "type": "null"
-              }
-            ]
           },
           "method": {
             "anyOf": [
@@ -18102,17 +19501,6 @@
       },
       "ExtraSettings": {
         "properties": {
-          "flow": {
-            "anyOf": [
-              {
-                "$ref": "#/components/schemas/XTLSFlows"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "default": ""
-          },
           "method": {
             "anyOf": [
               {
@@ -18216,10 +19604,6 @@
       },
       "General": {
         "properties": {
-          "default_flow": {
-            "$ref": "#/components/schemas/XTLSFlows",
-            "default": ""
-          },
           "default_method": {
             "$ref": "#/components/schemas/ShadowsocksMethods",
             "default": "chacha20-ietf-poly1305"
@@ -18508,6 +19892,40 @@
         },
         "type": "object",
         "title": "HTTPValidationError"
+      },
+      "HWIDSettings": {
+        "properties": {
+          "enabled": {
+            "type": "boolean",
+            "title": "Enabled",
+            "default": false
+          },
+          "forced": {
+            "type": "boolean",
+            "title": "Forced",
+            "default": false
+          },
+          "fallback_limit": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Fallback Limit",
+            "default": 0
+          },
+          "min_limit": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Min Limit",
+            "default": 0
+          },
+          "max_limit": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Max Limit",
+            "default": 0
+          }
+        },
+        "type": "object",
+        "title": "HWIDSettings"
       },
       "HostNotificationEnable": {
         "properties": {
@@ -19205,6 +20623,65 @@
         "type": "object",
         "title": "NodeNotificationEnable"
       },
+      "NodeOutboundLatency": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "alive": {
+            "type": "boolean",
+            "title": "Alive"
+          },
+          "delay": {
+            "type": "integer",
+            "title": "Delay"
+          },
+          "link": {
+            "type": "string",
+            "title": "Link"
+          },
+          "last_seen_time": {
+            "type": "integer",
+            "title": "Last Seen Time"
+          },
+          "last_try_time": {
+            "type": "integer",
+            "title": "Last Try Time"
+          },
+          "source": {
+            "type": "string",
+            "title": "Source"
+          }
+        },
+        "type": "object",
+        "required": [
+          "name",
+          "alive",
+          "delay",
+          "link",
+          "last_seen_time",
+          "last_try_time",
+          "source"
+        ],
+        "title": "NodeOutboundLatency"
+      },
+      "NodeOutboundsLatencyResponse": {
+        "properties": {
+          "latencies": {
+            "items": {
+              "$ref": "#/components/schemas/NodeOutboundLatency"
+            },
+            "type": "array",
+            "title": "Latencies"
+          }
+        },
+        "type": "object",
+        "required": [
+          "latencies"
+        ],
+        "title": "NodeOutboundsLatencyResponse"
+      },
       "NodeRealtimeStats": {
         "properties": {
           "mem_total": {
@@ -19811,89 +21288,7 @@
         "type": "object",
         "title": "NotificationEnable"
       },
-      "NotificationSettings-Input": {
-        "properties": {
-          "notify_telegram": {
-            "type": "boolean",
-            "title": "Notify Telegram",
-            "default": false
-          },
-          "notify_discord": {
-            "type": "boolean",
-            "title": "Notify Discord",
-            "default": false
-          },
-          "telegram_api_token": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Telegram Api Token"
-          },
-          "telegram_chat_id": {
-            "anyOf": [
-              {
-                "type": "integer"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Telegram Chat Id"
-          },
-          "telegram_topic_id": {
-            "anyOf": [
-              {
-                "type": "integer"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Telegram Topic Id"
-          },
-          "discord_webhook_url": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Discord Webhook Url"
-          },
-          "channels": {
-            "$ref": "#/components/schemas/NotificationChannels"
-          },
-          "proxy_url": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Proxy Url"
-          },
-          "max_retries": {
-            "type": "integer",
-            "exclusiveMinimum": 1.0,
-            "title": "Max Retries"
-          }
-        },
-        "type": "object",
-        "required": [
-          "max_retries"
-        ],
-        "title": "NotificationSettings"
-      },
-      "NotificationSettings-Output": {
+      "NotificationSettings": {
         "properties": {
           "notify_telegram": {
             "type": "boolean",
@@ -20035,31 +21430,7 @@
         ],
         "title": "ProxyHostSecurity"
       },
-      "ProxyTable-Input": {
-        "properties": {
-          "vmess": {
-            "$ref": "#/components/schemas/VMessSettings"
-          },
-          "vless": {
-            "$ref": "#/components/schemas/VlessSettings"
-          },
-          "trojan": {
-            "$ref": "#/components/schemas/TrojanSettings"
-          },
-          "shadowsocks": {
-            "$ref": "#/components/schemas/ShadowsocksSettings"
-          },
-          "wireguard": {
-            "$ref": "#/components/schemas/WireGuardSettings"
-          },
-          "hysteria": {
-            "$ref": "#/components/schemas/HysteriaSettings"
-          }
-        },
-        "type": "object",
-        "title": "ProxyTable"
-      },
-      "ProxyTable-Output": {
+      "ProxyTable": {
         "properties": {
           "vmess": {
             "$ref": "#/components/schemas/VMessSettings"
@@ -20266,7 +21637,7 @@
         ],
         "title": "RunMethod"
       },
-      "SettingsSchema-Input": {
+      "SettingsSchema": {
         "properties": {
           "telegram": {
             "anyOf": [
@@ -20301,7 +21672,7 @@
           "notification_settings": {
             "anyOf": [
               {
-                "$ref": "#/components/schemas/NotificationSettings-Input"
+                "$ref": "#/components/schemas/NotificationSettings"
               },
               {
                 "type": "null"
@@ -20321,83 +21692,17 @@
           "subscription": {
             "anyOf": [
               {
-                "$ref": "#/components/schemas/Subscription-Input"
+                "$ref": "#/components/schemas/Subscription"
               },
               {
                 "type": "null"
               }
             ]
           },
-          "general": {
+          "hwid": {
             "anyOf": [
               {
-                "$ref": "#/components/schemas/General"
-              },
-              {
-                "type": "null"
-              }
-            ]
-          }
-        },
-        "type": "object",
-        "title": "SettingsSchema"
-      },
-      "SettingsSchema-Output": {
-        "properties": {
-          "telegram": {
-            "anyOf": [
-              {
-                "$ref": "#/components/schemas/Telegram"
-              },
-              {
-                "type": "null"
-              }
-            ]
-          },
-          "discord": {
-            "anyOf": [
-              {
-                "$ref": "#/components/schemas/Discord"
-              },
-              {
-                "type": "null"
-              }
-            ]
-          },
-          "webhook": {
-            "anyOf": [
-              {
-                "$ref": "#/components/schemas/Webhook"
-              },
-              {
-                "type": "null"
-              }
-            ]
-          },
-          "notification_settings": {
-            "anyOf": [
-              {
-                "$ref": "#/components/schemas/NotificationSettings-Output"
-              },
-              {
-                "type": "null"
-              }
-            ]
-          },
-          "notification_enable": {
-            "anyOf": [
-              {
-                "$ref": "#/components/schemas/NotificationEnable"
-              },
-              {
-                "type": "null"
-              }
-            ]
-          },
-          "subscription": {
-            "anyOf": [
-              {
-                "$ref": "#/components/schemas/Subscription-Output"
+                "$ref": "#/components/schemas/HWIDSettings"
               },
               {
                 "type": "null"
@@ -20596,7 +21901,7 @@
         ],
         "title": "SubRule"
       },
-      "Subscription-Input": {
+      "Subscription": {
         "properties": {
           "url_prefix": {
             "type": "string",
@@ -20629,77 +21934,10 @@
             "title": "Announce Url",
             "default": ""
           },
-          "rules": {
-            "items": {
-              "$ref": "#/components/schemas/SubRule"
-            },
-            "type": "array",
-            "title": "Rules"
-          },
-          "manual_sub_request": {
-            "$ref": "#/components/schemas/SubFormatEnable"
-          },
-          "applications": {
-            "items": {
-              "$ref": "#/components/schemas/Application-Input"
-            },
-            "type": "array",
-            "title": "Applications"
-          },
-          "allow_browser_config": {
-            "type": "boolean",
-            "title": "Allow Browser Config",
-            "default": true
-          },
-          "disable_sub_template": {
-            "type": "boolean",
-            "title": "Disable Sub Template",
-            "default": false
-          },
-          "randomize_order": {
-            "type": "boolean",
-            "title": "Randomize Order",
-            "default": false
-          }
-        },
-        "type": "object",
-        "required": [
-          "rules"
-        ],
-        "title": "Subscription"
-      },
-      "Subscription-Output": {
-        "properties": {
-          "url_prefix": {
-            "type": "string",
-            "title": "Url Prefix",
-            "default": ""
-          },
-          "update_interval": {
-            "type": "integer",
-            "title": "Update Interval",
-            "default": 12
-          },
-          "support_url": {
-            "type": "string",
-            "title": "Support Url",
-            "default": "https://t.me/"
-          },
-          "profile_title": {
-            "type": "string",
-            "title": "Profile Title",
-            "default": "Subscription"
-          },
-          "announce": {
-            "type": "string",
-            "maxLength": 128,
-            "title": "Announce",
-            "default": ""
-          },
-          "announce_url": {
-            "type": "string",
-            "title": "Announce Url",
-            "default": ""
+          "response_headers": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Response Headers"
           },
           "rules": {
             "items": {
@@ -20713,7 +21951,7 @@
           },
           "applications": {
             "items": {
-              "$ref": "#/components/schemas/Application-Output"
+              "$ref": "#/components/schemas/Application"
             },
             "type": "array",
             "title": "Applications"
@@ -20761,7 +21999,7 @@
       "SubscriptionUserResponse": {
         "properties": {
           "proxy_settings": {
-            "$ref": "#/components/schemas/ProxyTable-Output"
+            "$ref": "#/components/schemas/ProxyTable"
           },
           "expire": {
             "anyOf": [
@@ -20841,6 +22079,17 @@
             ],
             "title": "Group Ids"
           },
+          "hwid_limit": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Hwid Limit"
+          },
           "next_plan": {
             "anyOf": [
               {
@@ -20899,6 +22148,17 @@
               }
             ],
             "title": "Online At"
+          },
+          "ip": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Ip"
           }
         },
         "type": "object",
@@ -21312,10 +22572,88 @@
         ],
         "title": "UsageTable"
       },
+      "UserCountMetric": {
+        "type": "string",
+        "enum": [
+          "online",
+          "expired",
+          "limited"
+        ],
+        "title": "UserCountMetric"
+      },
+      "UserCountMetricStat": {
+        "properties": {
+          "count": {
+            "type": "integer",
+            "title": "Count"
+          },
+          "period_start": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Period Start"
+          }
+        },
+        "type": "object",
+        "required": [
+          "count",
+          "period_start"
+        ],
+        "title": "UserCountMetricStat"
+      },
+      "UserCountMetricStatsList": {
+        "properties": {
+          "period": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Period"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "start": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Start"
+          },
+          "end": {
+            "type": "string",
+            "format": "date-time",
+            "title": "End"
+          },
+          "metric": {
+            "$ref": "#/components/schemas/UserCountMetric"
+          },
+          "count_during_period": {
+            "type": "integer",
+            "title": "Count During Period",
+            "default": 0
+          },
+          "stats": {
+            "additionalProperties": {
+              "items": {
+                "$ref": "#/components/schemas/UserCountMetricStat"
+              },
+              "type": "array"
+            },
+            "type": "object",
+            "title": "Stats"
+          }
+        },
+        "type": "object",
+        "required": [
+          "start",
+          "end",
+          "metric",
+          "stats"
+        ],
+        "title": "UserCountMetricStatsList"
+      },
       "UserCreate": {
         "properties": {
           "proxy_settings": {
-            "$ref": "#/components/schemas/ProxyTable-Input"
+            "$ref": "#/components/schemas/ProxyTable"
           },
           "expire": {
             "anyOf": [
@@ -21418,6 +22756,17 @@
             ],
             "title": "Auto Delete In Days"
           },
+          "hwid_limit": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Hwid Limit"
+          },
           "next_plan": {
             "anyOf": [
               {
@@ -21448,6 +22797,90 @@
           "username"
         ],
         "title": "UserCreate"
+      },
+      "UserHWIDListResponse": {
+        "properties": {
+          "hwids": {
+            "items": {
+              "$ref": "#/components/schemas/UserHWIDResponse"
+            },
+            "type": "array",
+            "title": "Hwids"
+          },
+          "count": {
+            "type": "integer",
+            "title": "Count"
+          }
+        },
+        "type": "object",
+        "required": [
+          "hwids",
+          "count"
+        ],
+        "title": "UserHWIDListResponse"
+      },
+      "UserHWIDResponse": {
+        "properties": {
+          "id": {
+            "type": "integer",
+            "title": "Id"
+          },
+          "hwid": {
+            "type": "string",
+            "title": "Hwid"
+          },
+          "device_os": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Device Os"
+          },
+          "os_version": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Os Version"
+          },
+          "device_model": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Device Model"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "last_used_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Last Used At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "hwid",
+          "created_at",
+          "last_used_at"
+        ],
+        "title": "UserHWIDResponse"
       },
       "UserIPList": {
         "properties": {
@@ -21495,7 +22928,7 @@
           "proxy_settings": {
             "anyOf": [
               {
-                "$ref": "#/components/schemas/ProxyTable-Input"
+                "$ref": "#/components/schemas/ProxyTable"
               },
               {
                 "type": "null"
@@ -21602,6 +23035,17 @@
               }
             ],
             "title": "Auto Delete In Days"
+          },
+          "hwid_limit": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Hwid Limit"
           },
           "next_plan": {
             "anyOf": [
@@ -21671,7 +23115,7 @@
       "UserResponse": {
         "properties": {
           "proxy_settings": {
-            "$ref": "#/components/schemas/ProxyTable-Output"
+            "$ref": "#/components/schemas/ProxyTable"
           },
           "expire": {
             "anyOf": [
@@ -21773,6 +23217,17 @@
               }
             ],
             "title": "Auto Delete In Days"
+          },
+          "hwid_limit": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Hwid Limit"
           },
           "next_plan": {
             "anyOf": [
@@ -21970,6 +23425,28 @@
           "user_agent": {
             "type": "string",
             "title": "User Agent"
+          },
+          "ip": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Ip"
+          },
+          "hwid": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Hwid"
           }
         },
         "type": "object",
@@ -22004,6 +23481,17 @@
             ],
             "title": "Data Limit",
             "description": "data_limit can be 0 or greater"
+          },
+          "hwid_limit": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Hwid Limit"
           },
           "expire_duration": {
             "anyOf": [
@@ -22138,6 +23626,17 @@
             ],
             "title": "Data Limit",
             "description": "data_limit can be 0 or greater"
+          },
+          "hwid_limit": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Hwid Limit"
           },
           "expire_duration": {
             "anyOf": [
@@ -22276,6 +23775,17 @@
             ],
             "title": "Data Limit",
             "description": "data_limit can be 0 or greater"
+          },
+          "hwid_limit": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Hwid Limit"
           },
           "expire_duration": {
             "anyOf": [
@@ -22605,10 +24115,6 @@
             "type": "string",
             "format": "uuid",
             "title": "Id"
-          },
-          "flow": {
-            "$ref": "#/components/schemas/XTLSFlows",
-            "default": ""
           }
         },
         "type": "object",
@@ -23096,6 +24602,9 @@
           "uplink_chunk_size": {
             "anyOf": [
               {
+                "type": "string"
+              },
+              {
                 "type": "integer"
               },
               {
@@ -23332,7 +24841,8 @@
           "uplink_chunk_size": {
             "anyOf": [
               {
-                "type": "integer"
+                "type": "string",
+                "pattern": "^\\d{1,16}(-\\d{1,16})?$"
               },
               {
                 "type": "null"
@@ -23552,15 +25062,6 @@
         },
         "type": "object",
         "title": "XMuxSettings"
-      },
-      "XTLSFlows": {
-        "type": "string",
-        "enum": [
-          "",
-          "xtls-rprx-vision",
-          "xtls-rprx-vision-udp443"
-        ],
-        "title": "XTLSFlows"
       },
       "XUDP": {
         "type": "string",
