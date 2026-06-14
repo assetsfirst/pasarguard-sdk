@@ -23,7 +23,7 @@
     "rimraf": "rimraf",
     "clean": "rimraf dist",
     "dev": "tsup --watch",
-    "codegen": "openapi-generator-cli generate --generator-key v1 --type-mappings=anyOf=object",
+    "codegen": "openapi-generator-cli generate --generator-key v1",
     "test": "openapi-generator-cli author template -g typescript-axios -o ./templates/typescript-axios",
     "openapi-generator-cli": "openapi-generator-cli",
     "format": "prettier --write .",
@@ -36,7 +36,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.36.0",
-    "@openapitools/openapi-generator-cli": "^2.24.0",
+    "@openapitools/openapi-generator-cli": "^2.30.2",
     "@types/node": "^24.6.0",
     "esbuild": "^0.25.10",
     "eslint": "^9.36.0",

@@ -1,18 +1,16 @@
 # DataLimitResetStrategy
 
 
-## Properties
+## Enum
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+* `NoReset` (value: `'no_reset'`)
 
-## Example
+* `Day` (value: `'day'`)
 
-```typescript
-import { DataLimitResetStrategy } from './api';
+* `Week` (value: `'week'`)
 
-const instance: DataLimitResetStrategy = {
-};
-```
+* `Month` (value: `'month'`)
+
+* `Year` (value: `'year'`)
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

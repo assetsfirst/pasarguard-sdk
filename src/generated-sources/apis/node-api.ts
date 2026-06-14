@@ -553,13 +553,13 @@ export const NodeApiAxiosParamCreator = function (configuration?: Configuration)
          * @param {number | null} [offset] 
          * @param {number | null} [limit] 
          * @param {Array<number> | null} [ids] 
-         * @param {Status | null} [status] 
+         * @param {Status} [status] 
          * @param {boolean} [enabled] 
          * @param {string | null} [search] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getNodes: async (coreId?: number | null, offset?: number | null, limit?: number | null, ids?: Array<number> | null, status?: Status | null, enabled?: boolean, search?: string | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        getNodes: async (coreId?: number | null, offset?: number | null, limit?: number | null, ids?: Array<number> | null, status?: Status, enabled?: boolean, search?: string | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/nodes`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -1621,13 +1621,13 @@ export const NodeApiFp = function(configuration?: Configuration) {
          * @param {number | null} [offset] 
          * @param {number | null} [limit] 
          * @param {Array<number> | null} [ids] 
-         * @param {Status | null} [status] 
+         * @param {Status} [status] 
          * @param {boolean} [enabled] 
          * @param {string | null} [search] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getNodes(coreId?: number | null, offset?: number | null, limit?: number | null, ids?: Array<number> | null, status?: Status | null, enabled?: boolean, search?: string | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<NodesResponse>> {
+        async getNodes(coreId?: number | null, offset?: number | null, limit?: number | null, ids?: Array<number> | null, status?: Status, enabled?: boolean, search?: string | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<NodesResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getNodes(coreId, offset, limit, ids, status, enabled, search, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['NodeApi.getNodes']?.[localVarOperationServerIndex]?.url;
@@ -2032,13 +2032,13 @@ export const NodeApiFactory = function (configuration?: Configuration, basePath?
          * @param {number | null} [offset] 
          * @param {number | null} [limit] 
          * @param {Array<number> | null} [ids] 
-         * @param {Status | null} [status] 
+         * @param {Status} [status] 
          * @param {boolean} [enabled] 
          * @param {string | null} [search] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getNodes(coreId?: number | null, offset?: number | null, limit?: number | null, ids?: Array<number> | null, status?: Status | null, enabled?: boolean, search?: string | null, options?: RawAxiosRequestConfig): AxiosPromise<NodesResponse> {
+        getNodes(coreId?: number | null, offset?: number | null, limit?: number | null, ids?: Array<number> | null, status?: Status, enabled?: boolean, search?: string | null, options?: RawAxiosRequestConfig): AxiosPromise<NodesResponse> {
             return localVarFp.getNodes(coreId, offset, limit, ids, status, enabled, search, options).then((request) => request(axios, basePath));
         },
         /**
@@ -2405,14 +2405,14 @@ export class NodeApi extends BaseAPI {
      * @param {number | null} [offset] 
      * @param {number | null} [limit] 
      * @param {Array<number> | null} [ids] 
-     * @param {Status | null} [status] 
+     * @param {Status} [status] 
      * @param {boolean} [enabled] 
      * @param {string | null} [search] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof NodeApi
      */
-    public getNodes(coreId?: number | null, offset?: number | null, limit?: number | null, ids?: Array<number> | null, status?: Status | null, enabled?: boolean, search?: string | null, options?: RawAxiosRequestConfig) {
+    public getNodes(coreId?: number | null, offset?: number | null, limit?: number | null, ids?: Array<number> | null, status?: Status, enabled?: boolean, search?: string | null, options?: RawAxiosRequestConfig) {
         return NodeApiFp(this.configuration).getNodes(coreId, offset, limit, ids, status, enabled, search, options).then((request) => request(this.axios, this.basePath)).then(({data}) => data);
     }
 

@@ -13,13 +13,22 @@
  */
 
 
-// May contain unused imports in some cases
-// @ts-ignore
-import type { DataLimitResetStrategy } from './data-limit-reset-strategy';
 
 /**
- * @type DataLimitResetStrategy
+ * 
  * @export
+ * @enum {string}
  */
-export type DataLimitResetStrategy = Array<DataLimitResetStrategy> | DataLimitResetStrategy;
+
+export const DataLimitResetStrategy = {
+    NoReset: 'no_reset',
+    Day: 'day',
+    Week: 'week',
+    Month: 'month',
+    Year: 'year'
+} as const;
+
+export type DataLimitResetStrategy = typeof DataLimitResetStrategy[keyof typeof DataLimitResetStrategy];
+
+
 

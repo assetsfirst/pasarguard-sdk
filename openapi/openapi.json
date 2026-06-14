@@ -7486,9 +7486,6 @@
                   "items": {
                     "$ref": "#/components/schemas/NodeStatus"
                   }
-                },
-                {
-                  "type": "null"
                 }
               ],
               "title": "Status"
@@ -12654,9 +12651,6 @@
                   "items": {
                     "$ref": "#/components/schemas/UserStatus"
                   }
-                },
-                {
-                  "type": "null"
                 }
               ],
               "title": "Status"
@@ -12700,9 +12694,6 @@
             "required": false,
             "schema": {
               "anyOf": [
-                {
-                  "$ref": "#/components/schemas/DataLimitResetStrategy"
-                },
                 {
                   "type": "array",
                   "items": {

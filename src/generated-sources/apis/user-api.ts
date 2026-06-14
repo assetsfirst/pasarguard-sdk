@@ -1396,10 +1396,10 @@ export const UserApiAxiosParamCreator = function (configuration?: Configuration)
          * @param {Array<number> | null} [adminIds] 
          * @param {Array<number> | null} [group] 
          * @param {string | null} [search] 
-         * @param {Status1 | null} [status] 
+         * @param {Status1} [status] 
          * @param {string | null} [sort] 
          * @param {string | null} [proxyId] 
-         * @param {DataLimitResetStrategy | null} [dataLimitResetStrategy] 
+         * @param {Array<DataLimitResetStrategy> | null} [dataLimitResetStrategy] 
          * @param {number | null} [dataLimitMin] 
          * @param {number | null} [dataLimitMax] 
          * @param {string | null} [expireAfter] 
@@ -1413,7 +1413,7 @@ export const UserApiAxiosParamCreator = function (configuration?: Configuration)
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getUsers: async (offset?: number | null, limit?: number | null, ids?: Array<number> | null, username?: Array<string> | null, usernames?: Array<string> | null, admin?: Array<string> | null, adminIds?: Array<number> | null, group?: Array<number> | null, search?: string | null, status?: Status1 | null, sort?: string | null, proxyId?: string | null, dataLimitResetStrategy?: DataLimitResetStrategy | null, dataLimitMin?: number | null, dataLimitMax?: number | null, expireAfter?: string | null, expireBefore?: string | null, onlineAfter?: string | null, onlineBefore?: string | null, online?: boolean, noDataLimit?: boolean, noExpire?: boolean, loadSub?: boolean, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        getUsers: async (offset?: number | null, limit?: number | null, ids?: Array<number> | null, username?: Array<string> | null, usernames?: Array<string> | null, admin?: Array<string> | null, adminIds?: Array<number> | null, group?: Array<number> | null, search?: string | null, status?: Status1, sort?: string | null, proxyId?: string | null, dataLimitResetStrategy?: Array<DataLimitResetStrategy> | null, dataLimitMin?: number | null, dataLimitMax?: number | null, expireAfter?: string | null, expireBefore?: string | null, onlineAfter?: string | null, onlineBefore?: string | null, online?: boolean, noDataLimit?: boolean, noExpire?: boolean, loadSub?: boolean, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/users`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -1480,10 +1480,8 @@ export const UserApiAxiosParamCreator = function (configuration?: Configuration)
                 localVarQueryParameter['proxy_id'] = proxyId;
             }
 
-            if (dataLimitResetStrategy !== undefined) {
-                for (const [key, value] of Object.entries(dataLimitResetStrategy)) {
-                    localVarQueryParameter[key] = value;
-                }
+            if (dataLimitResetStrategy) {
+                localVarQueryParameter['data_limit_reset_strategy'] = dataLimitResetStrategy;
             }
 
             if (dataLimitMin !== undefined) {
@@ -3005,10 +3003,10 @@ export const UserApiFp = function(configuration?: Configuration) {
          * @param {Array<number> | null} [adminIds] 
          * @param {Array<number> | null} [group] 
          * @param {string | null} [search] 
-         * @param {Status1 | null} [status] 
+         * @param {Status1} [status] 
          * @param {string | null} [sort] 
          * @param {string | null} [proxyId] 
-         * @param {DataLimitResetStrategy | null} [dataLimitResetStrategy] 
+         * @param {Array<DataLimitResetStrategy> | null} [dataLimitResetStrategy] 
          * @param {number | null} [dataLimitMin] 
          * @param {number | null} [dataLimitMax] 
          * @param {string | null} [expireAfter] 
@@ -3022,7 +3020,7 @@ export const UserApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getUsers(offset?: number | null, limit?: number | null, ids?: Array<number> | null, username?: Array<string> | null, usernames?: Array<string> | null, admin?: Array<string> | null, adminIds?: Array<number> | null, group?: Array<number> | null, search?: string | null, status?: Status1 | null, sort?: string | null, proxyId?: string | null, dataLimitResetStrategy?: DataLimitResetStrategy | null, dataLimitMin?: number | null, dataLimitMax?: number | null, expireAfter?: string | null, expireBefore?: string | null, onlineAfter?: string | null, onlineBefore?: string | null, online?: boolean, noDataLimit?: boolean, noExpire?: boolean, loadSub?: boolean, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UsersResponse>> {
+        async getUsers(offset?: number | null, limit?: number | null, ids?: Array<number> | null, username?: Array<string> | null, usernames?: Array<string> | null, admin?: Array<string> | null, adminIds?: Array<number> | null, group?: Array<number> | null, search?: string | null, status?: Status1, sort?: string | null, proxyId?: string | null, dataLimitResetStrategy?: Array<DataLimitResetStrategy> | null, dataLimitMin?: number | null, dataLimitMax?: number | null, expireAfter?: string | null, expireBefore?: string | null, onlineAfter?: string | null, onlineBefore?: string | null, online?: boolean, noDataLimit?: boolean, noExpire?: boolean, loadSub?: boolean, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UsersResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getUsers(offset, limit, ids, username, usernames, admin, adminIds, group, search, status, sort, proxyId, dataLimitResetStrategy, dataLimitMin, dataLimitMax, expireAfter, expireBefore, onlineAfter, onlineBefore, online, noDataLimit, noExpire, loadSub, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['UserApi.getUsers']?.[localVarOperationServerIndex]?.url;
@@ -3694,10 +3692,10 @@ export const UserApiFactory = function (configuration?: Configuration, basePath?
          * @param {Array<number> | null} [adminIds] 
          * @param {Array<number> | null} [group] 
          * @param {string | null} [search] 
-         * @param {Status1 | null} [status] 
+         * @param {Status1} [status] 
          * @param {string | null} [sort] 
          * @param {string | null} [proxyId] 
-         * @param {DataLimitResetStrategy | null} [dataLimitResetStrategy] 
+         * @param {Array<DataLimitResetStrategy> | null} [dataLimitResetStrategy] 
          * @param {number | null} [dataLimitMin] 
          * @param {number | null} [dataLimitMax] 
          * @param {string | null} [expireAfter] 
@@ -3711,7 +3709,7 @@ export const UserApiFactory = function (configuration?: Configuration, basePath?
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getUsers(offset?: number | null, limit?: number | null, ids?: Array<number> | null, username?: Array<string> | null, usernames?: Array<string> | null, admin?: Array<string> | null, adminIds?: Array<number> | null, group?: Array<number> | null, search?: string | null, status?: Status1 | null, sort?: string | null, proxyId?: string | null, dataLimitResetStrategy?: DataLimitResetStrategy | null, dataLimitMin?: number | null, dataLimitMax?: number | null, expireAfter?: string | null, expireBefore?: string | null, onlineAfter?: string | null, onlineBefore?: string | null, online?: boolean, noDataLimit?: boolean, noExpire?: boolean, loadSub?: boolean, options?: RawAxiosRequestConfig): AxiosPromise<UsersResponse> {
+        getUsers(offset?: number | null, limit?: number | null, ids?: Array<number> | null, username?: Array<string> | null, usernames?: Array<string> | null, admin?: Array<string> | null, adminIds?: Array<number> | null, group?: Array<number> | null, search?: string | null, status?: Status1, sort?: string | null, proxyId?: string | null, dataLimitResetStrategy?: Array<DataLimitResetStrategy> | null, dataLimitMin?: number | null, dataLimitMax?: number | null, expireAfter?: string | null, expireBefore?: string | null, onlineAfter?: string | null, onlineBefore?: string | null, online?: boolean, noDataLimit?: boolean, noExpire?: boolean, loadSub?: boolean, options?: RawAxiosRequestConfig): AxiosPromise<UsersResponse> {
             return localVarFp.getUsers(offset, limit, ids, username, usernames, admin, adminIds, group, search, status, sort, proxyId, dataLimitResetStrategy, dataLimitMin, dataLimitMax, expireAfter, expireBefore, onlineAfter, onlineBefore, online, noDataLimit, noExpire, loadSub, options).then((request) => request(axios, basePath));
         },
         /**
@@ -4369,10 +4367,10 @@ export class UserApi extends BaseAPI {
      * @param {Array<number> | null} [adminIds] 
      * @param {Array<number> | null} [group] 
      * @param {string | null} [search] 
-     * @param {Status1 | null} [status] 
+     * @param {Status1} [status] 
      * @param {string | null} [sort] 
      * @param {string | null} [proxyId] 
-     * @param {DataLimitResetStrategy | null} [dataLimitResetStrategy] 
+     * @param {Array<DataLimitResetStrategy> | null} [dataLimitResetStrategy] 
      * @param {number | null} [dataLimitMin] 
      * @param {number | null} [dataLimitMax] 
      * @param {string | null} [expireAfter] 
@@ -4387,7 +4385,7 @@ export class UserApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof UserApi
      */
-    public getUsers(offset?: number | null, limit?: number | null, ids?: Array<number> | null, username?: Array<string> | null, usernames?: Array<string> | null, admin?: Array<string> | null, adminIds?: Array<number> | null, group?: Array<number> | null, search?: string | null, status?: Status1 | null, sort?: string | null, proxyId?: string | null, dataLimitResetStrategy?: DataLimitResetStrategy | null, dataLimitMin?: number | null, dataLimitMax?: number | null, expireAfter?: string | null, expireBefore?: string | null, onlineAfter?: string | null, onlineBefore?: string | null, online?: boolean, noDataLimit?: boolean, noExpire?: boolean, loadSub?: boolean, options?: RawAxiosRequestConfig) {
+    public getUsers(offset?: number | null, limit?: number | null, ids?: Array<number> | null, username?: Array<string> | null, usernames?: Array<string> | null, admin?: Array<string> | null, adminIds?: Array<number> | null, group?: Array<number> | null, search?: string | null, status?: Status1, sort?: string | null, proxyId?: string | null, dataLimitResetStrategy?: Array<DataLimitResetStrategy> | null, dataLimitMin?: number | null, dataLimitMax?: number | null, expireAfter?: string | null, expireBefore?: string | null, onlineAfter?: string | null, onlineBefore?: string | null, online?: boolean, noDataLimit?: boolean, noExpire?: boolean, loadSub?: boolean, options?: RawAxiosRequestConfig) {
         return UserApiFp(this.configuration).getUsers(offset, limit, ids, username, usernames, admin, adminIds, group, search, status, sort, proxyId, dataLimitResetStrategy, dataLimitMin, dataLimitMax, expireAfter, expireBefore, onlineAfter, onlineBefore, online, noDataLimit, noExpire, loadSub, options).then((request) => request(this.axios, this.basePath)).then(({data}) => data);
     }
 

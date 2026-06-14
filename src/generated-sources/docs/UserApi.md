@@ -1747,8 +1747,7 @@ Get all users
 import {
     UserApi,
     Configuration,
-    Status1,
-    DataLimitResetStrategy
+    Status1
 } from './api';
 
 const configuration = new Configuration();
@@ -1766,7 +1765,7 @@ let search: string; // (optional) (default to undefined)
 let status: Status1; // (optional) (default to undefined)
 let sort: string; // (optional) (default to undefined)
 let proxyId: string; // (optional) (default to undefined)
-let dataLimitResetStrategy: DataLimitResetStrategy; // (optional) (default to undefined)
+let dataLimitResetStrategy: Array<DataLimitResetStrategy>; // (optional) (default to undefined)
 let dataLimitMin: number; // (optional) (default to undefined)
 let dataLimitMax: number; // (optional) (default to undefined)
 let expireAfter: string; // (optional) (default to undefined)
@@ -1821,7 +1820,7 @@ const { status, data } = await apiInstance.getUsers(
 | **status** | **Status1** |  | (optional) defaults to undefined|
 | **sort** | [**string**] |  | (optional) defaults to undefined|
 | **proxyId** | [**string**] |  | (optional) defaults to undefined|
-| **dataLimitResetStrategy** | **DataLimitResetStrategy** |  | (optional) defaults to undefined|
+| **dataLimitResetStrategy** | **Array&lt;DataLimitResetStrategy&gt;** |  | (optional) defaults to undefined|
 | **dataLimitMin** | [**number**] |  | (optional) defaults to undefined|
 | **dataLimitMax** | [**number**] |  | (optional) defaults to undefined|
 | **expireAfter** | [**string**] |  | (optional) defaults to undefined|
