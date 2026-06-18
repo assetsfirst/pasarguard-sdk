@@ -57,6 +57,9 @@ All URIs are relative to *http://localhost*
 |[**setOwner**](#setowner) | **PUT** /api/user/{username}/set_owner | Set Owner|
 |[**setOwnerById**](#setownerbyid) | **PUT** /api/user/by-id/{user_id}/set_owner | Set Owner By Id|
 |[**setOwnerByUsername**](#setownerbyusername) | **PUT** /api/user/by-username/{username}/set_owner | Set Owner By Username|
+|[**setUserDisabled**](#setuserdisabled) | **PUT** /api/user/{username}/disabled | Set User Disabled|
+|[**setUserDisabledById**](#setuserdisabledbyid) | **PUT** /api/user/by-id/{user_id}/disabled | Set User Disabled By Id|
+|[**setUserDisabledByUsername**](#setuserdisabledbyusername) | **PUT** /api/user/by-username/{username}/disabled | Set User Disabled By Username|
 
 # **activeNextPlan**
 > UserResponse activeNextPlan()
@@ -671,7 +674,7 @@ const { status, data } = await apiInstance.bulkModifyUsersProxySettings(
 # **bulkReallocateWireguardPeerIps**
 > WireGuardPeerIPsReallocateResponse bulkReallocateWireguardPeerIps(bulkWireGuardPeerIPs)
 
-Same scoping as other bulk user actions (users, admins, group_ids, optional status filter). Non-sudo admins only affect their own users.
+Same scoping as other bulk user actions (users, admins, group_ids, optional status filter). non-owner admins only affect their own users.
 
 ### Example
 
@@ -3179,6 +3182,183 @@ const { status, data } = await apiInstance.setOwnerByUsername(
 |**200** | Successful Response |  -  |
 |**401** | Unauthorized Error |  * WWW-Authenticate - Authentication type <br>  |
 |**403** | Forbidden Error |  -  |
+|**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **setUserDisabled**
+> UserResponse setUserDisabled(userStatusToggle)
+
+
+### Example
+
+```typescript
+import {
+    UserApi,
+    Configuration,
+    UserStatusToggle
+} from './api';
+
+const configuration = new Configuration();
+const apiInstance = new UserApi(configuration);
+
+let username: string; // (default to undefined)
+let userStatusToggle: UserStatusToggle; //
+
+const { status, data } = await apiInstance.setUserDisabled(
+    username,
+    userStatusToggle
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **userStatusToggle** | **UserStatusToggle**|  | |
+| **username** | [**string**] |  | defaults to undefined|
+
+
+### Return type
+
+**UserResponse**
+
+### Authorization
+
+[OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**401** | Unauthorized Error |  * WWW-Authenticate - Authentication type <br>  |
+|**400** | BadRequest Error |  -  |
+|**403** | Forbidden Error |  -  |
+|**404** | NotFound Error |  -  |
+|**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **setUserDisabledById**
+> UserResponse setUserDisabledById(userStatusToggle)
+
+
+### Example
+
+```typescript
+import {
+    UserApi,
+    Configuration,
+    UserStatusToggle
+} from './api';
+
+const configuration = new Configuration();
+const apiInstance = new UserApi(configuration);
+
+let userId: number; // (default to undefined)
+let userStatusToggle: UserStatusToggle; //
+
+const { status, data } = await apiInstance.setUserDisabledById(
+    userId,
+    userStatusToggle
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **userStatusToggle** | **UserStatusToggle**|  | |
+| **userId** | [**number**] |  | defaults to undefined|
+
+
+### Return type
+
+**UserResponse**
+
+### Authorization
+
+[OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**401** | Unauthorized Error |  * WWW-Authenticate - Authentication type <br>  |
+|**400** | BadRequest Error |  -  |
+|**403** | Forbidden Error |  -  |
+|**404** | NotFound Error |  -  |
+|**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **setUserDisabledByUsername**
+> UserResponse setUserDisabledByUsername(userStatusToggle)
+
+
+### Example
+
+```typescript
+import {
+    UserApi,
+    Configuration,
+    UserStatusToggle
+} from './api';
+
+const configuration = new Configuration();
+const apiInstance = new UserApi(configuration);
+
+let username: string; // (default to undefined)
+let userStatusToggle: UserStatusToggle; //
+
+const { status, data } = await apiInstance.setUserDisabledByUsername(
+    username,
+    userStatusToggle
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **userStatusToggle** | **UserStatusToggle**|  | |
+| **username** | [**string**] |  | defaults to undefined|
+
+
+### Return type
+
+**UserResponse**
+
+### Authorization
+
+[OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**401** | Unauthorized Error |  * WWW-Authenticate - Authentication type <br>  |
+|**400** | BadRequest Error |  -  |
+|**403** | Forbidden Error |  -  |
+|**404** | NotFound Error |  -  |
 |**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **mode** | [**XHttpModes**](XHttpModes.md) |  | [optional] [default to undefined]
 **no_grpc_header** | **boolean** |  | [optional] [default to undefined]
-**x_padding_bytes** | [**XPaddingBytes**](XPaddingBytes.md) |  | [optional] [default to undefined]
+**x_padding_bytes** | **string** |  | [optional] [default to undefined]
 **x_padding_obfs_mode** | **boolean** |  | [optional] [default to undefined]
 **x_padding_key** | **string** |  | [optional] [default to undefined]
 **x_padding_header** | **string** |  | [optional] [default to undefined]
@@ -20,9 +20,9 @@ Name | Type | Description | Notes
 **seq_key** | **string** |  | [optional] [default to undefined]
 **uplink_data_placement** | **string** |  | [optional] [default to undefined]
 **uplink_data_key** | **string** |  | [optional] [default to undefined]
-**uplink_chunk_size** | [**UplinkChunkSize**](UplinkChunkSize.md) |  | [optional] [default to undefined]
-**sc_max_each_post_bytes** | [**ScMaxEachPostBytes**](ScMaxEachPostBytes.md) |  | [optional] [default to undefined]
-**sc_min_posts_interval_ms** | [**ScMinPostsIntervalMs**](ScMinPostsIntervalMs.md) |  | [optional] [default to undefined]
+**uplink_chunk_size** | **string** |  | [optional] [default to undefined]
+**sc_max_each_post_bytes** | **string** |  | [optional] [default to undefined]
+**sc_min_posts_interval_ms** | **string** |  | [optional] [default to undefined]
 **xmux** | [**XMuxSettingsInput**](XMuxSettingsInput.md) |  | [optional] [default to undefined]
 **download_settings** | **number** |  | [optional] [default to undefined]
 

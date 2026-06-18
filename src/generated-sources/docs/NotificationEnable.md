@@ -6,6 +6,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **admin** | [**AdminNotificationEnable**](AdminNotificationEnable.md) |  | [optional] [default to undefined]
+**admin_role** | [**BaseNotificationEnable**](BaseNotificationEnable.md) |  | [optional] [default to undefined]
 **core** | [**BaseNotificationEnable**](BaseNotificationEnable.md) |  | [optional] [default to undefined]
 **group** | [**BaseNotificationEnable**](BaseNotificationEnable.md) |  | [optional] [default to undefined]
 **host** | [**HostNotificationEnable**](HostNotificationEnable.md) |  | [optional] [default to undefined]
@@ -22,6 +23,7 @@ import { NotificationEnable } from './api';
 
 const instance: NotificationEnable = {
     admin,
+    admin_role,
     core,
     group,
     host,

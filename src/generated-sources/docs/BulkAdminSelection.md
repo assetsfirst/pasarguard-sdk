@@ -1,12 +1,12 @@
 # BulkAdminSelection
 
-Model for bulk admin selection by usernames
+Model for bulk admin selection by IDs
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**usernames** | **Set&lt;string&gt;** |  | [optional] [default to undefined]
+**ids** | **Set&lt;number&gt;** |  | [optional] [default to undefined]
 
 ## Example
 
@@ -14,7 +14,7 @@ Name | Type | Description | Notes
 import { BulkAdminSelection } from './api';
 
 const instance: BulkAdminSelection = {
-    usernames,
+    ids,
 };
 ```
 

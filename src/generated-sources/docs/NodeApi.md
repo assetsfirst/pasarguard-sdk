@@ -32,9 +32,9 @@ All URIs are relative to *http://localhost*
 |[**updateCore**](#updatecore) | **POST** /api/node/{node_id}/core_update | Update Core|
 |[**updateGeofiles**](#updategeofiles) | **POST** /api/node/{node_id}/geofiles | Update Geofiles|
 |[**updateNode**](#updatenode) | **POST** /api/node/{node_id}/update | Update Node|
-|[**userOnlineIpList**](#useronlineiplist) | **GET** /api/node/{node_id}/online_stats/{username}/ip | User Online Ip List|
-|[**userOnlineIpListAllNodes**](#useronlineiplistallnodes) | **GET** /api/node/online_stats/{username}/ip | User Online Ip List All Nodes|
-|[**userOnlineStats**](#useronlinestats) | **GET** /api/node/{node_id}/online_stats/{username} | User Online Stats|
+|[**userOnlineIpList**](#useronlineiplist) | **GET** /api/node/{node_id}/online_stats/{user_id}/ip | User Online Ip List|
+|[**userOnlineIpListAllNodes**](#useronlineiplistallnodes) | **GET** /api/node/online_stats/{user_id}/ip | User Online Ip List All Nodes|
+|[**userOnlineStats**](#useronlinestats) | **GET** /api/node/{node_id}/online_stats/{user_id} | User Online Stats|
 
 # **bulkDeleteNodes**
 > RemoveNodesResponse bulkDeleteNodes(bulkNodeSelection)
@@ -659,7 +659,7 @@ const { status, data } = await apiInstance.getNodeStatsPeriodic(
 # **getNodes**
 > NodesResponse getNodes()
 
-Retrieve a list of all nodes. Accessible only to sudo admins.
+Retrieve a list of all nodes. Accessible only to authorized admins.
 
 ### Example
 
@@ -936,7 +936,7 @@ const { status, data } = await apiInstance.getUserCountMetric(
 # **modifyNode**
 > NodeResponse modifyNode(nodeModify)
 
-Modify a node\'s details. Only accessible to sudo admins.
+Modify a node\'s details. Only accessible to authorized admins.
 
 ### Example
 
@@ -1262,7 +1262,7 @@ const { status, data } = await apiInstance.reconnectAllNode(
 # **reconnectNode**
 > any reconnectNode()
 
-Trigger a reconnection for the specified node. Only accessible to sudo admins.
+Trigger a reconnection for the specified node. Only accessible to authorized admins.
 
 ### Example
 
@@ -1370,7 +1370,7 @@ void (empty response body)
 # **resetNodeUsage**
 > NodeResponse resetNodeUsage()
 
-Reset node traffic usage (uplink and downlink). Creates a log entry in node_usage_reset_logs table. Only accessible to sudo admins.
+Reset node traffic usage (uplink and downlink). Creates a log entry in node_usage_reset_logs table. Only accessible to authorized admins.
 
 ### Example
 
@@ -1661,11 +1661,11 @@ const configuration = new Configuration();
 const apiInstance = new NodeApi(configuration);
 
 let nodeId: number; // (default to undefined)
-let username: string; // (default to undefined)
+let userId: number; // (default to undefined)
 
 const { status, data } = await apiInstance.userOnlineIpList(
     nodeId,
-    username
+    userId
 );
 ```
 
@@ -1674,7 +1674,7 @@ const { status, data } = await apiInstance.userOnlineIpList(
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 | **nodeId** | [**number**] |  | defaults to undefined|
-| **username** | [**string**] |  | defaults to undefined|
+| **userId** | [**number**] |  | defaults to undefined|
 
 
 ### Return type
@@ -1717,10 +1717,10 @@ import {
 const configuration = new Configuration();
 const apiInstance = new NodeApi(configuration);
 
-let username: string; // (default to undefined)
+let userId: number; // (default to undefined)
 
 const { status, data } = await apiInstance.userOnlineIpListAllNodes(
-    username
+    userId
 );
 ```
 
@@ -1728,7 +1728,7 @@ const { status, data } = await apiInstance.userOnlineIpListAllNodes(
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **username** | [**string**] |  | defaults to undefined|
+| **userId** | [**number**] |  | defaults to undefined|
 
 
 ### Return type
@@ -1772,11 +1772,11 @@ const configuration = new Configuration();
 const apiInstance = new NodeApi(configuration);
 
 let nodeId: number; // (default to undefined)
-let username: string; // (default to undefined)
+let userId: number; // (default to undefined)
 
 const { status, data } = await apiInstance.userOnlineStats(
     nodeId,
-    username
+    userId
 );
 ```
 
@@ -1785,7 +1785,7 @@ const { status, data } = await apiInstance.userOnlineStats(
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 | **nodeId** | [**number**] |  | defaults to undefined|
-| **username** | [**string**] |  | defaults to undefined|
+| **userId** | [**number**] |  | defaults to undefined|
 
 
 ### Return type

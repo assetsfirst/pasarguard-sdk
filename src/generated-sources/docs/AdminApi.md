@@ -42,7 +42,7 @@ All URIs are relative to *http://localhost*
 # **activateAllDisabledUsers**
 > any activateAllDisabledUsers()
 
-Activate all disabled users under a specific admin
+Activate all disabled users under a specific admin.
 
 ### Example
 
@@ -205,7 +205,7 @@ const { status, data } = await apiInstance.activateAllDisabledUsersByUsername(
 # **adminMiniAppToken**
 > any adminMiniAppToken()
 
-Authenticate an admin and issue a token.
+Authenticate an admin via Telegram MiniApp and issue a token.
 
 ### Example
 
@@ -386,7 +386,7 @@ const { status, data } = await apiInstance.bulkActivateAllDisabledUsers(
 # **bulkDeleteAdmins**
 > RemoveAdminsResponse bulkDeleteAdmins(bulkAdminSelection)
 
-Delete selected admins by username.
+Delete selected admins by ID.
 
 ### Example
 
@@ -443,7 +443,7 @@ const { status, data } = await apiInstance.bulkDeleteAdmins(
 # **bulkDisableAdmins**
 > BulkAdminsActionResponse bulkDisableAdmins(bulkAdminSelection)
 
-Disable selected admins by username.
+Disable selected admins by ID.
 
 ### Example
 
@@ -557,7 +557,7 @@ const { status, data } = await apiInstance.bulkDisableAllActiveUsers(
 # **bulkEnableAdmins**
 > BulkAdminsActionResponse bulkEnableAdmins(bulkAdminSelection)
 
-Enable selected admins by username.
+Enable selected admins by ID.
 
 ### Example
 
@@ -671,7 +671,7 @@ const { status, data } = await apiInstance.bulkRemoveAllUsers(
 # **bulkResetAdminsUsage**
 > BulkAdminsActionResponse bulkResetAdminsUsage(bulkAdminSelection)
 
-Reset usage for selected admins by username.
+Reset usage for selected admins by ID.
 
 ### Example
 
@@ -728,7 +728,7 @@ const { status, data } = await apiInstance.bulkResetAdminsUsage(
 # **createAdmin**
 > AdminDetails createAdmin(adminCreate)
 
-Create a new admin if the current admin has sudo privileges.
+Create a new admin.
 
 ### Example
 
@@ -784,7 +784,7 @@ const { status, data } = await apiInstance.createAdmin(
 # **disableAllActiveUsers**
 > any disableAllActiveUsers()
 
-Disable all active users under a specific admin
+Disable all active users under a specific admin.
 
 ### Example
 

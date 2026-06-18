@@ -300,7 +300,7 @@ const { status, data } = await apiInstance.bulkRemoveUsersFromGroups(
 # **createGroup**
 > GroupResponse createGroup(groupCreate)
 
-Creates a new group in the system. Only sudo administrators can create groups.
+Creates a new group in the system. Only authorized administrators can create groups.
 
 ### Example
 
@@ -539,7 +539,7 @@ const { status, data } = await apiInstance.getGroupsSimple(
 # **modifyGroup**
 > GroupResponse modifyGroup(groupModify)
 
-Updates an existing group\'s information. Only sudo administrators can modify groups.
+Updates an existing group\'s information. Only authorized administrators can modify groups.
 
 ### Example
 
@@ -598,7 +598,7 @@ const { status, data } = await apiInstance.modifyGroup(
 # **removeGroup**
 > removeGroup()
 
-Deletes a group from the system. Only sudo administrators can delete groups.
+Deletes a group from the system. Only authorized administrators can delete groups.
 
 ### Example
 

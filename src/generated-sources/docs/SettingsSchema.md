@@ -6,7 +6,6 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **telegram** | [**Telegram**](Telegram.md) |  | [optional] [default to undefined]
-**discord** | [**Discord**](Discord.md) |  | [optional] [default to undefined]
 **webhook** | [**Webhook**](Webhook.md) |  | [optional] [default to undefined]
 **notification_settings** | [**NotificationSettings**](NotificationSettings.md) |  | [optional] [default to undefined]
 **notification_enable** | [**NotificationEnable**](NotificationEnable.md) |  | [optional] [default to undefined]
@@ -21,7 +20,6 @@ import { SettingsSchema } from './api';
 
 const instance: SettingsSchema = {
     telegram,
-    discord,
     webhook,
     notification_settings,
     notification_enable,

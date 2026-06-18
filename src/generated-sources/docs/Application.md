@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **import_url** | **string** |  | [optional] [default to '']
 **description** | **{ [key: string]: string; }** |  | [optional] [default to undefined]
 **recommended** | **boolean** |  | [optional] [default to false]
+**show_when_hwid_enabled** | **boolean** |  | [optional] [default to false]
 **platform** | [**Platform**](Platform.md) |  | [default to undefined]
 **download_links** | [**Array&lt;DownloadLink&gt;**](DownloadLink.md) |  | [default to undefined]
 
@@ -24,6 +25,7 @@ const instance: Application = {
     import_url,
     description,
     recommended,
+    show_when_hwid_enabled,
     platform,
     download_links,
 };

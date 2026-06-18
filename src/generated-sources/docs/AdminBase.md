@@ -6,6 +6,7 @@ Minimal admin model containing only the username.
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**id** | **number** |  | [optional] [default to undefined]
 **username** | **string** |  | [default to undefined]
 
 ## Example
@@ -14,6 +15,7 @@ Name | Type | Description | Notes
 import { AdminBase } from './api';
 
 const instance: AdminBase = {
+    id,
     username,
 };
 ```

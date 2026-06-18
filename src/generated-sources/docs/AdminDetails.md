@@ -6,6 +6,7 @@ Complete admin model with all fields for database representation and API respons
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**id** | **number** |  | [optional] [default to undefined]
 **username** | **string** |  | [default to undefined]
 **telegram_id** | **number** |  | [optional] [default to undefined]
 **discord_webhook** | **string** |  | [optional] [default to undefined]
@@ -13,15 +14,17 @@ Name | Type | Description | Notes
 **profile_title** | **string** |  | [optional] [default to undefined]
 **support_url** | **string** |  | [optional] [default to undefined]
 **notification_enable** | [**UserNotificationEnable**](UserNotificationEnable.md) |  | [optional] [default to undefined]
-**id** | **number** |  | [optional] [default to undefined]
-**is_sudo** | **boolean** |  | [default to undefined]
 **total_users** | **number** |  | [optional] [default to 0]
 **used_traffic** | **number** |  | [optional] [default to 0]
-**is_disabled** | **boolean** |  | [optional] [default to false]
-**discord_id** | **number** |  | [optional] [default to undefined]
+**data_limit** | **number** |  | [optional] [default to undefined]
+**status** | [**AdminStatus**](AdminStatus.md) |  | [optional] [default to undefined]
 **sub_template** | **string** |  | [optional] [default to undefined]
 **lifetime_used_traffic** | **number** |  | [optional] [default to undefined]
 **note** | **string** |  | [optional] [default to undefined]
+**role** | [**AdminRoleData**](AdminRoleData.md) |  | [optional] [default to undefined]
+**permission_overrides** | [**RoleLimits**](RoleLimits.md) |  | [optional] [default to undefined]
+**is_disabled** | **boolean** |  | [readonly] [default to undefined]
+**is_limited** | **boolean** |  | [readonly] [default to undefined]
 
 ## Example
 
@@ -29,6 +32,7 @@ Name | Type | Description | Notes
 import { AdminDetails } from './api';
 
 const instance: AdminDetails = {
+    id,
     username,
     telegram_id,
     discord_webhook,
@@ -36,15 +40,17 @@ const instance: AdminDetails = {
     profile_title,
     support_url,
     notification_enable,
-    id,
-    is_sudo,
     total_users,
     used_traffic,
-    is_disabled,
-    discord_id,
+    data_limit,
+    status,
     sub_template,
     lifetime_used_traffic,
     note,
+    role,
+    permission_overrides,
+    is_disabled,
+    is_limited,
 };
 ```
 

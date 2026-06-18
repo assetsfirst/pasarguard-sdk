@@ -10,6 +10,8 @@ Name | Type | Description | Notes
 **_delete** | **boolean** |  | [optional] [default to true]
 **reset_usage** | **boolean** |  | [optional] [default to true]
 **login** | **boolean** |  | [optional] [default to true]
+**usage_limit_warning** | **boolean** |  | [optional] [default to true]
+**usage_limit_warning_percentages** | **Array&lt;number&gt;** |  | [optional] [default to undefined]
 
 ## Example
 
@@ -22,6 +24,8 @@ const instance: AdminNotificationEnable = {
     _delete,
     reset_usage,
     login,
+    usage_limit_warning,
+    usage_limit_warning_percentages,
 };
 ```
 

@@ -5,11 +5,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**enabled** | **boolean** |  | [optional] [default to false]
+**enabled** | **boolean** |  | [optional] [default to true]
 **forced** | **boolean** |  | [optional] [default to false]
-**fallback_limit** | **number** |  | [optional] [default to 0]
-**min_limit** | **number** |  | [optional] [default to 0]
-**max_limit** | **number** |  | [optional] [default to 0]
+**require_hwid_for_manual_sub** | **boolean** |  | [optional] [default to true]
+**fallback_limit** | **number** |  | [optional] [default to undefined]
+**min_limit** | **number** |  | [optional] [default to undefined]
+**max_limit** | **number** |  | [optional] [default to undefined]
 
 ## Example
 
@@ -19,6 +20,7 @@ import { HWIDSettings } from './api';
 const instance: HWIDSettings = {
     enabled,
     forced,
+    require_hwid_for_manual_sub,
     fallback_limit,
     min_limit,
     max_limit,

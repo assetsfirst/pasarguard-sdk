@@ -3,7 +3,7 @@
   "info": {
     "title": "PasarGuardAPI",
     "description": "Unified GUI Censorship Resistant Solution",
-    "version": "4.0.2"
+    "version": "5.0.3"
   },
   "paths": {
     "/": {
@@ -120,7 +120,7 @@
           "Admin"
         ],
         "summary": "Admin Mini App Token",
-        "description": "Authenticate an admin and issue a token.",
+        "description": "Authenticate an admin via Telegram MiniApp and issue a token.",
         "operationId": "admin_mini_app_token",
         "parameters": [
           {
@@ -252,7 +252,7 @@
           "Admin"
         ],
         "summary": "Create Admin",
-        "description": "Create a new admin if the current admin has sudo privileges.",
+        "description": "Create a new admin.",
         "operationId": "create_admin",
         "requestBody": {
           "content": {
@@ -1681,7 +1681,7 @@
           "Admin"
         ],
         "summary": "Disable All Active Users",
-        "description": "Disable all active users under a specific admin",
+        "description": "Disable all active users under a specific admin.",
         "operationId": "disable_all_active_users",
         "security": [
           {
@@ -1931,7 +1931,7 @@
           "Admin"
         ],
         "summary": "Activate All Disabled Users",
-        "description": "Activate all disabled users under a specific admin",
+        "description": "Activate all disabled users under a specific admin.",
         "operationId": "activate_all_disabled_users",
         "security": [
           {
@@ -2687,7 +2687,7 @@
           "Admin"
         ],
         "summary": "Bulk Delete Admins",
-        "description": "Delete selected admins by username.",
+        "description": "Delete selected admins by ID.",
         "operationId": "bulk_delete_admins",
         "requestBody": {
           "content": {
@@ -2782,7 +2782,7 @@
           "Admin"
         ],
         "summary": "Bulk Reset Admins Usage",
-        "description": "Reset usage for selected admins by username.",
+        "description": "Reset usage for selected admins by ID.",
         "operationId": "bulk_reset_admins_usage",
         "requestBody": {
           "content": {
@@ -2877,7 +2877,7 @@
           "Admin"
         ],
         "summary": "Bulk Disable Admins",
-        "description": "Disable selected admins by username.",
+        "description": "Disable selected admins by ID.",
         "operationId": "bulk_disable_admins",
         "requestBody": {
           "content": {
@@ -2972,7 +2972,7 @@
           "Admin"
         ],
         "summary": "Bulk Enable Admins",
-        "description": "Enable selected admins by username.",
+        "description": "Enable selected admins by ID.",
         "operationId": "bulk_enable_admins",
         "requestBody": {
           "content": {
@@ -3346,6 +3346,816 @@
         ]
       }
     },
+    "/api/admin-roles": {
+      "get": {
+        "tags": [
+          "Admin Roles"
+        ],
+        "summary": "Get Roles",
+        "description": "List all roles.",
+        "operationId": "get_roles",
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "search",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Search"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Offset"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Limit"
+            }
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Sort"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdminRolesResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Error",
+            "headers": {
+              "WWW-Authenticate": {
+                "description": "Authentication type",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Forbidden"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/admin-roles/simple": {
+      "get": {
+        "tags": [
+          "Admin Roles"
+        ],
+        "summary": "Get Roles Simple",
+        "description": "List all roles as lightweight id/name/is_owner tuples.",
+        "operationId": "get_roles_simple",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdminRolesSimpleResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Error",
+            "headers": {
+              "WWW-Authenticate": {
+                "description": "Authentication type",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Forbidden"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ]
+      }
+    },
+    "/api/admin-role/{role_id}": {
+      "get": {
+        "tags": [
+          "Admin Roles"
+        ],
+        "summary": "Get Role",
+        "description": "Get a role by ID.",
+        "operationId": "get_role",
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "role_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Role Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdminRoleResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Error",
+            "headers": {
+              "WWW-Authenticate": {
+                "description": "Authentication type",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Forbidden"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "NotFound Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFound"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Admin Roles"
+        ],
+        "summary": "Modify Role",
+        "description": "Modify a role. Owner only. Owner role cannot be modified.",
+        "operationId": "modify_role",
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "role_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Role Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AdminRoleModify"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdminRoleResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Error",
+            "headers": {
+              "WWW-Authenticate": {
+                "description": "Authentication type",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Forbidden"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "NotFound Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFound"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Conflict"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Admin Roles"
+        ],
+        "summary": "Delete Role",
+        "description": "Delete a role. Owner only. Built-in roles and in-use roles cannot be deleted.",
+        "operationId": "delete_role",
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "role_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Role Id"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "401": {
+            "description": "Unauthorized Error",
+            "headers": {
+              "WWW-Authenticate": {
+                "description": "Authentication type",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Forbidden"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "NotFound Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFound"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Conflict"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/admin-role": {
+      "post": {
+        "tags": [
+          "Admin Roles"
+        ],
+        "summary": "Create Role",
+        "description": "Create a new role. Owner only.",
+        "operationId": "create_role",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AdminRoleCreate"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdminRoleResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Error",
+            "headers": {
+              "WWW-Authenticate": {
+                "description": "Authentication type",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Forbidden"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Conflict"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ]
+      }
+    },
+    "/api/setup/owner": {
+      "post": {
+        "tags": [
+          "Setup"
+        ],
+        "summary": "Create Owner",
+        "description": "Create the owner admin using a one-time temp key.",
+        "operationId": "create_owner",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OwnerCreateRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdminDetails"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "BadRequest Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPException"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Conflict"
+                }
+              }
+            }
+          },
+          "410": {
+            "description": "Key already used or expired"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Setup"
+        ],
+        "summary": "Reset Owner Password",
+        "description": "Reset the owner admin's password using a one-time temp key.",
+        "operationId": "reset_owner_password",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OwnerResetRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdminDetails"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "BadRequest Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPException"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "NotFound Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFound"
+                }
+              }
+            }
+          },
+          "410": {
+            "description": "Key already used or expired"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Setup"
+        ],
+        "summary": "Delete Owner",
+        "description": "Delete the owner admin using a one-time temp key.",
+        "operationId": "delete_owner",
+        "parameters": [
+          {
+            "name": "key",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "One-time temp key for deleting the owner admin",
+              "title": "Key"
+            },
+            "description": "One-time temp key for deleting the owner admin"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "400": {
+            "description": "BadRequest Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPException"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "NotFound Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFound"
+                }
+              }
+            }
+          },
+          "410": {
+            "description": "Key already used or expired"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/setup/owner/upgrade": {
+      "post": {
+        "tags": [
+          "Setup"
+        ],
+        "summary": "Upgrade Owner",
+        "description": "Upgrade an existing admin to owner using a one-time temp key.",
+        "operationId": "upgrade_owner",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OwnerUpgradeRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdminDetails"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "BadRequest Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPException"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "NotFound Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFound"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Conflict"
+                }
+              }
+            }
+          },
+          "410": {
+            "description": "Key already used or expired"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/system": {
       "get": {
         "tags": [
@@ -3384,6 +4194,124 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/SystemStats"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Error",
+            "headers": {
+              "WWW-Authenticate": {
+                "description": "Authentication type",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/system/resources": {
+      "get": {
+        "tags": [
+          "System"
+        ],
+        "summary": "Get System Resource Stats",
+        "description": "Fetch system resource stats without user metrics.",
+        "operationId": "get_system_resource_stats",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SystemResourceStats"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Error",
+            "headers": {
+              "WWW-Authenticate": {
+                "description": "Authentication type",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ]
+      }
+    },
+    "/api/system/users": {
+      "get": {
+        "tags": [
+          "System"
+        ],
+        "summary": "Get System Users Stats",
+        "description": "Fetch user stats and traffic metrics without system resource stats.",
+        "operationId": "get_system_users_stats",
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "admin_username",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Admin Username"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SystemUsersStats"
                 }
               }
             }
@@ -3747,7 +4675,7 @@
           "Groups"
         ],
         "summary": "Create a new group",
-        "description": "Creates a new group in the system. Only sudo administrators can create groups.",
+        "description": "Creates a new group in the system. Only authorized administrators can create groups.",
         "operationId": "create_group",
         "requestBody": {
           "content": {
@@ -4184,7 +5112,7 @@
           "Groups"
         ],
         "summary": "Modify group",
-        "description": "Updates an existing group's information. Only sudo administrators can modify groups.",
+        "description": "Updates an existing group's information. Only authorized administrators can modify groups.",
         "operationId": "modify_group",
         "security": [
           {
@@ -4278,7 +5206,7 @@
           "Groups"
         ],
         "summary": "Remove group",
-        "description": "Deletes a group from the system. Only sudo administrators can delete groups.",
+        "description": "Deletes a group from the system. Only authorized administrators can delete groups.",
         "operationId": "remove_group",
         "security": [
           {
@@ -7397,7 +8325,7 @@
           "Node"
         ],
         "summary": "Get Nodes",
-        "description": "Retrieve a list of all nodes. Accessible only to sudo admins.",
+        "description": "Retrieve a list of all nodes. Accessible only to authorized admins.",
         "operationId": "get_nodes",
         "security": [
           {
@@ -7976,7 +8904,7 @@
           "Node"
         ],
         "summary": "Modify Node",
-        "description": "Modify a node's details. Only accessible to sudo admins.",
+        "description": "Modify a node's details. Only accessible to authorized admins.",
         "operationId": "modify_node",
         "security": [
           {
@@ -8368,7 +9296,7 @@
           "Node"
         ],
         "summary": "Reset Node Usage",
-        "description": "Reset node traffic usage (uplink and downlink).\nCreates a log entry in node_usage_reset_logs table.\nOnly accessible to sudo admins.",
+        "description": "Reset node traffic usage (uplink and downlink).\nCreates a log entry in node_usage_reset_logs table.\nOnly accessible to authorized admins.",
         "operationId": "reset_node_usage",
         "security": [
           {
@@ -8444,7 +9372,7 @@
           "Node"
         ],
         "summary": "Reconnect Node",
-        "description": "Trigger a reconnection for the specified node. Only accessible to sudo admins.",
+        "description": "Trigger a reconnection for the specified node. Only accessible to authorized admins.",
         "operationId": "reconnect_node",
         "security": [
           {
@@ -9037,7 +9965,7 @@
         ]
       }
     },
-    "/api/node/online_stats/{username}/ip": {
+    "/api/node/online_stats/{user_id}/ip": {
       "get": {
         "tags": [
           "Node"
@@ -9052,12 +9980,12 @@
         ],
         "parameters": [
           {
-            "name": "username",
+            "name": "user_id",
             "in": "path",
             "required": true,
             "schema": {
-              "type": "string",
-              "title": "Username"
+              "type": "integer",
+              "title": "User Id"
             }
           }
         ],
@@ -9113,7 +10041,7 @@
         }
       }
     },
-    "/api/node/{node_id}/online_stats/{username}": {
+    "/api/node/{node_id}/online_stats/{user_id}": {
       "get": {
         "tags": [
           "Node"
@@ -9137,12 +10065,12 @@
             }
           },
           {
-            "name": "username",
+            "name": "user_id",
             "in": "path",
             "required": true,
             "schema": {
-              "type": "string",
-              "title": "Username"
+              "type": "integer",
+              "title": "User Id"
             }
           }
         ],
@@ -9156,7 +10084,7 @@
                   "additionalProperties": {
                     "type": "integer"
                   },
-                  "title": "Response User Online Stats Api Node  Node Id  Online Stats  Username  Get"
+                  "title": "Response User Online Stats Api Node  Node Id  Online Stats  User Id  Get"
                 }
               }
             }
@@ -9202,7 +10130,7 @@
         }
       }
     },
-    "/api/node/{node_id}/online_stats/{username}/ip": {
+    "/api/node/{node_id}/online_stats/{user_id}/ip": {
       "get": {
         "tags": [
           "Node"
@@ -9226,12 +10154,12 @@
             }
           },
           {
-            "name": "username",
+            "name": "user_id",
             "in": "path",
             "required": true,
             "schema": {
-              "type": "string",
-              "title": "Username"
+              "type": "integer",
+              "title": "User Id"
             }
           }
         ],
@@ -10807,6 +11735,321 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Forbidden"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "NotFound Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFound"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/user/{username}/disabled": {
+      "put": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Set User Disabled",
+        "operationId": "set_user_disabled",
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "username",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Username"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserStatusToggle"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Error",
+            "headers": {
+              "WWW-Authenticate": {
+                "description": "Authentication type",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "BadRequest Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPException"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Forbidden"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "NotFound Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFound"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/user/by-username/{username}/disabled": {
+      "put": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Set User Disabled By Username",
+        "operationId": "set_user_disabled_by_username",
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "username",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Username"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserStatusToggle"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Error",
+            "headers": {
+              "WWW-Authenticate": {
+                "description": "Authentication type",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "BadRequest Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPException"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Forbidden"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "NotFound Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFound"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/user/by-id/{user_id}/disabled": {
+      "put": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Set User Disabled By Id",
+        "operationId": "set_user_disabled_by_id",
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "User Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserStatusToggle"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Error",
+            "headers": {
+              "WWW-Authenticate": {
+                "description": "Authentication type",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "BadRequest Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPException"
                 }
               }
             }
@@ -15423,7 +16666,7 @@
           "User"
         ],
         "summary": "Bulk reallocate WireGuard peer IPs",
-        "description": "Same scoping as other bulk user actions (users, admins, group_ids, optional status filter). Non-sudo admins only affect their own users.",
+        "description": "Same scoping as other bulk user actions (users, admins, group_ids, optional status filter). non-owner admins only affect their own users.",
         "operationId": "bulk_reallocate_wireguard_peer_ips",
         "requestBody": {
           "content": {
@@ -16877,6 +18120,17 @@
     "schemas": {
       "AdminBase": {
         "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id"
+          },
           "username": {
             "type": "string",
             "title": "Username"
@@ -16891,6 +18145,17 @@
       },
       "AdminContactInfo": {
         "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id"
+          },
           "username": {
             "type": "string",
             "title": "Username"
@@ -16974,10 +18239,6 @@
             "type": "string",
             "title": "Password"
           },
-          "is_sudo": {
-            "type": "boolean",
-            "title": "Is Sudo"
-          },
           "telegram_id": {
             "anyOf": [
               {
@@ -17000,7 +18261,22 @@
             ],
             "title": "Discord Webhook"
           },
-          "discord_id": {
+          "status": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "active",
+                  "disabled"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Status"
+          },
+          "data_limit": {
             "anyOf": [
               {
                 "type": "integer"
@@ -17009,18 +18285,7 @@
                 "type": "null"
               }
             ],
-            "title": "Discord Id"
-          },
-          "is_disabled": {
-            "anyOf": [
-              {
-                "type": "boolean"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Is Disabled"
+            "title": "Data Limit"
           },
           "sub_template": {
             "anyOf": [
@@ -17087,6 +18352,20 @@
               }
             ]
           },
+          "role_id": {
+            "type": "integer",
+            "title": "Role Id"
+          },
+          "permission_overrides": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/RoleLimits"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
           "username": {
             "type": "string",
             "title": "Username"
@@ -17095,7 +18374,7 @@
         "type": "object",
         "required": [
           "password",
-          "is_sudo",
+          "role_id",
           "username"
         ],
         "title": "AdminCreate",
@@ -17103,6 +18382,17 @@
       },
       "AdminDetails": {
         "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id"
+          },
           "username": {
             "type": "string",
             "title": "Username"
@@ -17172,21 +18462,6 @@
               }
             ]
           },
-          "id": {
-            "anyOf": [
-              {
-                "type": "integer"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Id"
-          },
-          "is_sudo": {
-            "type": "boolean",
-            "title": "Is Sudo"
-          },
           "total_users": {
             "type": "integer",
             "title": "Total Users",
@@ -17197,12 +18472,7 @@
             "title": "Used Traffic",
             "default": 0
           },
-          "is_disabled": {
-            "type": "boolean",
-            "title": "Is Disabled",
-            "default": false
-          },
-          "discord_id": {
+          "data_limit": {
             "anyOf": [
               {
                 "type": "integer"
@@ -17211,7 +18481,11 @@
                 "type": "null"
               }
             ],
-            "title": "Discord Id"
+            "title": "Data Limit"
+          },
+          "status": {
+            "$ref": "#/components/schemas/AdminStatus",
+            "default": "active"
           },
           "sub_template": {
             "anyOf": [
@@ -17245,12 +18519,43 @@
               }
             ],
             "title": "Note"
+          },
+          "role": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/AdminRoleData"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "permission_overrides": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/RoleLimits"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "is_disabled": {
+            "type": "boolean",
+            "title": "Is Disabled",
+            "readOnly": true
+          },
+          "is_limited": {
+            "type": "boolean",
+            "title": "Is Limited",
+            "readOnly": true
           }
         },
         "type": "object",
         "required": [
           "username",
-          "is_sudo"
+          "is_disabled",
+          "is_limited"
         ],
         "title": "AdminDetails",
         "description": "Complete admin model with all fields for database representation and API responses."
@@ -17267,10 +18572,6 @@
               }
             ],
             "title": "Password"
-          },
-          "is_sudo": {
-            "type": "boolean",
-            "title": "Is Sudo"
           },
           "telegram_id": {
             "anyOf": [
@@ -17294,7 +18595,22 @@
             ],
             "title": "Discord Webhook"
           },
-          "discord_id": {
+          "status": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "active",
+                  "disabled"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Status"
+          },
+          "data_limit": {
             "anyOf": [
               {
                 "type": "integer"
@@ -17303,18 +18619,7 @@
                 "type": "null"
               }
             ],
-            "title": "Discord Id"
-          },
-          "is_disabled": {
-            "anyOf": [
-              {
-                "type": "boolean"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Is Disabled"
+            "title": "Data Limit"
           },
           "sub_template": {
             "anyOf": [
@@ -17380,12 +18685,30 @@
                 "type": "null"
               }
             ]
+          },
+          "role_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Role Id"
+          },
+          "permission_overrides": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/RoleLimits"
+              },
+              {
+                "type": "null"
+              }
+            ]
           }
         },
         "type": "object",
-        "required": [
-          "is_sudo"
-        ],
         "title": "AdminModify"
       },
       "AdminNotificationEnable": {
@@ -17414,10 +18737,350 @@
             "type": "boolean",
             "title": "Login",
             "default": true
+          },
+          "usage_limit_warning": {
+            "type": "boolean",
+            "title": "Usage Limit Warning",
+            "default": true
+          },
+          "usage_limit_warning_percentages": {
+            "items": {
+              "type": "integer"
+            },
+            "type": "array",
+            "title": "Usage Limit Warning Percentages"
           }
         },
         "type": "object",
         "title": "AdminNotificationEnable"
+      },
+      "AdminRoleCreate": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 64,
+            "title": "Name"
+          },
+          "permissions": {
+            "$ref": "#/components/schemas/RolePermissions"
+          },
+          "limits": {
+            "$ref": "#/components/schemas/RoleLimits"
+          },
+          "features": {
+            "$ref": "#/components/schemas/RoleFeatures"
+          },
+          "access": {
+            "$ref": "#/components/schemas/RoleAccess"
+          },
+          "hwid": {
+            "$ref": "#/components/schemas/RoleHWIDSettings"
+          },
+          "disabled_when_limited": {
+            "type": "boolean",
+            "title": "Disabled When Limited",
+            "default": false
+          },
+          "disconnect_users_when_limited": {
+            "type": "boolean",
+            "title": "Disconnect Users When Limited",
+            "default": true
+          },
+          "disconnect_users_when_disabled": {
+            "type": "boolean",
+            "title": "Disconnect Users When Disabled",
+            "default": true
+          }
+        },
+        "type": "object",
+        "required": [
+          "name"
+        ],
+        "title": "AdminRoleCreate"
+      },
+      "AdminRoleData": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name",
+            "default": ""
+          },
+          "is_owner": {
+            "type": "boolean",
+            "title": "Is Owner",
+            "default": false
+          },
+          "permissions": {
+            "$ref": "#/components/schemas/RolePermissions"
+          },
+          "limits": {
+            "$ref": "#/components/schemas/RoleLimits"
+          },
+          "features": {
+            "$ref": "#/components/schemas/RoleFeatures"
+          },
+          "access": {
+            "$ref": "#/components/schemas/RoleAccess"
+          },
+          "hwid": {
+            "$ref": "#/components/schemas/RoleHWIDSettings"
+          },
+          "disabled_when_limited": {
+            "type": "boolean",
+            "title": "Disabled When Limited",
+            "default": false
+          },
+          "disconnect_users_when_limited": {
+            "type": "boolean",
+            "title": "Disconnect Users When Limited",
+            "default": true
+          },
+          "disconnect_users_when_disabled": {
+            "type": "boolean",
+            "title": "Disconnect Users When Disabled",
+            "default": true
+          }
+        },
+        "type": "object",
+        "title": "AdminRoleData",
+        "description": "Runtime role data carried on AdminDetails — only the fields needed for permission checks."
+      },
+      "AdminRoleModify": {
+        "properties": {
+          "name": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 64
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Name"
+          },
+          "permissions": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/RolePermissions"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "limits": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/RoleLimits"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "features": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/RoleFeatures"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "access": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/RoleAccess"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "hwid": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/RoleHWIDSettings"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "disabled_when_limited": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Disabled When Limited"
+          },
+          "disconnect_users_when_limited": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Disconnect Users When Limited"
+          },
+          "disconnect_users_when_disabled": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Disconnect Users When Disabled"
+          }
+        },
+        "type": "object",
+        "title": "AdminRoleModify"
+      },
+      "AdminRoleResponse": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 64,
+            "title": "Name"
+          },
+          "permissions": {
+            "$ref": "#/components/schemas/RolePermissions"
+          },
+          "limits": {
+            "$ref": "#/components/schemas/RoleLimits"
+          },
+          "features": {
+            "$ref": "#/components/schemas/RoleFeatures"
+          },
+          "access": {
+            "$ref": "#/components/schemas/RoleAccess"
+          },
+          "hwid": {
+            "$ref": "#/components/schemas/RoleHWIDSettings"
+          },
+          "disabled_when_limited": {
+            "type": "boolean",
+            "title": "Disabled When Limited",
+            "default": false
+          },
+          "disconnect_users_when_limited": {
+            "type": "boolean",
+            "title": "Disconnect Users When Limited",
+            "default": true
+          },
+          "disconnect_users_when_disabled": {
+            "type": "boolean",
+            "title": "Disconnect Users When Disabled",
+            "default": true
+          },
+          "id": {
+            "type": "integer",
+            "title": "Id"
+          },
+          "is_owner": {
+            "type": "boolean",
+            "title": "Is Owner"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "name",
+          "id",
+          "is_owner",
+          "created_at"
+        ],
+        "title": "AdminRoleResponse"
+      },
+      "AdminRoleSimple": {
+        "properties": {
+          "id": {
+            "type": "integer",
+            "title": "Id"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "is_owner": {
+            "type": "boolean",
+            "title": "Is Owner"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "is_owner"
+        ],
+        "title": "AdminRoleSimple"
+      },
+      "AdminRolesResponse": {
+        "properties": {
+          "roles": {
+            "items": {
+              "$ref": "#/components/schemas/AdminRoleResponse"
+            },
+            "type": "array",
+            "title": "Roles"
+          },
+          "total": {
+            "type": "integer",
+            "title": "Total"
+          }
+        },
+        "type": "object",
+        "required": [
+          "roles",
+          "total"
+        ],
+        "title": "AdminRolesResponse"
+      },
+      "AdminRolesSimpleResponse": {
+        "properties": {
+          "roles": {
+            "items": {
+              "$ref": "#/components/schemas/AdminRoleSimple"
+            },
+            "type": "array",
+            "title": "Roles"
+          },
+          "total": {
+            "type": "integer",
+            "title": "Total"
+          }
+        },
+        "type": "object",
+        "required": [
+          "roles",
+          "total"
+        ],
+        "title": "AdminRolesSimpleResponse"
       },
       "AdminSimple": {
         "properties": {
@@ -17437,6 +19100,166 @@
         ],
         "title": "AdminSimple",
         "description": "Lightweight admin model with only id and username for performance."
+      },
+      "AdminStatus": {
+        "type": "string",
+        "enum": [
+          "active",
+          "disabled",
+          "limited"
+        ],
+        "title": "AdminStatus"
+      },
+      "AdminsPermissions": {
+        "properties": {
+          "create": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "additionalProperties": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/PermissionScope"
+                    },
+                    {
+                      "type": "integer"
+                    }
+                  ]
+                },
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Create"
+          },
+          "read": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "additionalProperties": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/PermissionScope"
+                    },
+                    {
+                      "type": "integer"
+                    }
+                  ]
+                },
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Read"
+          },
+          "read_simple": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "additionalProperties": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/PermissionScope"
+                    },
+                    {
+                      "type": "integer"
+                    }
+                  ]
+                },
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Read Simple"
+          },
+          "update": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "additionalProperties": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/PermissionScope"
+                    },
+                    {
+                      "type": "integer"
+                    }
+                  ]
+                },
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Update"
+          },
+          "delete": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "additionalProperties": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/PermissionScope"
+                    },
+                    {
+                      "type": "integer"
+                    }
+                  ]
+                },
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Delete"
+          },
+          "reset_usage": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "additionalProperties": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/PermissionScope"
+                    },
+                    {
+                      "type": "integer"
+                    }
+                  ]
+                },
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reset Usage"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "title": "AdminsPermissions"
       },
       "AdminsResponse": {
         "properties": {
@@ -17458,6 +19281,10 @@
           "disabled": {
             "type": "integer",
             "title": "Disabled"
+          },
+          "limited": {
+            "type": "integer",
+            "title": "Limited"
           }
         },
         "type": "object",
@@ -17465,7 +19292,8 @@
           "admins",
           "total",
           "active",
-          "disabled"
+          "disabled",
+          "limited"
         ],
         "title": "AdminsResponse",
         "description": "Response model for admins list with pagination and statistics."
@@ -17524,6 +19352,11 @@
           "recommended": {
             "type": "boolean",
             "title": "Recommended",
+            "default": false
+          },
+          "show_when_hwid_enabled": {
+            "type": "boolean",
+            "title": "Show When Hwid Enabled",
             "default": false
           },
           "platform": {
@@ -17946,18 +19779,18 @@
       },
       "BulkAdminSelection": {
         "properties": {
-          "usernames": {
+          "ids": {
             "items": {
-              "type": "string"
+              "type": "integer"
             },
             "type": "array",
             "uniqueItems": true,
-            "title": "Usernames"
+            "title": "Ids"
           }
         },
         "type": "object",
         "title": "BulkAdminSelection",
-        "description": "Model for bulk admin selection by usernames"
+        "description": "Model for bulk admin selection by IDs"
       },
       "BulkAdminsActionResponse": {
         "properties": {
@@ -18601,6 +20434,134 @@
         "type": "object",
         "title": "BulkWireGuardPeerIPs",
         "description": "Re-seat WireGuard peer IPs (same scoping as BulkUser: users, admins, group_ids, status)."
+      },
+      "CRUDPermissions": {
+        "properties": {
+          "create": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "additionalProperties": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/PermissionScope"
+                    },
+                    {
+                      "type": "integer"
+                    }
+                  ]
+                },
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Create"
+          },
+          "read": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "additionalProperties": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/PermissionScope"
+                    },
+                    {
+                      "type": "integer"
+                    }
+                  ]
+                },
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Read"
+          },
+          "read_simple": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "additionalProperties": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/PermissionScope"
+                    },
+                    {
+                      "type": "integer"
+                    }
+                  ]
+                },
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Read Simple"
+          },
+          "update": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "additionalProperties": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/PermissionScope"
+                    },
+                    {
+                      "type": "integer"
+                    }
+                  ]
+                },
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Update"
+          },
+          "delete": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "additionalProperties": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/PermissionScope"
+                    },
+                    {
+                      "type": "integer"
+                    }
+                  ]
+                },
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Delete"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "title": "CRUDPermissions",
+        "description": "Standard create/read/read_simple/update/delete permissions.\nUsed directly by: groups, templates, client_templates, cores, admin_roles.\nAlso serves as base for resources with additional actions."
       },
       "ClashMuxSettings": {
         "properties": {
@@ -19425,39 +21386,6 @@
         ],
         "title": "DataLimitResetStrategy"
       },
-      "Discord": {
-        "properties": {
-          "enable": {
-            "type": "boolean",
-            "title": "Enable",
-            "default": false
-          },
-          "token": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Token"
-          },
-          "proxy_url": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Proxy Url"
-          }
-        },
-        "type": "object",
-        "title": "Discord"
-      },
       "DownloadLink": {
         "properties": {
           "name": {
@@ -19884,35 +21812,67 @@
         "type": "object",
         "title": "HTTPValidationError"
       },
+      "HWIDMode": {
+        "type": "string",
+        "enum": [
+          "disabled",
+          "use_global",
+          "override"
+        ],
+        "title": "HWIDMode"
+      },
       "HWIDSettings": {
         "properties": {
           "enabled": {
             "type": "boolean",
             "title": "Enabled",
-            "default": false
+            "default": true
           },
           "forced": {
             "type": "boolean",
             "title": "Forced",
             "default": false
           },
+          "require_hwid_for_manual_sub": {
+            "type": "boolean",
+            "title": "Require Hwid For Manual Sub",
+            "default": true
+          },
           "fallback_limit": {
-            "type": "integer",
-            "minimum": 0.0,
-            "title": "Fallback Limit",
-            "default": 0
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Fallback Limit"
           },
           "min_limit": {
-            "type": "integer",
-            "minimum": 0.0,
-            "title": "Min Limit",
-            "default": 0
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Min Limit"
           },
           "max_limit": {
-            "type": "integer",
-            "minimum": 0.0,
-            "title": "Max Limit",
-            "default": 0
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Max Limit"
           }
         },
         "type": "object",
@@ -19943,6 +21903,140 @@
         },
         "type": "object",
         "title": "HostNotificationEnable"
+      },
+      "HostsPermissions": {
+        "properties": {
+          "create": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "additionalProperties": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/PermissionScope"
+                    },
+                    {
+                      "type": "integer"
+                    }
+                  ]
+                },
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Create"
+          },
+          "read": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "additionalProperties": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/PermissionScope"
+                    },
+                    {
+                      "type": "integer"
+                    }
+                  ]
+                },
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Read"
+          },
+          "update": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "additionalProperties": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/PermissionScope"
+                    },
+                    {
+                      "type": "integer"
+                    }
+                  ]
+                },
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Update"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "title": "HostsPermissions"
+      },
+      "HwidsPermissions": {
+        "properties": {
+          "read": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "additionalProperties": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/PermissionScope"
+                    },
+                    {
+                      "type": "integer"
+                    }
+                  ]
+                },
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Read"
+          },
+          "delete": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "additionalProperties": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/PermissionScope"
+                    },
+                    {
+                      "type": "integer"
+                    }
+                  ]
+                },
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Delete"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "title": "HwidsPermissions"
       },
       "HysteriaSettings": {
         "properties": {
@@ -21100,6 +23194,229 @@
         ],
         "title": "NodeUsageStatsList"
       },
+      "NodesPermissions": {
+        "properties": {
+          "create": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "additionalProperties": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/PermissionScope"
+                    },
+                    {
+                      "type": "integer"
+                    }
+                  ]
+                },
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Create"
+          },
+          "read": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "additionalProperties": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/PermissionScope"
+                    },
+                    {
+                      "type": "integer"
+                    }
+                  ]
+                },
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Read"
+          },
+          "read_simple": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "additionalProperties": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/PermissionScope"
+                    },
+                    {
+                      "type": "integer"
+                    }
+                  ]
+                },
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Read Simple"
+          },
+          "update": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "additionalProperties": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/PermissionScope"
+                    },
+                    {
+                      "type": "integer"
+                    }
+                  ]
+                },
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Update"
+          },
+          "delete": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "additionalProperties": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/PermissionScope"
+                    },
+                    {
+                      "type": "integer"
+                    }
+                  ]
+                },
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Delete"
+          },
+          "reconnect": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "additionalProperties": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/PermissionScope"
+                    },
+                    {
+                      "type": "integer"
+                    }
+                  ]
+                },
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reconnect"
+          },
+          "update_core": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "additionalProperties": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/PermissionScope"
+                    },
+                    {
+                      "type": "integer"
+                    }
+                  ]
+                },
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Update Core"
+          },
+          "logs": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "additionalProperties": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/PermissionScope"
+                    },
+                    {
+                      "type": "integer"
+                    }
+                  ]
+                },
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Logs"
+          },
+          "stats": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "additionalProperties": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/PermissionScope"
+                    },
+                    {
+                      "type": "integer"
+                    }
+                  ]
+                },
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Stats"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "title": "NodesPermissions"
+      },
       "NodesResponse": {
         "properties": {
           "nodes": {
@@ -21219,6 +23536,9 @@
           "admin": {
             "$ref": "#/components/schemas/NotificationChannel"
           },
+          "admin_role": {
+            "$ref": "#/components/schemas/NotificationChannel"
+          },
           "core": {
             "$ref": "#/components/schemas/NotificationChannel"
           },
@@ -21246,6 +23566,9 @@
         "properties": {
           "admin": {
             "$ref": "#/components/schemas/AdminNotificationEnable"
+          },
+          "admin_role": {
+            "$ref": "#/components/schemas/BaseNotificationEnable"
           },
           "core": {
             "$ref": "#/components/schemas/BaseNotificationEnable"
@@ -21361,6 +23684,65 @@
         ],
         "title": "NotificationSettings"
       },
+      "OwnerCreateRequest": {
+        "properties": {
+          "key": {
+            "type": "string",
+            "title": "Key"
+          },
+          "password": {
+            "type": "string",
+            "title": "Password"
+          },
+          "username": {
+            "type": "string",
+            "title": "Username"
+          }
+        },
+        "type": "object",
+        "required": [
+          "key",
+          "password",
+          "username"
+        ],
+        "title": "OwnerCreateRequest"
+      },
+      "OwnerResetRequest": {
+        "properties": {
+          "key": {
+            "type": "string",
+            "title": "Key"
+          },
+          "password": {
+            "type": "string",
+            "title": "Password"
+          }
+        },
+        "type": "object",
+        "required": [
+          "key",
+          "password"
+        ],
+        "title": "OwnerResetRequest"
+      },
+      "OwnerUpgradeRequest": {
+        "properties": {
+          "key": {
+            "type": "string",
+            "title": "Key"
+          },
+          "username": {
+            "type": "string",
+            "title": "Username"
+          }
+        },
+        "type": "object",
+        "required": [
+          "key",
+          "username"
+        ],
+        "title": "OwnerUpgradeRequest"
+      },
       "Period": {
         "type": "string",
         "enum": [
@@ -21370,6 +23752,16 @@
           "month"
         ],
         "title": "Period"
+      },
+      "PermissionScope": {
+        "type": "integer",
+        "enum": [
+          0,
+          1,
+          2
+        ],
+        "title": "PermissionScope",
+        "description": "Scope for user-resource permissions. Stored as int in JSON for efficiency."
       },
       "Platform": {
         "type": "string",
@@ -21620,6 +24012,354 @@
         ],
         "title": "RemoveUsersResponse"
       },
+      "RoleAccess": {
+        "properties": {
+          "require_template": {
+            "type": "boolean",
+            "title": "Require Template",
+            "default": false
+          },
+          "allowed_template_ids": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "integer"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Allowed Template Ids"
+          },
+          "allowed_group_ids": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "integer"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Allowed Group Ids"
+          }
+        },
+        "type": "object",
+        "title": "RoleAccess"
+      },
+      "RoleFeatures": {
+        "properties": {
+          "can_use_reset_strategy": {
+            "type": "boolean",
+            "title": "Can Use Reset Strategy",
+            "default": true
+          },
+          "can_use_next_plan": {
+            "type": "boolean",
+            "title": "Can Use Next Plan",
+            "default": true
+          }
+        },
+        "type": "object",
+        "title": "RoleFeatures"
+      },
+      "RoleHWIDSettings": {
+        "properties": {
+          "enabled": {
+            "type": "boolean",
+            "title": "Enabled",
+            "default": true
+          },
+          "forced": {
+            "type": "boolean",
+            "title": "Forced",
+            "default": false
+          },
+          "require_hwid_for_manual_sub": {
+            "type": "boolean",
+            "title": "Require Hwid For Manual Sub",
+            "default": true
+          },
+          "fallback_limit": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Fallback Limit"
+          },
+          "min_limit": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Min Limit"
+          },
+          "max_limit": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Max Limit"
+          },
+          "mode": {
+            "$ref": "#/components/schemas/HWIDMode",
+            "default": "use_global"
+          }
+        },
+        "type": "object",
+        "title": "RoleHWIDSettings"
+      },
+      "RoleLimits": {
+        "properties": {
+          "max_users": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Max Users"
+          },
+          "data_limit_min": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Data Limit Min"
+          },
+          "data_limit_max": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Data Limit Max"
+          },
+          "expire_min": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Expire Min"
+          },
+          "expire_max": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Expire Max"
+          },
+          "min_hwid_per_user": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Min Hwid Per User"
+          },
+          "max_hwid_per_user": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Max Hwid Per User"
+          },
+          "on_hold_timeout_min": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "On Hold Timeout Min"
+          },
+          "on_hold_timeout_max": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "On Hold Timeout Max"
+          }
+        },
+        "type": "object",
+        "title": "RoleLimits"
+      },
+      "RolePermissions": {
+        "properties": {
+          "users": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/UsersPermissions"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "admins": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/AdminsPermissions"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "nodes": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/NodesPermissions"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "groups": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/CRUDPermissions"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "hosts": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/HostsPermissions"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "templates": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/CRUDPermissions"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "client_templates": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/CRUDPermissions"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "cores": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/CRUDPermissions"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "settings": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SettingsPermissions"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "system": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SystemPermissions"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "hwids": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/HwidsPermissions"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "admin_roles": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/CRUDPermissions"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "type": "object",
+        "title": "RolePermissions",
+        "description": "Typed permission map. Missing resource or action = denied.\nEach action value is True (allowed), {\"scope\": N} (scoped), or None (denied)."
+      },
       "RunMethod": {
         "type": "string",
         "enum": [
@@ -21628,22 +24368,91 @@
         ],
         "title": "RunMethod"
       },
+      "SettingsPermissions": {
+        "properties": {
+          "read": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "additionalProperties": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/PermissionScope"
+                    },
+                    {
+                      "type": "integer"
+                    }
+                  ]
+                },
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Read"
+          },
+          "read_general": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "additionalProperties": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/PermissionScope"
+                    },
+                    {
+                      "type": "integer"
+                    }
+                  ]
+                },
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Read General"
+          },
+          "update": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "additionalProperties": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/PermissionScope"
+                    },
+                    {
+                      "type": "integer"
+                    }
+                  ]
+                },
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Update"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "title": "SettingsPermissions"
+      },
       "SettingsSchema": {
         "properties": {
           "telegram": {
             "anyOf": [
               {
                 "$ref": "#/components/schemas/Telegram"
-              },
-              {
-                "type": "null"
-              }
-            ]
-          },
-          "discord": {
-            "anyOf": [
-              {
-                "$ref": "#/components/schemas/Discord"
               },
               {
                 "type": "null"
@@ -22033,13 +24842,16 @@
           "on_hold_expire_duration": {
             "anyOf": [
               {
-                "type": "integer"
+                "type": "integer",
+                "maximum": 2147483647.0,
+                "minimum": 0.0
               },
               {
                 "type": "null"
               }
             ],
-            "title": "On Hold Expire Duration"
+            "title": "On Hold Expire Duration",
+            "description": "on_hold_expire_duration can be 0 or greater in seconds"
           },
           "on_hold_timeout": {
             "anyOf": [
@@ -22162,7 +24974,38 @@
         ],
         "title": "SubscriptionUserResponse"
       },
-      "SystemStats": {
+      "SystemPermissions": {
+        "properties": {
+          "read": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "additionalProperties": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/PermissionScope"
+                    },
+                    {
+                      "type": "integer"
+                    }
+                  ]
+                },
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Read"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "title": "SystemPermissions"
+      },
+      "SystemResourceStats": {
         "properties": {
           "version": {
             "type": "string",
@@ -22237,7 +25080,146 @@
               }
             ],
             "title": "Cpu Usage"
+          }
+        },
+        "type": "object",
+        "required": [
+          "version",
+          "uptime_seconds"
+        ],
+        "title": "SystemResourceStats"
+      },
+      "SystemStats": {
+        "properties": {
+          "total_user": {
+            "type": "integer",
+            "title": "Total User"
           },
+          "online_users": {
+            "type": "integer",
+            "title": "Online Users"
+          },
+          "active_users": {
+            "type": "integer",
+            "title": "Active Users"
+          },
+          "on_hold_users": {
+            "type": "integer",
+            "title": "On Hold Users"
+          },
+          "disabled_users": {
+            "type": "integer",
+            "title": "Disabled Users"
+          },
+          "expired_users": {
+            "type": "integer",
+            "title": "Expired Users"
+          },
+          "limited_users": {
+            "type": "integer",
+            "title": "Limited Users"
+          },
+          "incoming_bandwidth": {
+            "type": "integer",
+            "title": "Incoming Bandwidth"
+          },
+          "outgoing_bandwidth": {
+            "type": "integer",
+            "title": "Outgoing Bandwidth"
+          },
+          "version": {
+            "type": "string",
+            "title": "Version"
+          },
+          "uptime_seconds": {
+            "type": "integer",
+            "title": "Uptime Seconds"
+          },
+          "mem_total": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Mem Total"
+          },
+          "mem_used": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Mem Used"
+          },
+          "disk_total": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Disk Total"
+          },
+          "disk_used": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Disk Used"
+          },
+          "cpu_cores": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Cpu Cores"
+          },
+          "cpu_usage": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Cpu Usage"
+          }
+        },
+        "type": "object",
+        "required": [
+          "total_user",
+          "online_users",
+          "active_users",
+          "on_hold_users",
+          "disabled_users",
+          "expired_users",
+          "limited_users",
+          "incoming_bandwidth",
+          "outgoing_bandwidth",
+          "version",
+          "uptime_seconds"
+        ],
+        "title": "SystemStats"
+      },
+      "SystemUsersStats": {
+        "properties": {
           "total_user": {
             "type": "integer",
             "title": "Total User"
@@ -22277,8 +25259,6 @@
         },
         "type": "object",
         "required": [
-          "version",
-          "uptime_seconds",
           "total_user",
           "online_users",
           "active_users",
@@ -22289,7 +25269,7 @@
           "incoming_bandwidth",
           "outgoing_bandwidth"
         ],
-        "title": "SystemStats"
+        "title": "SystemUsersStats"
       },
       "TcpSettings": {
         "properties": {
@@ -22699,13 +25679,16 @@
           "on_hold_expire_duration": {
             "anyOf": [
               {
-                "type": "integer"
+                "type": "integer",
+                "maximum": 2147483647.0,
+                "minimum": 0.0
               },
               {
                 "type": "null"
               }
             ],
-            "title": "On Hold Expire Duration"
+            "title": "On Hold Expire Duration",
+            "description": "on_hold_expire_duration can be 0 or greater in seconds"
           },
           "on_hold_timeout": {
             "anyOf": [
@@ -22979,13 +25962,16 @@
           "on_hold_expire_duration": {
             "anyOf": [
               {
-                "type": "integer"
+                "type": "integer",
+                "maximum": 2147483647.0,
+                "minimum": 0.0
               },
               {
                 "type": "null"
               }
             ],
-            "title": "On Hold Expire Duration"
+            "title": "On Hold Expire Duration",
+            "description": "on_hold_expire_duration can be 0 or greater in seconds"
           },
           "on_hold_timeout": {
             "anyOf": [
@@ -23161,13 +26147,16 @@
           "on_hold_expire_duration": {
             "anyOf": [
               {
-                "type": "integer"
+                "type": "integer",
+                "maximum": 2147483647.0,
+                "minimum": 0.0
               },
               {
                 "type": "null"
               }
             ],
-            "title": "On Hold Expire Duration"
+            "title": "On Hold Expire Duration",
+            "description": "on_hold_expire_duration can be 0 or greater in seconds"
           },
           "on_hold_timeout": {
             "anyOf": [
@@ -23343,6 +26332,19 @@
         ],
         "title": "UserStatusCreate"
       },
+      "UserStatusToggle": {
+        "properties": {
+          "disabled": {
+            "type": "boolean",
+            "title": "Disabled"
+          }
+        },
+        "type": "object",
+        "required": [
+          "disabled"
+        ],
+        "title": "UserStatusToggle"
+      },
       "UserSubscriptionUpdateChart": {
         "properties": {
           "total": {
@@ -23488,6 +26490,7 @@
             "anyOf": [
               {
                 "type": "integer",
+                "maximum": 2147483647.0,
                 "minimum": 0.0
               },
               {
@@ -23633,6 +26636,7 @@
             "anyOf": [
               {
                 "type": "integer",
+                "maximum": 2147483647.0,
                 "minimum": 0.0
               },
               {
@@ -23782,6 +26786,7 @@
             "anyOf": [
               {
                 "type": "integer",
+                "maximum": 2147483647.0,
                 "minimum": 0.0
               },
               {
@@ -24005,6 +27010,229 @@
           "sequence"
         ],
         "title": "UsernameGenerationStrategy"
+      },
+      "UsersPermissions": {
+        "properties": {
+          "create": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "additionalProperties": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/PermissionScope"
+                    },
+                    {
+                      "type": "integer"
+                    }
+                  ]
+                },
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Create"
+          },
+          "read": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "additionalProperties": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/PermissionScope"
+                    },
+                    {
+                      "type": "integer"
+                    }
+                  ]
+                },
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Read"
+          },
+          "read_simple": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "additionalProperties": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/PermissionScope"
+                    },
+                    {
+                      "type": "integer"
+                    }
+                  ]
+                },
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Read Simple"
+          },
+          "update": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "additionalProperties": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/PermissionScope"
+                    },
+                    {
+                      "type": "integer"
+                    }
+                  ]
+                },
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Update"
+          },
+          "delete": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "additionalProperties": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/PermissionScope"
+                    },
+                    {
+                      "type": "integer"
+                    }
+                  ]
+                },
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Delete"
+          },
+          "reset_usage": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "additionalProperties": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/PermissionScope"
+                    },
+                    {
+                      "type": "integer"
+                    }
+                  ]
+                },
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reset Usage"
+          },
+          "revoke_sub": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "additionalProperties": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/PermissionScope"
+                    },
+                    {
+                      "type": "integer"
+                    }
+                  ]
+                },
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Revoke Sub"
+          },
+          "set_owner": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "additionalProperties": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/PermissionScope"
+                    },
+                    {
+                      "type": "integer"
+                    }
+                  ]
+                },
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Set Owner"
+          },
+          "activate_next_plan": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "additionalProperties": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/PermissionScope"
+                    },
+                    {
+                      "type": "integer"
+                    }
+                  ]
+                },
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Activate Next Plan"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "title": "UsersPermissions"
       },
       "UsersResponse": {
         "properties": {
@@ -24442,10 +27670,8 @@
           "x_padding_bytes": {
             "anyOf": [
               {
-                "type": "string"
-              },
-              {
-                "type": "integer"
+                "type": "string",
+                "pattern": "^\\d{1,16}(-\\d{1,16})?$"
               },
               {
                 "type": "null"
@@ -24593,10 +27819,8 @@
           "uplink_chunk_size": {
             "anyOf": [
               {
-                "type": "string"
-              },
-              {
-                "type": "integer"
+                "type": "string",
+                "pattern": "^\\d{1,16}(-\\d{1,16})?$"
               },
               {
                 "type": "null"
@@ -24607,10 +27831,8 @@
           "sc_max_each_post_bytes": {
             "anyOf": [
               {
-                "type": "string"
-              },
-              {
-                "type": "integer"
+                "type": "string",
+                "pattern": "^\\d{1,16}(-\\d{1,16})?$"
               },
               {
                 "type": "null"
@@ -24621,10 +27843,8 @@
           "sc_min_posts_interval_ms": {
             "anyOf": [
               {
-                "type": "string"
-              },
-              {
-                "type": "integer"
+                "type": "string",
+                "pattern": "^\\d{1,16}(-\\d{1,16})?$"
               },
               {
                 "type": "null"
@@ -24895,10 +28115,8 @@
           "max_concurrency": {
             "anyOf": [
               {
-                "type": "string"
-              },
-              {
-                "type": "integer"
+                "type": "string",
+                "pattern": "^\\d{1,16}(-\\d{1,16})?$"
               },
               {
                 "type": "null"
@@ -24909,10 +28127,8 @@
           "max_connections": {
             "anyOf": [
               {
-                "type": "string"
-              },
-              {
-                "type": "integer"
+                "type": "string",
+                "pattern": "^\\d{1,16}(-\\d{1,16})?$"
               },
               {
                 "type": "null"
@@ -24923,10 +28139,8 @@
           "c_max_reuse_times": {
             "anyOf": [
               {
-                "type": "string"
-              },
-              {
-                "type": "integer"
+                "type": "string",
+                "pattern": "^\\d{1,16}(-\\d{1,16})?$"
               },
               {
                 "type": "null"
@@ -24937,10 +28151,8 @@
           "h_max_reusable_secs": {
             "anyOf": [
               {
-                "type": "string"
-              },
-              {
-                "type": "integer"
+                "type": "string",
+                "pattern": "^\\d{1,16}(-\\d{1,16})?$"
               },
               {
                 "type": "null"
@@ -24951,10 +28163,8 @@
           "h_max_request_times": {
             "anyOf": [
               {
-                "type": "string"
-              },
-              {
-                "type": "integer"
+                "type": "string",
+                "pattern": "^\\d{1,16}(-\\d{1,16})?$"
               },
               {
                 "type": "null"

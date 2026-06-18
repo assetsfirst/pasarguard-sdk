@@ -6,6 +6,7 @@ Base model containing the core admin identification fields.
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**id** | **number** |  | [optional] [default to undefined]
 **username** | **string** |  | [default to undefined]
 **telegram_id** | **number** |  | [optional] [default to undefined]
 **discord_webhook** | **string** |  | [optional] [default to undefined]
@@ -20,6 +21,7 @@ Name | Type | Description | Notes
 import { AdminContactInfo } from './api';
 
 const instance: AdminContactInfo = {
+    id,
     username,
     telegram_id,
     discord_webhook,

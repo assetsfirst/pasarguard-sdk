@@ -7,6 +7,7 @@ Per-object notification channels
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **admin** | [**NotificationChannel**](NotificationChannel.md) |  | [optional] [default to undefined]
+**admin_role** | [**NotificationChannel**](NotificationChannel.md) |  | [optional] [default to undefined]
 **core** | [**NotificationChannel**](NotificationChannel.md) |  | [optional] [default to undefined]
 **group** | [**NotificationChannel**](NotificationChannel.md) |  | [optional] [default to undefined]
 **host** | [**NotificationChannel**](NotificationChannel.md) |  | [optional] [default to undefined]
@@ -21,6 +22,7 @@ import { NotificationChannels } from './api';
 
 const instance: NotificationChannels = {
     admin,
+    admin_role,
     core,
     group,
     host,

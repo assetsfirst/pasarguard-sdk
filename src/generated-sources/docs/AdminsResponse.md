@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **total** | **number** |  | [default to undefined]
 **active** | **number** |  | [default to undefined]
 **disabled** | **number** |  | [default to undefined]
+**limited** | **number** |  | [default to undefined]
 
 ## Example
 
@@ -21,6 +22,7 @@ const instance: AdminsResponse = {
     total,
     active,
     disabled,
+    limited,
 };
 ```
 

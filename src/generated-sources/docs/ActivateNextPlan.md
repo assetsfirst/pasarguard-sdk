@@ -1,0 +1,18 @@
+# ActivateNextPlan
+
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+
+## Example
+
+```typescript
+import { ActivateNextPlan } from './api';
+
+const instance: ActivateNextPlan = {
+};
+```
+
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
