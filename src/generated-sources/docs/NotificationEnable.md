@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 **node** | [**NodeNotificationEnable**](NodeNotificationEnable.md) |  | [optional] [default to undefined]
 **user** | [**UserNotificationEnable**](UserNotificationEnable.md) |  | [optional] [default to undefined]
 **user_template** | [**BaseNotificationEnable**](BaseNotificationEnable.md) |  | [optional] [default to undefined]
+**api_key** | [**BaseNotificationEnable**](BaseNotificationEnable.md) |  | [optional] [default to undefined]
 **days_left** | **boolean** |  | [optional] [default to true]
 **percentage_reached** | **boolean** |  | [optional] [default to true]
 
@@ -30,6 +31,7 @@ const instance: NotificationEnable = {
     node,
     user,
     user_template,
+    api_key,
     days_left,
     percentage_reached,
 };

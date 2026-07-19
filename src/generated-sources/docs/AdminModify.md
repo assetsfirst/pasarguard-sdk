@@ -14,6 +14,7 @@ Name | Type | Description | Notes
 **sub_domain** | **string** |  | [optional] [default to undefined]
 **profile_title** | **string** |  | [optional] [default to undefined]
 **support_url** | **string** |  | [optional] [default to undefined]
+**custom_variables** | [**Array&lt;CustomVariable&gt;**](CustomVariable.md) |  | [optional] [default to undefined]
 **note** | **string** |  | [optional] [default to undefined]
 **notification_enable** | [**UserNotificationEnable**](UserNotificationEnable.md) |  | [optional] [default to undefined]
 **role_id** | **number** |  | [optional] [default to undefined]
@@ -34,6 +35,7 @@ const instance: AdminModify = {
     sub_domain,
     profile_title,
     support_url,
+    custom_variables,
     note,
     notification_enable,
     role_id,

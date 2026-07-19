@@ -7,6 +7,7 @@ All URIs are relative to *http://localhost*
 |[**getSubUserUsage**](#getsubuserusage) | **GET** /sub/{token}/usage | Get Sub User Usage|
 |[**userSubscription**](#usersubscription) | **GET** /sub/{token}/ | User Subscription|
 |[**userSubscriptionApps**](#usersubscriptionapps) | **GET** /sub/{token}/apps | User Subscription Apps|
+|[**userSubscriptionHeaders**](#usersubscriptionheaders) | **HEAD** /sub/{token}/ | User Subscription Headers|
 |[**userSubscriptionInfo**](#usersubscriptioninfo) | **GET** /sub/{token}/info | User Subscription Info|
 |[**userSubscriptionRaw**](#usersubscriptionraw) | **GET** /sub/{token}/raw | User Subscription Raw|
 |[**userSubscriptionWithClientType**](#usersubscriptionwithclienttype) | **GET** /sub/{token}/{client_type} | User Subscription With Client Type|
@@ -172,6 +173,61 @@ const { status, data } = await apiInstance.userSubscriptionApps(
 ### Return type
 
 **Array<Application>**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **userSubscriptionHeaders**
+> any userSubscriptionHeaders()
+
+Provides subscription headers without response body.
+
+### Example
+
+```typescript
+import {
+    SubscriptionApi,
+    Configuration
+} from './api';
+
+const configuration = new Configuration();
+const apiInstance = new SubscriptionApi(configuration);
+
+let token: string; // (default to undefined)
+let userAgent: string; // (optional) (default to '')
+
+const { status, data } = await apiInstance.userSubscriptionHeaders(
+    token,
+    userAgent
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **token** | [**string**] |  | defaults to undefined|
+| **userAgent** | [**string**] |  | (optional) defaults to ''|
+
+
+### Return type
+
+**any**
 
 ### Authorization
 

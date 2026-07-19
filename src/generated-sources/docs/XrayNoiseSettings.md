@@ -6,10 +6,11 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **type** | **string** |  | [default to undefined]
-**packet** | **string** |  | [default to undefined]
-**delay** | **string** |  | [default to undefined]
+**packet** | [**Packet**](Packet.md) |  | [optional] [default to undefined]
+**delay** | [**Delay**](Delay.md) |  | [optional] [default to undefined]
 **apply_to** | **string** |  | [optional] [default to 'ip']
-**rand_range** | **string** |  | [optional] [default to undefined]
+**rand** | [**Rand**](Rand.md) |  | [optional] [default to undefined]
+**randRange** | **string** |  | [optional] [default to undefined]
 
 ## Example
 
@@ -21,7 +22,8 @@ const instance: XrayNoiseSettings = {
     packet,
     delay,
     apply_to,
-    rand_range,
+    rand,
+    randRange,
 };
 ```
 

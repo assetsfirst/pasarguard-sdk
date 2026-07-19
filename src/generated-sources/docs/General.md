@@ -6,6 +6,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **default_method** | [**ShadowsocksMethods**](ShadowsocksMethods.md) |  | [optional] [default to undefined]
+**custom_variables** | [**Array&lt;CustomVariable&gt;**](CustomVariable.md) |  | [optional] [default to undefined]
 
 ## Example
 
@@ -14,6 +15,7 @@ import { General } from './api';
 
 const instance: General = {
     default_method,
+    custom_variables,
 };
 ```
 

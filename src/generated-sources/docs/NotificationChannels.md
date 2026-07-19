@@ -14,6 +14,7 @@ Name | Type | Description | Notes
 **node** | [**NotificationChannel**](NotificationChannel.md) |  | [optional] [default to undefined]
 **user** | [**NotificationChannel**](NotificationChannel.md) |  | [optional] [default to undefined]
 **user_template** | [**NotificationChannel**](NotificationChannel.md) |  | [optional] [default to undefined]
+**api_key** | [**NotificationChannel**](NotificationChannel.md) |  | [optional] [default to undefined]
 
 ## Example
 
@@ -29,6 +30,7 @@ const instance: NotificationChannels = {
     node,
     user,
     user_template,
+    api_key,
 };
 ```
 

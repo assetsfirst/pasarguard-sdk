@@ -18,6 +18,7 @@ Name | Type | Description | Notes
 **allow_browser_config** | **boolean** |  | [optional] [default to true]
 **disable_sub_template** | **boolean** |  | [optional] [default to false]
 **randomize_order** | **boolean** |  | [optional] [default to false]
+**custom_variables** | [**Array&lt;CustomVariable&gt;**](CustomVariable.md) |  | [optional] [default to undefined]
 
 ## Example
 
@@ -38,6 +39,7 @@ const instance: Subscription = {
     allow_browser_config,
     disable_sub_template,
     randomize_order,
+    custom_variables,
 };
 ```
 

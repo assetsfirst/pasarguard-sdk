@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **modify** | **boolean** |  | [optional] [default to true]
 **_delete** | **boolean** |  | [optional] [default to true]
 **connect** | **boolean** |  | [optional] [default to true]
+**recovered** | **boolean** |  | [optional] [default to true]
 **error** | **boolean** |  | [optional] [default to true]
 **limited** | **boolean** |  | [optional] [default to true]
 **reset_usage** | **boolean** |  | [optional] [default to true]
@@ -23,6 +24,7 @@ const instance: NodeNotificationEnable = {
     modify,
     _delete,
     connect,
+    recovered,
     error,
     limited,
     reset_usage,

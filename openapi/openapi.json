@@ -3,7 +3,7 @@
   "info": {
     "title": "PasarGuardAPI",
     "description": "Unified GUI Censorship Resistant Solution",
-    "version": "5.0.3"
+    "version": "5.1.0"
   },
   "paths": {
     "/": {
@@ -36,7 +36,7 @@
                 "schema": {
                   "additionalProperties": true,
                   "type": "object",
-                  "title": "Response Health Health Get"
+                  "title": "Response Health"
                 }
               }
             }
@@ -56,7 +56,7 @@
           "content": {
             "application/x-www-form-urlencoded": {
               "schema": {
-                "$ref": "#/components/schemas/Body_admin_token_api_admin_token_post"
+                "$ref": "#/components/schemas/Body_admin_token"
               }
             }
           },
@@ -3346,6 +3346,665 @@
         ]
       }
     },
+    "/api/api_key": {
+      "post": {
+        "tags": [
+          "API Keys"
+        ],
+        "summary": "Create Api Key",
+        "operationId": "create_api_key",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/APIKeyCreate"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIKeyCreateResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Error",
+            "headers": {
+              "WWW-Authenticate": {
+                "description": "Authentication type",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Forbidden"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Conflict"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ]
+      }
+    },
+    "/api/api_keys": {
+      "get": {
+        "tags": [
+          "API Keys"
+        ],
+        "summary": "List Api Keys",
+        "operationId": "list_api_keys",
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "title": "Offset"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "title": "Limit"
+            }
+          },
+          {
+            "name": "key_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Key Id"
+            }
+          },
+          {
+            "name": "name",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Name"
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/APIKeyStatus"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Status"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIKeysResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Error",
+            "headers": {
+              "WWW-Authenticate": {
+                "description": "Authentication type",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Forbidden"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/api_keys/bulk/delete": {
+      "post": {
+        "tags": [
+          "API Keys"
+        ],
+        "summary": "Bulk Delete Api Keys",
+        "operationId": "bulk_delete_api_keys",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BulkAPIKeySelection"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RemoveAPIKeysResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Error",
+            "headers": {
+              "WWW-Authenticate": {
+                "description": "Authentication type",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Forbidden"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "BadRequest Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPException"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "NotFound Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFound"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ]
+      }
+    },
+    "/api/api_key/{key_id}": {
+      "patch": {
+        "tags": [
+          "API Keys"
+        ],
+        "summary": "Modify Api Key",
+        "operationId": "modify_api_key",
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "key_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Key Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/APIKeyUpdate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIKeyResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Error",
+            "headers": {
+              "WWW-Authenticate": {
+                "description": "Authentication type",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Forbidden"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "NotFound Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFound"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Conflict"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "API Keys"
+        ],
+        "summary": "Get Api Key",
+        "operationId": "get_api_key",
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "key_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Key Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIKeyResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Error",
+            "headers": {
+              "WWW-Authenticate": {
+                "description": "Authentication type",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Forbidden"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "NotFound Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFound"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "API Keys"
+        ],
+        "summary": "Remove Api Key",
+        "operationId": "remove_api_key",
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "key_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Key Id"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "401": {
+            "description": "Unauthorized Error",
+            "headers": {
+              "WWW-Authenticate": {
+                "description": "Authentication type",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Forbidden"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "NotFound Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFound"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/api_key/{key_id}/revoke": {
+      "post": {
+        "tags": [
+          "API Keys"
+        ],
+        "summary": "Revoke Api Key",
+        "operationId": "revoke_api_key",
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "key_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Key Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIKeyCreateResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Error",
+            "headers": {
+              "WWW-Authenticate": {
+                "description": "Authentication type",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Forbidden"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "NotFound Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFound"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/admin-roles": {
       "get": {
         "tags": [
@@ -4365,7 +5024,7 @@
                     "type": "string"
                   },
                   "type": "array",
-                  "title": "Response Get Inbounds Api Inbounds Get"
+                  "title": "Response Get Inbounds"
                 }
               }
             }
@@ -4414,7 +5073,7 @@
                     "$ref": "#/components/schemas/InboundSummary"
                   },
                   "type": "array",
-                  "title": "Response Get Inbound Details Api Inbounds Details Get"
+                  "title": "Response Get Inbound Details"
                 }
               }
             }
@@ -7485,7 +8144,7 @@
                   "items": {
                     "$ref": "#/components/schemas/BaseHost"
                   },
-                  "title": "Response Get Hosts Api Hosts Get"
+                  "title": "Response Get Hosts"
                 }
               }
             }
@@ -7566,7 +8225,7 @@
                   "items": {
                     "$ref": "#/components/schemas/BaseHost"
                   },
-                  "title": "Response Modify Hosts Api Hosts Put"
+                  "title": "Response Modify Hosts"
                 }
               }
             }
@@ -9468,7 +10127,7 @@
             "required": false,
             "schema": {
               "type": "boolean",
-              "default": false,
+              "default": true,
               "title": "Flush Users"
             }
           }
@@ -9924,7 +10583,7 @@
                     ]
                   },
                   "type": "object",
-                  "title": "Response Realtime Nodes Stats Api Nodes Realtime Stats Get"
+                  "title": "Response Realtime Nodes Stats"
                 }
               }
             }
@@ -10084,7 +10743,7 @@
                   "additionalProperties": {
                     "type": "integer"
                   },
-                  "title": "Response User Online Stats Api Node  Node Id  Online Stats  User Id  Get"
+                  "title": "Response User Online Stats"
                 }
               }
             }
@@ -15252,7 +15911,7 @@
                   "items": {
                     "type": "string"
                   },
-                  "title": "Response Get Expired Users Api Users Expired Get"
+                  "title": "Response Get Expired Users"
                 }
               }
             }
@@ -16838,6 +17497,55 @@
             }
           }
         }
+      },
+      "head": {
+        "tags": [
+          "Subscription"
+        ],
+        "summary": "User Subscription Headers",
+        "description": "Provides subscription headers without response body.",
+        "operationId": "user_subscription_headers",
+        "parameters": [
+          {
+            "name": "token",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Token"
+            }
+          },
+          {
+            "name": "user-agent",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "",
+              "title": "User-Agent"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
       }
     },
     "/sub/{token}/info": {
@@ -16952,7 +17660,7 @@
                   "items": {
                     "$ref": "#/components/schemas/Application"
                   },
-                  "title": "Response User Subscription Apps Sub  Token  Apps Get"
+                  "title": "Response User Subscription Apps"
                 }
               }
             }
@@ -17471,7 +18179,7 @@
                   "items": {
                     "$ref": "#/components/schemas/UserTemplateResponse"
                   },
-                  "title": "Response Get User Templates Api User Templates Get"
+                  "title": "Response Get User Templates"
                 }
               }
             }
@@ -18118,6 +18826,477 @@
   },
   "components": {
     "schemas": {
+      "APIKeyCreate": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 1,
+            "title": "Name"
+          },
+          "note": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 512
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Note"
+          },
+          "permissions": {
+            "$ref": "#/components/schemas/RolePermissions"
+          },
+          "inherit_permissions": {
+            "type": "boolean",
+            "title": "Inherit Permissions",
+            "default": true
+          },
+          "expire_date": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Expire Date"
+          },
+          "admin_id": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 1.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Admin Id"
+          }
+        },
+        "type": "object",
+        "required": [
+          "name"
+        ],
+        "title": "APIKeyCreate"
+      },
+      "APIKeyCreateResponse": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 1,
+            "title": "Name"
+          },
+          "note": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 512
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Note"
+          },
+          "permissions": {
+            "$ref": "#/components/schemas/RolePermissions"
+          },
+          "inherit_permissions": {
+            "type": "boolean",
+            "title": "Inherit Permissions",
+            "default": true
+          },
+          "expire_date": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Expire Date"
+          },
+          "id": {
+            "type": "integer",
+            "title": "Id"
+          },
+          "admin_id": {
+            "type": "integer",
+            "title": "Admin Id"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "api_key_trimmed": {
+            "type": "string",
+            "title": "Api Key Trimmed"
+          },
+          "revoked_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Revoked At"
+          },
+          "status": {
+            "$ref": "#/components/schemas/APIKeyStatus",
+            "default": "active"
+          },
+          "is_expired": {
+            "type": "boolean",
+            "title": "Is Expired",
+            "default": false
+          },
+          "api_key": {
+            "type": "string",
+            "title": "Api Key"
+          }
+        },
+        "type": "object",
+        "required": [
+          "name",
+          "id",
+          "admin_id",
+          "created_at",
+          "api_key_trimmed",
+          "api_key"
+        ],
+        "title": "APIKeyCreateResponse"
+      },
+      "APIKeyResponse": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 1,
+            "title": "Name"
+          },
+          "note": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 512
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Note"
+          },
+          "permissions": {
+            "$ref": "#/components/schemas/RolePermissions"
+          },
+          "inherit_permissions": {
+            "type": "boolean",
+            "title": "Inherit Permissions",
+            "default": true
+          },
+          "expire_date": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Expire Date"
+          },
+          "id": {
+            "type": "integer",
+            "title": "Id"
+          },
+          "admin_id": {
+            "type": "integer",
+            "title": "Admin Id"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "api_key_trimmed": {
+            "type": "string",
+            "title": "Api Key Trimmed"
+          },
+          "revoked_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Revoked At"
+          },
+          "status": {
+            "$ref": "#/components/schemas/APIKeyStatus",
+            "default": "active"
+          },
+          "is_expired": {
+            "type": "boolean",
+            "title": "Is Expired",
+            "default": false
+          }
+        },
+        "type": "object",
+        "required": [
+          "name",
+          "id",
+          "admin_id",
+          "created_at",
+          "api_key_trimmed"
+        ],
+        "title": "APIKeyResponse"
+      },
+      "APIKeyStatus": {
+        "type": "string",
+        "enum": [
+          "active",
+          "disabled"
+        ],
+        "title": "APIKeyStatus"
+      },
+      "APIKeyUpdate": {
+        "properties": {
+          "admin_id": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 1.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Admin Id"
+          },
+          "name": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 128,
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Name"
+          },
+          "note": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 512
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Note"
+          },
+          "permissions": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/RolePermissions"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "inherit_permissions": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Inherit Permissions"
+          },
+          "expire_date": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Expire Date"
+          },
+          "status": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/APIKeyStatus"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "type": "object",
+        "title": "APIKeyUpdate"
+      },
+      "APIKeysPermissions": {
+        "properties": {
+          "create": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Create"
+          },
+          "read": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "additionalProperties": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/PermissionScope"
+                    },
+                    {
+                      "type": "integer"
+                    }
+                  ]
+                },
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Read"
+          },
+          "read_simple": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "additionalProperties": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/PermissionScope"
+                    },
+                    {
+                      "type": "integer"
+                    }
+                  ]
+                },
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Read Simple"
+          },
+          "update": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "additionalProperties": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/PermissionScope"
+                    },
+                    {
+                      "type": "integer"
+                    }
+                  ]
+                },
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Update"
+          },
+          "delete": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "additionalProperties": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/PermissionScope"
+                    },
+                    {
+                      "type": "integer"
+                    }
+                  ]
+                },
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Delete"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "title": "APIKeysPermissions"
+      },
+      "APIKeysResponse": {
+        "properties": {
+          "api_keys": {
+            "items": {
+              "$ref": "#/components/schemas/APIKeyResponse"
+            },
+            "type": "array",
+            "title": "Api Keys"
+          },
+          "total": {
+            "type": "integer",
+            "title": "Total"
+          }
+        },
+        "type": "object",
+        "required": [
+          "api_keys",
+          "total"
+        ],
+        "title": "APIKeysResponse"
+      },
       "AdminBase": {
         "properties": {
           "id": {
@@ -18214,6 +19393,13 @@
               }
             ],
             "title": "Support Url"
+          },
+          "custom_variables": {
+            "items": {
+              "$ref": "#/components/schemas/CustomVariable"
+            },
+            "type": "array",
+            "title": "Custom Variables"
           },
           "notification_enable": {
             "anyOf": [
@@ -18330,6 +19516,20 @@
               }
             ],
             "title": "Support Url"
+          },
+          "custom_variables": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/CustomVariable"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Custom Variables"
           },
           "note": {
             "anyOf": [
@@ -18451,6 +19651,13 @@
               }
             ],
             "title": "Support Url"
+          },
+          "custom_variables": {
+            "items": {
+              "$ref": "#/components/schemas/CustomVariable"
+            },
+            "type": "array",
+            "title": "Custom Variables"
           },
           "notification_enable": {
             "anyOf": [
@@ -18664,6 +19871,20 @@
               }
             ],
             "title": "Support Url"
+          },
+          "custom_variables": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/CustomVariable"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Custom Variables"
           },
           "note": {
             "anyOf": [
@@ -19521,7 +20742,7 @@
           "transport_settings": {
             "anyOf": [
               {
-                "$ref": "#/components/schemas/TransportSettings-Output"
+                "$ref": "#/components/schemas/TransportSettings"
               },
               {
                 "type": "null"
@@ -19541,7 +20762,7 @@
           "fragment_settings": {
             "anyOf": [
               {
-                "$ref": "#/components/schemas/FragmentSettings"
+                "$ref": "#/components/schemas/FragmentSettings-Output"
               },
               {
                 "type": "null"
@@ -19665,6 +20886,16 @@
                 "type": "null"
               }
             ]
+          },
+          "final_mask_settings": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/FinalMask-Output"
+              },
+              {
+                "type": "null"
+              }
+            ]
           }
         },
         "type": "object",
@@ -19695,7 +20926,7 @@
         "type": "object",
         "title": "BaseNotificationEnable"
       },
-      "Body_admin_token_api_admin_token_post": {
+      "Body_admin_token": {
         "properties": {
           "grant_type": {
             "anyOf": [
@@ -19752,7 +20983,7 @@
           "username",
           "password"
         ],
-        "title": "Body_admin_token_api_admin_token_post"
+        "title": "Body_admin_token"
       },
       "Brutal": {
         "properties": {
@@ -19776,6 +21007,21 @@
           "down_mbps"
         ],
         "title": "Brutal"
+      },
+      "BulkAPIKeySelection": {
+        "properties": {
+          "ids": {
+            "items": {
+              "type": "integer"
+            },
+            "type": "array",
+            "uniqueItems": true,
+            "title": "Ids"
+          }
+        },
+        "type": "object",
+        "title": "BulkAPIKeySelection",
+        "description": "Model for bulk API key selection by IDs."
       },
       "BulkAdminSelection": {
         "properties": {
@@ -21192,7 +22438,7 @@
           "transport_settings": {
             "anyOf": [
               {
-                "$ref": "#/components/schemas/TransportSettings-Input"
+                "$ref": "#/components/schemas/TransportSettings"
               },
               {
                 "type": "null"
@@ -21212,7 +22458,7 @@
           "fragment_settings": {
             "anyOf": [
               {
-                "$ref": "#/components/schemas/FragmentSettings"
+                "$ref": "#/components/schemas/FragmentSettings-Input"
               },
               {
                 "type": "null"
@@ -21336,6 +22582,16 @@
                 "type": "null"
               }
             ]
+          },
+          "final_mask_settings": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/FinalMask-Input"
+              },
+              {
+                "type": "null"
+              }
+            ]
           }
         },
         "type": "object",
@@ -21374,6 +22630,26 @@
           "username"
         ],
         "title": "CreateUserFromTemplate"
+      },
+      "CustomVariable": {
+        "properties": {
+          "key": {
+            "type": "string",
+            "maxLength": 64,
+            "title": "Key"
+          },
+          "value": {
+            "type": "string",
+            "maxLength": 512,
+            "title": "Value",
+            "default": ""
+          }
+        },
+        "type": "object",
+        "required": [
+          "key"
+        ],
+        "title": "CustomVariable"
       },
       "DataLimitResetStrategy": {
         "type": "string",
@@ -21435,6 +22711,689 @@
         "type": "object",
         "title": "ExtraSettings"
       },
+      "FinalMask-Input": {
+        "properties": {
+          "tcp": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/FinalMaskTcpLayer-Input"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Tcp"
+          },
+          "udp": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/FinalMaskUdpLayer"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Udp"
+          },
+          "quicParams": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/FinalMaskQuicParams"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "additionalProperties": true,
+        "type": "object",
+        "title": "FinalMask"
+      },
+      "FinalMask-Output": {
+        "properties": {
+          "tcp": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/FinalMaskTcpLayer-Output"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Tcp"
+          },
+          "udp": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/FinalMaskUdpLayer"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Udp"
+          },
+          "quicParams": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/FinalMaskQuicParams"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "additionalProperties": true,
+        "type": "object",
+        "title": "FinalMask"
+      },
+      "FinalMaskDomainSettings": {
+        "properties": {
+          "domain": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Domain"
+          }
+        },
+        "additionalProperties": true,
+        "type": "object",
+        "title": "FinalMaskDomainSettings"
+      },
+      "FinalMaskNoiseSettings": {
+        "properties": {
+          "reset": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reset"
+          },
+          "noise": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/XrayNoiseSettings"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Noise"
+          }
+        },
+        "additionalProperties": true,
+        "type": "object",
+        "title": "FinalMaskNoiseSettings"
+      },
+      "FinalMaskPasswordSettings": {
+        "properties": {
+          "password": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Password"
+          }
+        },
+        "additionalProperties": true,
+        "type": "object",
+        "title": "FinalMaskPasswordSettings"
+      },
+      "FinalMaskQuicCongestion": {
+        "type": "string",
+        "enum": [
+          "reno",
+          "bbr",
+          "brutal",
+          "force-brutal"
+        ],
+        "title": "FinalMaskQuicCongestion"
+      },
+      "FinalMaskQuicParams": {
+        "properties": {
+          "congestion": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/FinalMaskQuicCongestion"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "debug": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Debug"
+          },
+          "brutalUp": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Brutalup"
+          },
+          "brutalDown": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Brutaldown"
+          },
+          "udpHop": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/FinalMaskUdpHop"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "initStreamReceiveWindow": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Initstreamreceivewindow"
+          },
+          "maxStreamReceiveWindow": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Maxstreamreceivewindow"
+          },
+          "initConnectionReceiveWindow": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Initconnectionreceivewindow"
+          },
+          "maxConnectionReceiveWindow": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Maxconnectionreceivewindow"
+          },
+          "maxIdleTimeout": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Maxidletimeout"
+          },
+          "keepAlivePeriod": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Keepaliveperiod"
+          },
+          "disablePathMTUDiscovery": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Disablepathmtudiscovery"
+          },
+          "maxIncomingStreams": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Maxincomingstreams"
+          }
+        },
+        "additionalProperties": true,
+        "type": "object",
+        "title": "FinalMaskQuicParams"
+      },
+      "FinalMaskSudokuSettings": {
+        "properties": {
+          "password": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Password"
+          },
+          "ascii": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Ascii"
+          },
+          "customTable": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Customtable"
+          },
+          "customTables": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Customtables"
+          },
+          "paddingMin": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Paddingmin"
+          },
+          "paddingMax": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Paddingmax"
+          }
+        },
+        "additionalProperties": true,
+        "type": "object",
+        "title": "FinalMaskSudokuSettings"
+      },
+      "FinalMaskTcpHeaderCustomSettings": {
+        "properties": {
+          "clients": {
+            "anyOf": [
+              {
+                "items": {
+                  "items": {
+                    "$ref": "#/components/schemas/XrayNoiseSettings"
+                  },
+                  "type": "array"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Clients"
+          },
+          "servers": {
+            "anyOf": [
+              {
+                "items": {
+                  "items": {
+                    "$ref": "#/components/schemas/XrayNoiseSettings"
+                  },
+                  "type": "array"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Servers"
+          },
+          "errors": {
+            "anyOf": [
+              {
+                "items": {
+                  "items": {
+                    "$ref": "#/components/schemas/XrayNoiseSettings"
+                  },
+                  "type": "array"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Errors"
+          }
+        },
+        "additionalProperties": true,
+        "type": "object",
+        "title": "FinalMaskTcpHeaderCustomSettings"
+      },
+      "FinalMaskTcpLayer-Input": {
+        "properties": {
+          "type": {
+            "$ref": "#/components/schemas/FinalMaskTcpType"
+          },
+          "settings": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/FinalMaskTcpHeaderCustomSettings"
+              },
+              {
+                "$ref": "#/components/schemas/XrayFragmentSettings-Input"
+              },
+              {
+                "$ref": "#/components/schemas/FinalMaskSudokuSettings"
+              },
+              {
+                "additionalProperties": true,
+                "type": "object"
+              }
+            ],
+            "title": "Settings"
+          }
+        },
+        "additionalProperties": true,
+        "type": "object",
+        "required": [
+          "type"
+        ],
+        "title": "FinalMaskTcpLayer"
+      },
+      "FinalMaskTcpLayer-Output": {
+        "properties": {
+          "type": {
+            "$ref": "#/components/schemas/FinalMaskTcpType"
+          },
+          "settings": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/FinalMaskTcpHeaderCustomSettings"
+              },
+              {
+                "$ref": "#/components/schemas/XrayFragmentSettings-Output"
+              },
+              {
+                "$ref": "#/components/schemas/FinalMaskSudokuSettings"
+              },
+              {
+                "additionalProperties": true,
+                "type": "object"
+              }
+            ],
+            "title": "Settings"
+          }
+        },
+        "additionalProperties": true,
+        "type": "object",
+        "required": [
+          "type"
+        ],
+        "title": "FinalMaskTcpLayer"
+      },
+      "FinalMaskTcpType": {
+        "type": "string",
+        "enum": [
+          "header-custom",
+          "fragment",
+          "sudoku"
+        ],
+        "title": "FinalMaskTcpType"
+      },
+      "FinalMaskUdpHeaderCustomSettings": {
+        "properties": {
+          "client": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/XrayNoiseSettings"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Client"
+          },
+          "server": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/XrayNoiseSettings"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Server"
+          }
+        },
+        "additionalProperties": true,
+        "type": "object",
+        "title": "FinalMaskUdpHeaderCustomSettings"
+      },
+      "FinalMaskUdpHop": {
+        "properties": {
+          "ports": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Ports"
+          },
+          "interval": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Interval"
+          }
+        },
+        "additionalProperties": true,
+        "type": "object",
+        "title": "FinalMaskUdpHop"
+      },
+      "FinalMaskUdpLayer": {
+        "properties": {
+          "type": {
+            "$ref": "#/components/schemas/FinalMaskUdpType"
+          },
+          "settings": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/FinalMaskUdpHeaderCustomSettings"
+              },
+              {
+                "$ref": "#/components/schemas/FinalMaskPasswordSettings"
+              },
+              {
+                "$ref": "#/components/schemas/FinalMaskSudokuSettings"
+              },
+              {
+                "$ref": "#/components/schemas/FinalMaskDomainSettings"
+              },
+              {
+                "$ref": "#/components/schemas/FinalMaskXicmpSettings"
+              },
+              {
+                "$ref": "#/components/schemas/FinalMaskNoiseSettings"
+              },
+              {
+                "additionalProperties": true,
+                "type": "object"
+              }
+            ],
+            "title": "Settings"
+          }
+        },
+        "additionalProperties": true,
+        "type": "object",
+        "required": [
+          "type"
+        ],
+        "title": "FinalMaskUdpLayer"
+      },
+      "FinalMaskUdpType": {
+        "type": "string",
+        "enum": [
+          "header-custom",
+          "header-dns",
+          "header-dtls",
+          "header-srtp",
+          "header-utp",
+          "header-wechat",
+          "header-wireguard",
+          "mkcp-original",
+          "mkcp-aes128gcm",
+          "noise",
+          "salamander",
+          "sudoku",
+          "xdns",
+          "xicmp"
+        ],
+        "title": "FinalMaskUdpType"
+      },
+      "FinalMaskXicmpSettings": {
+        "properties": {
+          "listenIp": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Listenip"
+          },
+          "id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id"
+          }
+        },
+        "additionalProperties": true,
+        "type": "object",
+        "title": "FinalMaskXicmpSettings"
+      },
       "Forbidden": {
         "properties": {
           "detail": {
@@ -21446,12 +23405,38 @@
         "type": "object",
         "title": "Forbidden"
       },
-      "FragmentSettings": {
+      "FragmentSettings-Input": {
         "properties": {
           "xray": {
             "anyOf": [
               {
-                "$ref": "#/components/schemas/XrayFragmentSettings"
+                "$ref": "#/components/schemas/XrayFragmentSettings-Input"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "sing_box": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SingBoxFragmentSettings"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "type": "object",
+        "title": "FragmentSettings"
+      },
+      "FragmentSettings-Output": {
+        "properties": {
+          "xray": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/XrayFragmentSettings-Output"
               },
               {
                 "type": "null"
@@ -21526,6 +23511,20 @@
           "default_method": {
             "$ref": "#/components/schemas/ShadowsocksMethods",
             "default": "chacha20-ietf-poly1305"
+          },
+          "custom_variables": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/CustomVariable"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Custom Variables"
           }
         },
         "type": "object",
@@ -22689,6 +24688,11 @@
             "title": "Connect",
             "default": true
           },
+          "recovered": {
+            "type": "boolean",
+            "title": "Recovered",
+            "default": true
+          },
           "error": {
             "type": "boolean",
             "title": "Error",
@@ -23556,6 +25560,9 @@
           },
           "user_template": {
             "$ref": "#/components/schemas/NotificationChannel"
+          },
+          "api_key": {
+            "$ref": "#/components/schemas/NotificationChannel"
           }
         },
         "type": "object",
@@ -23586,6 +25593,9 @@
             "$ref": "#/components/schemas/UserNotificationEnable"
           },
           "user_template": {
+            "$ref": "#/components/schemas/BaseNotificationEnable"
+          },
+          "api_key": {
             "$ref": "#/components/schemas/BaseNotificationEnable"
           },
           "days_left": {
@@ -23836,6 +25846,28 @@
         },
         "type": "object",
         "title": "ProxyTable"
+      },
+      "RemoveAPIKeysResponse": {
+        "properties": {
+          "api_keys": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Api Keys"
+          },
+          "count": {
+            "type": "integer",
+            "title": "Count"
+          }
+        },
+        "type": "object",
+        "required": [
+          "api_keys",
+          "count"
+        ],
+        "title": "RemoveAPIKeysResponse",
+        "description": "Response model for bulk API key deletion."
       },
       "RemoveAdminsResponse": {
         "properties": {
@@ -24354,6 +26386,16 @@
                 "type": "null"
               }
             ]
+          },
+          "api_keys": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/APIKeysPermissions"
+              },
+              {
+                "type": "null"
+              }
+            ]
           }
         },
         "type": "object",
@@ -24770,6 +26812,13 @@
             "type": "boolean",
             "title": "Randomize Order",
             "default": false
+          },
+          "custom_variables": {
+            "items": {
+              "$ref": "#/components/schemas/CustomVariable"
+            },
+            "type": "array",
+            "title": "Custom Variables"
           }
         },
         "type": "object",
@@ -25402,68 +27451,12 @@
         ],
         "title": "Token"
       },
-      "TransportSettings-Input": {
+      "TransportSettings": {
         "properties": {
           "xhttp_settings": {
             "anyOf": [
               {
-                "$ref": "#/components/schemas/XHttpSettings-Input"
-              },
-              {
-                "type": "null"
-              }
-            ]
-          },
-          "grpc_settings": {
-            "anyOf": [
-              {
-                "$ref": "#/components/schemas/GRPCSettings"
-              },
-              {
-                "type": "null"
-              }
-            ]
-          },
-          "kcp_settings": {
-            "anyOf": [
-              {
-                "$ref": "#/components/schemas/KCPSettings"
-              },
-              {
-                "type": "null"
-              }
-            ]
-          },
-          "tcp_settings": {
-            "anyOf": [
-              {
-                "$ref": "#/components/schemas/TcpSettings"
-              },
-              {
-                "type": "null"
-              }
-            ]
-          },
-          "websocket_settings": {
-            "anyOf": [
-              {
-                "$ref": "#/components/schemas/WebSocketSettings"
-              },
-              {
-                "type": "null"
-              }
-            ]
-          }
-        },
-        "type": "object",
-        "title": "TransportSettings"
-      },
-      "TransportSettings-Output": {
-        "properties": {
-          "xhttp_settings": {
-            "anyOf": [
-              {
-                "$ref": "#/components/schemas/XHttpSettings-Output"
+                "$ref": "#/components/schemas/XHttpSettings"
               },
               {
                 "type": "null"
@@ -27644,7 +29637,7 @@
         ],
         "title": "XHttpModes"
       },
-      "XHttpSettings-Input": {
+      "XHttpSettings": {
         "properties": {
           "mode": {
             "anyOf": [
@@ -27855,7 +29848,7 @@
           "xmux": {
             "anyOf": [
               {
-                "$ref": "#/components/schemas/XMuxSettings-Input"
+                "$ref": "#/components/schemas/XMuxSettings"
               },
               {
                 "type": "null"
@@ -27877,317 +29870,7 @@
         "type": "object",
         "title": "XHttpSettings"
       },
-      "XHttpSettings-Output": {
-        "properties": {
-          "mode": {
-            "anyOf": [
-              {
-                "$ref": "#/components/schemas/XHttpModes"
-              },
-              {
-                "type": "null"
-              }
-            ]
-          },
-          "no_grpc_header": {
-            "anyOf": [
-              {
-                "type": "boolean"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "No Grpc Header"
-          },
-          "x_padding_bytes": {
-            "anyOf": [
-              {
-                "type": "string",
-                "pattern": "^\\d{1,16}(-\\d{1,16})?$"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "X Padding Bytes"
-          },
-          "x_padding_obfs_mode": {
-            "anyOf": [
-              {
-                "type": "boolean"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "X Padding Obfs Mode"
-          },
-          "x_padding_key": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "X Padding Key"
-          },
-          "x_padding_header": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "X Padding Header"
-          },
-          "x_padding_placement": {
-            "anyOf": [
-              {
-                "type": "string",
-                "pattern": "^$|^(cookie|header|query|queryInHeader)$"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "X Padding Placement"
-          },
-          "x_padding_method": {
-            "anyOf": [
-              {
-                "type": "string",
-                "pattern": "^$|^(repeat-x|tokenish)$"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "X Padding Method"
-          },
-          "uplink_http_method": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Uplink Http Method"
-          },
-          "session_placement": {
-            "anyOf": [
-              {
-                "type": "string",
-                "pattern": "^$|^(path|cookie|header|query)$"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Session Placement"
-          },
-          "session_key": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Session Key"
-          },
-          "seq_placement": {
-            "anyOf": [
-              {
-                "type": "string",
-                "pattern": "^$|^(path|cookie|header|query)$"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Seq Placement"
-          },
-          "seq_key": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Seq Key"
-          },
-          "uplink_data_placement": {
-            "anyOf": [
-              {
-                "type": "string",
-                "pattern": "^$|^(body|cookie|header)$"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Uplink Data Placement"
-          },
-          "uplink_data_key": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Uplink Data Key"
-          },
-          "uplink_chunk_size": {
-            "anyOf": [
-              {
-                "type": "string",
-                "pattern": "^\\d{1,16}(-\\d{1,16})?$"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Uplink Chunk Size"
-          },
-          "sc_max_each_post_bytes": {
-            "anyOf": [
-              {
-                "type": "string",
-                "pattern": "^\\d{1,16}(-\\d{1,16})?$"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Sc Max Each Post Bytes"
-          },
-          "sc_min_posts_interval_ms": {
-            "anyOf": [
-              {
-                "type": "string",
-                "pattern": "^\\d{1,16}(-\\d{1,16})?$"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Sc Min Posts Interval Ms"
-          },
-          "xmux": {
-            "anyOf": [
-              {
-                "$ref": "#/components/schemas/XMuxSettings-Output"
-              },
-              {
-                "type": "null"
-              }
-            ]
-          },
-          "download_settings": {
-            "anyOf": [
-              {
-                "type": "integer"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Download Settings"
-          }
-        },
-        "type": "object",
-        "title": "XHttpSettings"
-      },
-      "XMuxSettings-Input": {
-        "properties": {
-          "max_concurrency": {
-            "anyOf": [
-              {
-                "type": "string",
-                "pattern": "^\\d{1,16}(-\\d{1,16})?$"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Max Concurrency"
-          },
-          "max_connections": {
-            "anyOf": [
-              {
-                "type": "string",
-                "pattern": "^\\d{1,16}(-\\d{1,16})?$"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Max Connections"
-          },
-          "c_max_reuse_times": {
-            "anyOf": [
-              {
-                "type": "string",
-                "pattern": "^\\d{1,16}(-\\d{1,16})?$"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "C Max Reuse Times"
-          },
-          "h_max_reusable_secs": {
-            "anyOf": [
-              {
-                "type": "string",
-                "pattern": "^\\d{1,16}(-\\d{1,16})?$"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "H Max Reusable Secs"
-          },
-          "h_max_request_times": {
-            "anyOf": [
-              {
-                "type": "string",
-                "pattern": "^\\d{1,16}(-\\d{1,16})?$"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "H Max Request Times"
-          },
-          "h_keep_alive_period": {
-            "anyOf": [
-              {
-                "type": "integer"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "H Keep Alive Period"
-          }
-        },
-        "type": "object",
-        "title": "XMuxSettings"
-      },
-      "XMuxSettings-Output": {
+      "XMuxSettings": {
         "properties": {
           "maxConcurrency": {
             "anyOf": [
@@ -28273,7 +29956,7 @@
         ],
         "title": "XUDP"
       },
-      "XrayFragmentSettings": {
+      "XrayFragmentSettings-Input": {
         "properties": {
           "packets": {
             "type": "string",
@@ -28289,13 +29972,63 @@
             "type": "string",
             "pattern": "^[\\d-]{1,16}$",
             "title": "Interval"
+          },
+          "maxSplit": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Maxsplit"
           }
         },
+        "additionalProperties": true,
         "type": "object",
         "required": [
           "packets",
           "length",
           "interval"
+        ],
+        "title": "XrayFragmentSettings"
+      },
+      "XrayFragmentSettings-Output": {
+        "properties": {
+          "packets": {
+            "type": "string",
+            "pattern": "^(:?tlshello|[\\d-]{1,16})$",
+            "title": "Packets"
+          },
+          "length": {
+            "type": "string",
+            "pattern": "^[\\d-]{1,16}$",
+            "title": "Length"
+          },
+          "delay": {
+            "type": "string",
+            "pattern": "^[\\d-]{1,16}$",
+            "title": "Delay"
+          },
+          "maxSplit": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Maxsplit"
+          }
+        },
+        "additionalProperties": true,
+        "type": "object",
+        "required": [
+          "packets",
+          "length",
+          "delay"
         ],
         "title": "XrayFragmentSettings"
       },
@@ -28377,16 +30110,38 @@
         "properties": {
           "type": {
             "type": "string",
-            "pattern": "^(:?rand|str|base64|hex)$",
+            "pattern": "^$|^(:?rand|array|str|base64|hex)$",
             "title": "Type"
           },
           "packet": {
-            "type": "string",
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "items": {
+                  "type": "integer"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
             "title": "Packet"
           },
           "delay": {
-            "type": "string",
-            "pattern": "^\\d{1,16}(-\\d{1,16})?$",
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
             "title": "Delay"
           },
           "apply_to": {
@@ -28395,7 +30150,21 @@
             "title": "Apply To",
             "default": "ip"
           },
-          "rand_range": {
+          "rand": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Rand"
+          },
+          "randRange": {
             "anyOf": [
               {
                 "type": "string",
@@ -28405,14 +30174,13 @@
                 "type": "null"
               }
             ],
-            "title": "Rand Range"
+            "title": "Randrange"
           }
         },
+        "additionalProperties": true,
         "type": "object",
         "required": [
-          "type",
-          "packet",
-          "delay"
+          "type"
         ],
         "title": "XrayNoiseSettings"
       }

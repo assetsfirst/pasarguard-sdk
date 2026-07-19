@@ -18,6 +18,7 @@ Name | Type | Description | Notes
 **system** | [**SystemPermissions**](SystemPermissions.md) |  | [optional] [default to undefined]
 **hwids** | [**HwidsPermissions**](HwidsPermissions.md) |  | [optional] [default to undefined]
 **admin_roles** | [**CRUDPermissions**](CRUDPermissions.md) |  | [optional] [default to undefined]
+**api_keys** | [**APIKeysPermissions**](APIKeysPermissions.md) |  | [optional] [default to undefined]
 
 ## Example
 
@@ -37,6 +38,7 @@ const instance: RolePermissions = {
     system,
     hwids,
     admin_roles,
+    api_keys,
 };
 ```
 

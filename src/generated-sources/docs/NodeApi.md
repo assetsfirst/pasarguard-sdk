@@ -1160,7 +1160,7 @@ const { status, data } = await apiInstance.realtimeNodeStats(
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **realtimeNodesStats**
-> { [key: string]: ResponseRealtimeNodesStatsApiNodesRealtimeStatsGetValue; } realtimeNodesStats()
+> { [key: string]: ResponseRealtimeNodesStatsValue; } realtimeNodesStats()
 
 Retrieve nodes real-time statistics.
 
@@ -1184,7 +1184,7 @@ This endpoint does not have any parameters.
 
 ### Return type
 
-**{ [key: string]: ResponseRealtimeNodesStatsApiNodesRealtimeStatsGetValue; }**
+**{ [key: string]: ResponseRealtimeNodesStatsValue; }**
 
 ### Authorization
 
@@ -1437,7 +1437,7 @@ const configuration = new Configuration();
 const apiInstance = new NodeApi(configuration);
 
 let nodeId: number; // (default to undefined)
-let flushUsers: boolean; // (optional) (default to false)
+let flushUsers: boolean; // (optional) (default to true)
 
 const { status, data } = await apiInstance.syncNode(
     nodeId,
@@ -1450,7 +1450,7 @@ const { status, data } = await apiInstance.syncNode(
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 | **nodeId** | [**number**] |  | defaults to undefined|
-| **flushUsers** | [**boolean**] |  | (optional) defaults to false|
+| **flushUsers** | [**boolean**] |  | (optional) defaults to true|
 
 
 ### Return type
