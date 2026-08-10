@@ -1160,7 +1160,7 @@ const { status, data } = await apiInstance.realtimeNodeStats(
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **realtimeNodesStats**
-> { [key: string]: ResponseRealtimeNodesStatsValue; } realtimeNodesStats()
+> { [key: string]: NodeRealtimeStats | null; } realtimeNodesStats()
 
 Retrieve nodes real-time statistics.
 
@@ -1184,7 +1184,7 @@ This endpoint does not have any parameters.
 
 ### Return type
 
-**{ [key: string]: ResponseRealtimeNodesStatsValue; }**
+**{ [key: string]: NodeRealtimeStats | null; }**
 
 ### Authorization
 

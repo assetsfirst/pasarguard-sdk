@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **packets** | **string** |  | [default to undefined]
 **length** | **string** |  | [default to undefined]
 **interval** | **string** |  | [default to undefined]
+**maxSplit** | **string** |  | [optional] [default to undefined]
 
 ## Example
 
@@ -18,6 +19,7 @@ const instance: XrayFragmentSettings = {
     packets,
     length,
     interval,
+    maxSplit,
 };
 ```
 

@@ -6,9 +6,9 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **name** | **string** |  | [optional] [default to undefined]
-**data_limit** | **number** |  | [optional] [default to undefined]
+**data_limit** | **number** | data_limit can be 0 or greater | [optional] [default to undefined]
 **hwid_limit** | **number** |  | [optional] [default to undefined]
-**expire_duration** | **number** |  | [optional] [default to undefined]
+**expire_duration** | **number** | expire_duration can be 0 or greater in seconds | [optional] [default to undefined]
 **username_prefix** | **string** |  | [optional] [default to undefined]
 **username_suffix** | **string** |  | [optional] [default to undefined]
 **group_ids** | **Array&lt;number&gt;** |  | [default to undefined]

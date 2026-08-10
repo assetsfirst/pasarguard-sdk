@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **username** | **string** |  | [optional] [default to undefined]
 **count** | **number** |  | [default to undefined]
 **strategy** | [**UsernameGenerationStrategy**](UsernameGenerationStrategy.md) |  | [optional] [default to undefined]
-**start_number** | **number** |  | [optional] [default to undefined]
+**start_number** | **number** | Starting suffix for sequence strategy (defaults to 1; base username digits are ignored) | [optional] [default to undefined]
 
 ## Example
 

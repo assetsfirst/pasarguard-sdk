@@ -5,8 +5,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**total_traffic** | **number** |  | [default to undefined]
 **period_start** | **string** |  | [default to undefined]
+**total_traffic** | **number** |  | [default to undefined]
 
 ## Example
 
@@ -14,8 +14,8 @@ Name | Type | Description | Notes
 import { UserUsageStat } from './api';
 
 const instance: UserUsageStat = {
-    total_traffic,
     period_start,
+    total_traffic,
 };
 ```
 

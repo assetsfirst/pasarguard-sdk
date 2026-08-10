@@ -12,6 +12,7 @@ All URIs are relative to *http://localhost*
 |[**getCoresSimple**](#getcoressimple) | **GET** /api/cores/simple | Get lightweight core list|
 |[**modifyCoreConfig**](#modifycoreconfig) | **PUT** /api/core/{core_id} | Modify Core Config|
 |[**restartCore**](#restartcore) | **POST** /api/core/{core_id}/restart | Restart Core|
+|[**scanRealityTarget**](#scanrealitytarget) | **POST** /api/core/reality-scan | Scan Reality Target|
 
 # **bulkDeleteCores**
 > RemoveCoresResponse bulkDeleteCores(bulkCoreSelection)
@@ -474,6 +475,60 @@ void (empty response body)
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 |**204** | Successful Response |  -  |
+|**401** | Unauthorized Error |  * WWW-Authenticate - Authentication type <br>  |
+|**403** | Forbidden Error |  -  |
+|**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **scanRealityTarget**
+> RealityScanResult scanRealityTarget(realityScanRequest)
+
+
+### Example
+
+```typescript
+import {
+    CoreApi,
+    Configuration,
+    RealityScanRequest
+} from './api';
+
+const configuration = new Configuration();
+const apiInstance = new CoreApi(configuration);
+
+let realityScanRequest: RealityScanRequest; //
+
+const { status, data } = await apiInstance.scanRealityTarget(
+    realityScanRequest
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **realityScanRequest** | **RealityScanRequest**|  | |
+
+
+### Return type
+
+**RealityScanResult**
+
+### Authorization
+
+[OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
 |**401** | Unauthorized Error |  * WWW-Authenticate - Authentication type <br>  |
 |**403** | Forbidden Error |  -  |
 |**422** | Validation Error |  -  |

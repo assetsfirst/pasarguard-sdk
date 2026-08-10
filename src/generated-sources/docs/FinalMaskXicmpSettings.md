@@ -5,6 +5,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**dgram** | **boolean** |  | [optional] [default to undefined]
+**ips** | **Array&lt;string&gt;** |  | [optional] [default to undefined]
 **listenIp** | **string** |  | [optional] [default to undefined]
 **id** | **number** |  | [optional] [default to undefined]
 
@@ -14,6 +16,8 @@ Name | Type | Description | Notes
 import { FinalMaskXicmpSettings } from './api';
 
 const instance: FinalMaskXicmpSettings = {
+    dgram,
+    ips,
     listenIp,
     id,
 };

@@ -6,7 +6,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **type** | [**FinalMaskUdpType**](FinalMaskUdpType.md) |  | [default to undefined]
-**settings** | [**Settings2**](Settings2.md) |  | [optional] [default to undefined]
+**settings** | [**Settings1**](Settings1.md) |  | [optional] [default to undefined]
 
 ## Example
 

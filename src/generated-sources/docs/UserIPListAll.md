@@ -6,7 +6,7 @@ User IP lists for all nodes
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**nodes** | [**{ [key: string]: NodesValue; }**](NodesValue.md) |  | [default to undefined]
+**nodes** | [**{ [key: string]: UserIPList | null; }**](UserIPList.md) |  | [default to undefined]
 
 ## Example
 

@@ -51,7 +51,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **health**
-> { [key: string]: any; } health()
+> { [key: string]: any | null; } health()
 
 
 ### Example
@@ -74,7 +74,7 @@ This endpoint does not have any parameters.
 
 ### Return type
 
-**{ [key: string]: any; }**
+**{ [key: string]: any | null; }**
 
 ### Authorization
 

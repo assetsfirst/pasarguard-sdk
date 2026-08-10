@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **congestion** | [**FinalMaskQuicCongestion**](FinalMaskQuicCongestion.md) |  | [optional] [default to undefined]
 **debug** | **boolean** |  | [optional] [default to undefined]
+**bbrProfile** | **string** |  | [optional] [default to undefined]
 **brutalUp** | [**Brutalup**](Brutalup.md) |  | [optional] [default to undefined]
 **brutalDown** | [**Brutaldown**](Brutaldown.md) |  | [optional] [default to undefined]
 **udpHop** | [**FinalMaskUdpHop**](FinalMaskUdpHop.md) |  | [optional] [default to undefined]
@@ -27,6 +28,7 @@ import { FinalMaskQuicParams } from './api';
 const instance: FinalMaskQuicParams = {
     congestion,
     debug,
+    bbrProfile,
     brutalUp,
     brutalDown,
     udpHop,

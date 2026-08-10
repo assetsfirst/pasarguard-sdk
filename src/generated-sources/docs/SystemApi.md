@@ -9,6 +9,7 @@ All URIs are relative to *http://localhost*
 |[**getSystemResourceStats**](#getsystemresourcestats) | **GET** /api/system/resources | Get System Resource Stats|
 |[**getSystemStats**](#getsystemstats) | **GET** /api/system | Get System Stats|
 |[**getSystemUsersStats**](#getsystemusersstats) | **GET** /api/system/users | Get System Users Stats|
+|[**getWireguardSubnets**](#getwireguardsubnets) | **GET** /api/wireguard/subnets | Get Wireguard Subnets|
 |[**getWorkersHealth**](#getworkershealth) | **GET** /api/workers/health | Get Workers Health|
 
 # **getInboundDetails**
@@ -249,6 +250,51 @@ const { status, data } = await apiInstance.getSystemUsersStats(
 |**200** | Successful Response |  -  |
 |**401** | Unauthorized Error |  * WWW-Authenticate - Authentication type <br>  |
 |**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **getWireguardSubnets**
+> Array<WireGuardSubnetUsage> getWireguardSubnets()
+
+Per-subnet WireGuard address usage: capacity, used/free counts and the first free IPs.
+
+### Example
+
+```typescript
+import {
+    SystemApi,
+    Configuration
+} from './api';
+
+const configuration = new Configuration();
+const apiInstance = new SystemApi(configuration);
+
+const { status, data } = await apiInstance.getWireguardSubnets();
+```
+
+### Parameters
+This endpoint does not have any parameters.
+
+
+### Return type
+
+**Array<WireGuardSubnetUsage>**
+
+### Authorization
+
+[OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**401** | Unauthorized Error |  * WWW-Authenticate - Authentication type <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

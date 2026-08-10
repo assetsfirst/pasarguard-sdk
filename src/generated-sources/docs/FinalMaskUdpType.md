@@ -5,6 +5,20 @@
 
 * `HeaderCustom` (value: `'header-custom'`)
 
+* `MkcpLegacy` (value: `'mkcp-legacy'`)
+
+* `Noise` (value: `'noise'`)
+
+* `Salamander` (value: `'salamander'`)
+
+* `Sudoku` (value: `'sudoku'`)
+
+* `Xdns` (value: `'xdns'`)
+
+* `Xicmp` (value: `'xicmp'`)
+
+* `Realm` (value: `'realm'`)
+
 * `HeaderDns` (value: `'header-dns'`)
 
 * `HeaderDtls` (value: `'header-dtls'`)
@@ -20,15 +34,5 @@
 * `MkcpOriginal` (value: `'mkcp-original'`)
 
 * `MkcpAes128gcm` (value: `'mkcp-aes128gcm'`)
-
-* `Noise` (value: `'noise'`)
-
-* `Salamander` (value: `'salamander'`)
-
-* `Sudoku` (value: `'sudoku'`)
-
-* `Xdns` (value: `'xdns'`)
-
-* `Xicmp` (value: `'xicmp'`)
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

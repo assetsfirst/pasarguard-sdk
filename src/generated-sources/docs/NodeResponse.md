@@ -30,7 +30,7 @@ Name | Type | Description | Notes
 **downlink** | **number** |  | [optional] [default to 0]
 **lifetime_uplink** | **number** |  | [optional] [default to undefined]
 **lifetime_downlink** | **number** |  | [optional] [default to undefined]
-**core_version** | **string** |  | [default to undefined]
+**core_version** | **string** |  | [readonly] [default to undefined]
 
 ## Example
 

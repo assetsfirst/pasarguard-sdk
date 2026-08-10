@@ -5,7 +5,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**reset** | **number** |  | [optional] [default to undefined]
+**reset** | [**Reset**](Reset.md) |  | [optional] [default to undefined]
 **noise** | [**Array&lt;XrayNoiseSettings&gt;**](XrayNoiseSettings.md) |  | [optional] [default to undefined]
 
 ## Example

@@ -5,9 +5,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**period_start** | **string** |  | [default to undefined]
 **uplink** | **number** |  | [default to undefined]
 **downlink** | **number** |  | [default to undefined]
-**period_start** | **string** |  | [default to undefined]
 
 ## Example
 
@@ -15,9 +15,9 @@ Name | Type | Description | Notes
 import { NodeUsageStat } from './api';
 
 const instance: NodeUsageStat = {
+    period_start,
     uplink,
     downlink,
-    period_start,
 };
 ```
 

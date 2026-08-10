@@ -7,9 +7,9 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **proxy_settings** | [**ProxyTable**](ProxyTable.md) |  | [optional] [default to undefined]
 **expire** | [**Expire**](Expire.md) |  | [optional] [default to undefined]
-**data_limit** | **number** |  | [optional] [default to undefined]
+**data_limit** | **number** | data_limit can be 0 or greater | [optional] [default to undefined]
 **data_limit_reset_strategy** | [**DataLimitResetStrategy**](DataLimitResetStrategy.md) |  | [optional] [default to undefined]
-**on_hold_expire_duration** | **number** |  | [optional] [default to undefined]
+**on_hold_expire_duration** | **number** | on_hold_expire_duration can be 0 or greater in seconds | [optional] [default to undefined]
 **on_hold_timeout** | [**OnHoldTimeout**](OnHoldTimeout.md) |  | [optional] [default to undefined]
 **group_ids** | **Array&lt;number&gt;** |  | [optional] [default to undefined]
 **hwid_limit** | **number** |  | [optional] [default to undefined]

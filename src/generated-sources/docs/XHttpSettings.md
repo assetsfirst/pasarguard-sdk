@@ -16,6 +16,8 @@ Name | Type | Description | Notes
 **uplink_http_method** | **string** |  | [optional] [default to undefined]
 **session_placement** | **string** |  | [optional] [default to undefined]
 **session_key** | **string** |  | [optional] [default to undefined]
+**session_id_table** | **string** |  | [optional] [default to undefined]
+**session_id_length** | **string** |  | [optional] [default to undefined]
 **seq_placement** | **string** |  | [optional] [default to undefined]
 **seq_key** | **string** |  | [optional] [default to undefined]
 **uplink_data_placement** | **string** |  | [optional] [default to undefined]
@@ -43,6 +45,8 @@ const instance: XHttpSettings = {
     uplink_http_method,
     session_placement,
     session_key,
+    session_id_table,
+    session_id_length,
     seq_placement,
     seq_key,
     uplink_data_placement,

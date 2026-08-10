@@ -15,7 +15,6 @@ All URIs are relative to *http://localhost*
 |[**bulkModifyUsersDatalimit**](#bulkmodifyusersdatalimit) | **POST** /api/users/bulk/data_limit | Bulk sum/sub to data limit of users|
 |[**bulkModifyUsersExpire**](#bulkmodifyusersexpire) | **POST** /api/users/bulk/expire | Bulk sum/sub to expire of users|
 |[**bulkModifyUsersProxySettings**](#bulkmodifyusersproxysettings) | **POST** /api/users/bulk/proxy_settings | Bulk modify users proxy settings|
-|[**bulkReallocateWireguardPeerIps**](#bulkreallocatewireguardpeerips) | **POST** /api/users/bulk/wireguard/reallocate-peer-ips | Bulk reallocate WireGuard peer IPs|
 |[**bulkResetUsersDataUsage**](#bulkresetusersdatausage) | **POST** /api/users/bulk/reset | Bulk Reset Users Data Usage|
 |[**bulkRevokeUsersSubscription**](#bulkrevokeuserssubscription) | **POST** /api/users/bulk/revoke_sub | Bulk Revoke Users Subscription|
 |[**bulkSetOwner**](#bulksetowner) | **PUT** /api/users/bulk/set_owner | Bulk Set Owner|
@@ -671,60 +670,6 @@ const { status, data } = await apiInstance.bulkModifyUsersProxySettings(
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **bulkReallocateWireguardPeerIps**
-> WireGuardPeerIPsReallocateResponse bulkReallocateWireguardPeerIps(bulkWireGuardPeerIPs)
-
-Same scoping as other bulk user actions (users, admins, group_ids, optional status filter). non-owner admins only affect their own users.
-
-### Example
-
-```typescript
-import {
-    UserApi,
-    Configuration,
-    BulkWireGuardPeerIPs
-} from './api';
-
-const configuration = new Configuration();
-const apiInstance = new UserApi(configuration);
-
-let bulkWireGuardPeerIPs: BulkWireGuardPeerIPs; //
-
-const { status, data } = await apiInstance.bulkReallocateWireguardPeerIps(
-    bulkWireGuardPeerIPs
-);
-```
-
-### Parameters
-
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-| **bulkWireGuardPeerIPs** | **BulkWireGuardPeerIPs**|  | |
-
-
-### Return type
-
-**WireGuardPeerIPsReallocateResponse**
-
-### Authorization
-
-[OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json
-
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-|**200** | Successful Response |  -  |
-|**401** | Unauthorized Error |  * WWW-Authenticate - Authentication type <br>  |
-|**422** | Validation Error |  -  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
 # **bulkResetUsersDataUsage**
 > BulkUsersActionResponse bulkResetUsersDataUsage(bulkUsersSelection)
 
@@ -1008,7 +953,7 @@ const { status, data } = await apiInstance.createUserFromTemplate(
 # **deleteExpiredUsers**
 > RemoveUsersResponse deleteExpiredUsers()
 
-Delete cleanup-target users in the specified scope.  - **target**: `expired` (time-based) or `limited` (usage-based) - **expired_after** UTC datetime (optional) - **expired_before** UTC datetime (optional) - Date range filters are applied only when target is `expired`
+Delete cleanup-target users in the specified scope.  - **target**: `expired` | `limited` | `on_hold` | `disabled` - **expired_after** / **expired_before** UTC datetime (optional) - For `expired`: filters by expiration date. - For `limited` / `on_hold` / `disabled`: filters by last_status_change (when they entered that status). - **dry_run**: if true, returns users that would be deleted without deleting them.
 
 ### Example
 
@@ -1022,15 +967,17 @@ const configuration = new Configuration();
 const apiInstance = new UserApi(configuration);
 
 let adminUsername: string; // (optional) (default to undefined)
-let target: 'expired' | 'limited'; // (optional) (default to 'expired')
+let target: 'expired' | 'limited' | 'on_hold' | 'disabled'; // (optional) (default to 'expired')
 let expiredAfter: string; // (optional) (default to undefined)
 let expiredBefore: string; // (optional) (default to undefined)
+let dryRun: boolean; // (optional) (default to false)
 
 const { status, data } = await apiInstance.deleteExpiredUsers(
     adminUsername,
     target,
     expiredAfter,
-    expiredBefore
+    expiredBefore,
+    dryRun
 );
 ```
 
@@ -1039,9 +986,10 @@ const { status, data } = await apiInstance.deleteExpiredUsers(
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 | **adminUsername** | [**string**] |  | (optional) defaults to undefined|
-| **target** | [**&#39;expired&#39; | &#39;limited&#39;**]**Array<&#39;expired&#39; &#124; &#39;limited&#39;>** |  | (optional) defaults to 'expired'|
+| **target** | [**&#39;expired&#39; | &#39;limited&#39; | &#39;on_hold&#39; | &#39;disabled&#39;**]**Array<&#39;expired&#39; &#124; &#39;limited&#39; &#124; &#39;on_hold&#39; &#124; &#39;disabled&#39;>** |  | (optional) defaults to 'expired'|
 | **expiredAfter** | [**string**] |  | (optional) defaults to undefined|
 | **expiredBefore** | [**string**] |  | (optional) defaults to undefined|
+| **dryRun** | [**boolean**] |  | (optional) defaults to false|
 
 
 ### Return type
@@ -1070,7 +1018,7 @@ const { status, data } = await apiInstance.deleteExpiredUsers(
 # **getExpiredUsers**
 > Array<string | null> getExpiredUsers()
 
-Get cleanup-target users in the specified scope.  - **target**: `expired` (time-based) or `limited` (usage-based) - **expired_after** UTC datetime (optional) - **expired_before** UTC datetime (optional) - Date range filters are applied only when target is `expired`
+Get cleanup-target users in the specified scope.  - **target**: `expired` | `limited` | `on_hold` | `disabled` - **expired_after** / **expired_before** UTC datetime (optional) - For `expired`: filters by expiration date. - For `limited` / `on_hold` / `disabled`: filters by last_status_change (when they entered that status).
 
 ### Example
 
@@ -1084,15 +1032,17 @@ const configuration = new Configuration();
 const apiInstance = new UserApi(configuration);
 
 let adminUsername: string; // (optional) (default to undefined)
-let target: 'expired' | 'limited'; // (optional) (default to 'expired')
+let target: 'expired' | 'limited' | 'on_hold' | 'disabled'; // (optional) (default to 'expired')
 let expiredAfter: string; // (optional) (default to undefined)
 let expiredBefore: string; // (optional) (default to undefined)
+let dryRun: boolean; // (optional) (default to false)
 
 const { status, data } = await apiInstance.getExpiredUsers(
     adminUsername,
     target,
     expiredAfter,
-    expiredBefore
+    expiredBefore,
+    dryRun
 );
 ```
 
@@ -1101,9 +1051,10 @@ const { status, data } = await apiInstance.getExpiredUsers(
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 | **adminUsername** | [**string**] |  | (optional) defaults to undefined|
-| **target** | [**&#39;expired&#39; | &#39;limited&#39;**]**Array<&#39;expired&#39; &#124; &#39;limited&#39;>** |  | (optional) defaults to 'expired'|
+| **target** | [**&#39;expired&#39; | &#39;limited&#39; | &#39;on_hold&#39; | &#39;disabled&#39;**]**Array<&#39;expired&#39; &#124; &#39;limited&#39; &#124; &#39;on_hold&#39; &#124; &#39;disabled&#39;>** |  | (optional) defaults to 'expired'|
 | **expiredAfter** | [**string**] |  | (optional) defaults to undefined|
 | **expiredBefore** | [**string**] |  | (optional) defaults to undefined|
+| **dryRun** | [**boolean**] |  | (optional) defaults to false|
 
 
 ### Return type
@@ -2009,7 +1960,7 @@ const { status, data } = await apiInstance.getUsersSimple(
 # **getUsersSubUpdateChart**
 > UserSubscriptionUpdateChart getUsersSubUpdateChart()
 
-Get subscription agent distribution percentages (optionally filtered by user_id/username).
+Get subscription agent distribution over a period (optionally filtered by user_id/username).
 
 ### Example
 
@@ -2025,11 +1976,17 @@ const apiInstance = new UserApi(configuration);
 let userId: number; // (optional) (default to undefined)
 let username: string; // (optional) (default to undefined)
 let adminId: number; // (optional) (default to undefined)
+let period: Period; // (optional) (default to undefined)
+let start: string; // (optional) (default to undefined)
+let end: string; // (optional) (default to undefined)
 
 const { status, data } = await apiInstance.getUsersSubUpdateChart(
     userId,
     username,
-    adminId
+    adminId,
+    period,
+    start,
+    end
 );
 ```
 
@@ -2040,6 +1997,9 @@ const { status, data } = await apiInstance.getUsersSubUpdateChart(
 | **userId** | [**number**] |  | (optional) defaults to undefined|
 | **username** | [**string**] |  | (optional) defaults to undefined|
 | **adminId** | [**number**] |  | (optional) defaults to undefined|
+| **period** | **Period** |  | (optional) defaults to undefined|
+| **start** | [**string**] |  | (optional) defaults to undefined|
+| **end** | [**string**] |  | (optional) defaults to undefined|
 
 
 ### Return type

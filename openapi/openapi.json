@@ -3,7 +3,7 @@
   "info": {
     "title": "PasarGuardAPI",
     "description": "Unified GUI Censorship Resistant Solution",
-    "version": "5.1.0"
+    "version": "5.2.1"
   },
   "paths": {
     "/": {
@@ -5104,6 +5104,55 @@
         ]
       }
     },
+    "/api/wireguard/subnets": {
+      "get": {
+        "tags": [
+          "System"
+        ],
+        "summary": "Get Wireguard Subnets",
+        "description": "Per-subnet WireGuard address usage: capacity, used/free counts and the first free IPs.",
+        "operationId": "get_wireguard_subnets",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/WireGuardSubnetUsage"
+                  },
+                  "type": "array",
+                  "title": "Response Get Wireguard Subnets"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Error",
+            "headers": {
+              "WWW-Authenticate": {
+                "description": "Authentication type",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ]
+      }
+    },
     "/api/workers/health": {
       "get": {
         "tags": [
@@ -6394,6 +6443,80 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/CoreResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Error",
+            "headers": {
+              "WWW-Authenticate": {
+                "description": "Authentication type",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Forbidden"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ]
+      }
+    },
+    "/api/core/reality-scan": {
+      "post": {
+        "tags": [
+          "Core"
+        ],
+        "summary": "Scan Reality Target",
+        "operationId": "scan_reality_target",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RealityScanRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RealityScanResult"
                 }
               }
             }
@@ -13327,7 +13450,7 @@
           "User"
         ],
         "summary": "Get Users Sub Update Chart",
-        "description": "Get subscription agent distribution percentages (optionally filtered by user_id/username).",
+        "description": "Get subscription agent distribution over a period (optionally filtered by user_id/username).",
         "operationId": "get_users_sub_update_chart",
         "security": [
           {
@@ -13381,6 +13504,49 @@
                 }
               ],
               "title": "Admin Id"
+            }
+          },
+          {
+            "name": "period",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/Period",
+              "default": "hour"
+            }
+          },
+          {
+            "name": "start",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Start"
+            }
+          },
+          {
+            "name": "end",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "End"
             }
           }
         ],
@@ -15822,7 +15988,7 @@
           "User"
         ],
         "summary": "Get Expired Users",
-        "description": "Get cleanup-target users in the specified scope.\n\n- **target**: `expired` (time-based) or `limited` (usage-based)\n- **expired_after** UTC datetime (optional)\n- **expired_before** UTC datetime (optional)\n- Date range filters are applied only when target is `expired`",
+        "description": "Get cleanup-target users in the specified scope.\n\n- **target**: `expired` | `limited` | `on_hold` | `disabled`\n- **expired_after** / **expired_before** UTC datetime (optional)\n- For `expired`: filters by expiration date.\n- For `limited` / `on_hold` / `disabled`: filters by last_status_change (when they entered that status).",
         "operationId": "get_expired_users",
         "security": [
           {
@@ -15853,7 +16019,9 @@
             "schema": {
               "enum": [
                 "expired",
-                "limited"
+                "limited",
+                "on_hold",
+                "disabled"
               ],
               "type": "string",
               "default": "expired",
@@ -15898,6 +16066,16 @@
                 "2024-01-31T23:59:59+03:30"
               ],
               "title": "Expired Before"
+            }
+          },
+          {
+            "name": "dry_run",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "title": "Dry Run"
             }
           }
         ],
@@ -15951,7 +16129,7 @@
           "User"
         ],
         "summary": "Delete Expired Users",
-        "description": "Delete cleanup-target users in the specified scope.\n\n- **target**: `expired` (time-based) or `limited` (usage-based)\n- **expired_after** UTC datetime (optional)\n- **expired_before** UTC datetime (optional)\n- Date range filters are applied only when target is `expired`",
+        "description": "Delete cleanup-target users in the specified scope.\n\n- **target**: `expired` | `limited` | `on_hold` | `disabled`\n- **expired_after** / **expired_before** UTC datetime (optional)\n- For `expired`: filters by expiration date.\n- For `limited` / `on_hold` / `disabled`: filters by last_status_change (when they entered that status).\n- **dry_run**: if true, returns users that would be deleted without deleting them.",
         "operationId": "delete_expired_users",
         "security": [
           {
@@ -15982,7 +16160,9 @@
             "schema": {
               "enum": [
                 "expired",
-                "limited"
+                "limited",
+                "on_hold",
+                "disabled"
               ],
               "type": "string",
               "default": "expired",
@@ -16027,6 +16207,16 @@
                 "2024-01-31T23:59:59+03:30"
               ],
               "title": "Expired Before"
+            }
+          },
+          {
+            "name": "dry_run",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "title": "Dry Run"
             }
           }
         ],
@@ -17280,71 +17470,6 @@
             "content": {
               "application/json": {
                 "schema": {}
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized Error",
-            "headers": {
-              "WWW-Authenticate": {
-                "description": "Authentication type",
-                "schema": {
-                  "type": "string"
-                }
-              }
-            },
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Unauthorized"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "OAuth2PasswordBearer": []
-          }
-        ]
-      }
-    },
-    "/api/users/bulk/wireguard/reallocate-peer-ips": {
-      "post": {
-        "tags": [
-          "User"
-        ],
-        "summary": "Bulk reallocate WireGuard peer IPs",
-        "description": "Same scoping as other bulk user actions (users, admins, group_ids, optional status filter). non-owner admins only affect their own users.",
-        "operationId": "bulk_reallocate_wireguard_peer_ips",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/BulkWireGuardPeerIPs"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/WireGuardPeerIPsReallocateResponse"
-                }
               }
             }
           },
@@ -20762,7 +20887,7 @@
           "fragment_settings": {
             "anyOf": [
               {
-                "$ref": "#/components/schemas/FragmentSettings-Output"
+                "$ref": "#/components/schemas/FragmentSettings"
               },
               {
                 "type": "null"
@@ -20890,7 +21015,7 @@
           "final_mask_settings": {
             "anyOf": [
               {
-                "$ref": "#/components/schemas/FinalMask-Output"
+                "$ref": "#/components/schemas/FinalMask"
               },
               {
                 "type": "null"
@@ -21602,84 +21727,6 @@
           "admin_username"
         ],
         "title": "BulkUsersSetOwner"
-      },
-      "BulkWireGuardPeerIPs": {
-        "properties": {
-          "dry_run": {
-            "type": "boolean",
-            "title": "Dry Run",
-            "default": false
-          },
-          "group_ids": {
-            "items": {
-              "type": "integer"
-            },
-            "type": "array",
-            "uniqueItems": true,
-            "title": "Group Ids"
-          },
-          "admins": {
-            "items": {
-              "type": "integer"
-            },
-            "type": "array",
-            "uniqueItems": true,
-            "title": "Admins"
-          },
-          "users": {
-            "items": {
-              "type": "integer"
-            },
-            "type": "array",
-            "uniqueItems": true,
-            "title": "Users"
-          },
-          "status": {
-            "items": {
-              "$ref": "#/components/schemas/UserStatus"
-            },
-            "type": "array",
-            "uniqueItems": true,
-            "title": "Status"
-          },
-          "expire_after": {
-            "anyOf": [
-              {
-                "type": "string",
-                "format": "date-time"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Expire After"
-          },
-          "expire_before": {
-            "anyOf": [
-              {
-                "type": "string",
-                "format": "date-time"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Expire Before"
-          },
-          "confirm": {
-            "type": "boolean",
-            "title": "Confirm",
-            "default": false
-          },
-          "replace_all": {
-            "type": "boolean",
-            "title": "Replace All",
-            "default": false
-          }
-        },
-        "type": "object",
-        "title": "BulkWireGuardPeerIPs",
-        "description": "Re-seat WireGuard peer IPs (same scoping as BulkUser: users, admins, group_ids, status)."
       },
       "CRUDPermissions": {
         "properties": {
@@ -22458,7 +22505,7 @@
           "fragment_settings": {
             "anyOf": [
               {
-                "$ref": "#/components/schemas/FragmentSettings-Input"
+                "$ref": "#/components/schemas/FragmentSettings"
               },
               {
                 "type": "null"
@@ -22586,7 +22633,7 @@
           "final_mask_settings": {
             "anyOf": [
               {
-                "$ref": "#/components/schemas/FinalMask-Input"
+                "$ref": "#/components/schemas/FinalMask"
               },
               {
                 "type": "null"
@@ -22711,58 +22758,13 @@
         "type": "object",
         "title": "ExtraSettings"
       },
-      "FinalMask-Input": {
+      "FinalMask": {
         "properties": {
           "tcp": {
             "anyOf": [
               {
                 "items": {
-                  "$ref": "#/components/schemas/FinalMaskTcpLayer-Input"
-                },
-                "type": "array"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Tcp"
-          },
-          "udp": {
-            "anyOf": [
-              {
-                "items": {
-                  "$ref": "#/components/schemas/FinalMaskUdpLayer"
-                },
-                "type": "array"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Udp"
-          },
-          "quicParams": {
-            "anyOf": [
-              {
-                "$ref": "#/components/schemas/FinalMaskQuicParams"
-              },
-              {
-                "type": "null"
-              }
-            ]
-          }
-        },
-        "additionalProperties": true,
-        "type": "object",
-        "title": "FinalMask"
-      },
-      "FinalMask-Output": {
-        "properties": {
-          "tcp": {
-            "anyOf": [
-              {
-                "items": {
-                  "$ref": "#/components/schemas/FinalMaskTcpLayer-Output"
+                  "$ref": "#/components/schemas/FinalMaskTcpLayer"
                 },
                 "type": "array"
               },
@@ -22819,10 +22821,117 @@
         "type": "object",
         "title": "FinalMaskDomainSettings"
       },
+      "FinalMaskFragmentSettings": {
+        "properties": {
+          "packets": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^$|^(:?tlshello|[\\d-]{1,16})$"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Packets"
+          },
+          "lengths": {
+            "anyOf": [
+              {
+                "items": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "integer"
+                    }
+                  ]
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Lengths"
+          },
+          "delays": {
+            "anyOf": [
+              {
+                "items": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "integer"
+                    }
+                  ]
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Delays"
+          },
+          "maxSplit": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Maxsplit"
+          }
+        },
+        "additionalProperties": true,
+        "type": "object",
+        "title": "FinalMaskFragmentSettings"
+      },
+      "FinalMaskMkcpLegacySettings": {
+        "properties": {
+          "header": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Header"
+          },
+          "value": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Value"
+          }
+        },
+        "additionalProperties": true,
+        "type": "object",
+        "title": "FinalMaskMkcpLegacySettings"
+      },
       "FinalMaskNoiseSettings": {
         "properties": {
           "reset": {
             "anyOf": [
+              {
+                "type": "string"
+              },
               {
                 "type": "integer"
               },
@@ -22902,6 +23011,17 @@
             ],
             "title": "Debug"
           },
+          "bbrProfile": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Bbrprofile"
+          },
           "brutalUp": {
             "anyOf": [
               {
@@ -22909,6 +23029,9 @@
               },
               {
                 "type": "integer"
+              },
+              {
+                "type": "number"
               },
               {
                 "type": "null"
@@ -22923,6 +23046,9 @@
               },
               {
                 "type": "integer"
+              },
+              {
+                "type": "number"
               },
               {
                 "type": "null"
@@ -23032,6 +23158,77 @@
         "additionalProperties": true,
         "type": "object",
         "title": "FinalMaskQuicParams"
+      },
+      "FinalMaskRealmSettings": {
+        "properties": {
+          "url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Url"
+          },
+          "stunServers": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Stunservers"
+          },
+          "tlsConfig": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Tlsconfig"
+          }
+        },
+        "additionalProperties": true,
+        "type": "object",
+        "title": "FinalMaskRealmSettings"
+      },
+      "FinalMaskSalamanderSettings": {
+        "properties": {
+          "password": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Password"
+          },
+          "packetSize": {
+            "anyOf": [
+              {},
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Packetsize"
+          }
+        },
+        "additionalProperties": true,
+        "type": "object",
+        "title": "FinalMaskSalamanderSettings"
       },
       "FinalMaskSudokuSettings": {
         "properties": {
@@ -23167,7 +23364,7 @@
         "type": "object",
         "title": "FinalMaskTcpHeaderCustomSettings"
       },
-      "FinalMaskTcpLayer-Input": {
+      "FinalMaskTcpLayer": {
         "properties": {
           "type": {
             "$ref": "#/components/schemas/FinalMaskTcpType"
@@ -23178,41 +23375,13 @@
                 "$ref": "#/components/schemas/FinalMaskTcpHeaderCustomSettings"
               },
               {
-                "$ref": "#/components/schemas/XrayFragmentSettings-Input"
+                "$ref": "#/components/schemas/FinalMaskFragmentSettings"
               },
               {
                 "$ref": "#/components/schemas/FinalMaskSudokuSettings"
               },
               {
-                "additionalProperties": true,
-                "type": "object"
-              }
-            ],
-            "title": "Settings"
-          }
-        },
-        "additionalProperties": true,
-        "type": "object",
-        "required": [
-          "type"
-        ],
-        "title": "FinalMaskTcpLayer"
-      },
-      "FinalMaskTcpLayer-Output": {
-        "properties": {
-          "type": {
-            "$ref": "#/components/schemas/FinalMaskTcpType"
-          },
-          "settings": {
-            "anyOf": [
-              {
-                "$ref": "#/components/schemas/FinalMaskTcpHeaderCustomSettings"
-              },
-              {
-                "$ref": "#/components/schemas/XrayFragmentSettings-Output"
-              },
-              {
-                "$ref": "#/components/schemas/FinalMaskSudokuSettings"
+                "$ref": "#/components/schemas/FinalMaskXmcSettings"
               },
               {
                 "additionalProperties": true,
@@ -23234,7 +23403,8 @@
         "enum": [
           "header-custom",
           "fragment",
-          "sudoku"
+          "sudoku",
+          "xmc"
         ],
         "title": "FinalMaskTcpType"
       },
@@ -23325,10 +23495,22 @@
                 "$ref": "#/components/schemas/FinalMaskDomainSettings"
               },
               {
+                "$ref": "#/components/schemas/FinalMaskXdnsSettings"
+              },
+              {
                 "$ref": "#/components/schemas/FinalMaskXicmpSettings"
               },
               {
                 "$ref": "#/components/schemas/FinalMaskNoiseSettings"
+              },
+              {
+                "$ref": "#/components/schemas/FinalMaskSalamanderSettings"
+              },
+              {
+                "$ref": "#/components/schemas/FinalMaskRealmSettings"
+              },
+              {
+                "$ref": "#/components/schemas/FinalMaskMkcpLegacySettings"
               },
               {
                 "additionalProperties": true,
@@ -23349,6 +23531,13 @@
         "type": "string",
         "enum": [
           "header-custom",
+          "mkcp-legacy",
+          "noise",
+          "salamander",
+          "sudoku",
+          "xdns",
+          "xicmp",
+          "realm",
           "header-dns",
           "header-dtls",
           "header-srtp",
@@ -23356,17 +23545,83 @@
           "header-wechat",
           "header-wireguard",
           "mkcp-original",
-          "mkcp-aes128gcm",
-          "noise",
-          "salamander",
-          "sudoku",
-          "xdns",
-          "xicmp"
+          "mkcp-aes128gcm"
         ],
         "title": "FinalMaskUdpType"
       },
+      "FinalMaskXdnsSettings": {
+        "properties": {
+          "domains": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Domains"
+          },
+          "resolvers": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Resolvers"
+          },
+          "domain": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Domain"
+          }
+        },
+        "additionalProperties": true,
+        "type": "object",
+        "title": "FinalMaskXdnsSettings"
+      },
       "FinalMaskXicmpSettings": {
         "properties": {
+          "dgram": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Dgram"
+          },
+          "ips": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Ips"
+          },
           "listenIp": {
             "anyOf": [
               {
@@ -23394,6 +23649,92 @@
         "type": "object",
         "title": "FinalMaskXicmpSettings"
       },
+      "FinalMaskXmcProfile": {
+        "properties": {
+          "username": {
+            "type": "string",
+            "title": "Username"
+          },
+          "uuid": {
+            "type": "string",
+            "title": "Uuid"
+          },
+          "texturesValue": {
+            "type": "string",
+            "title": "Texturesvalue"
+          },
+          "texturesSignature": {
+            "type": "string",
+            "title": "Texturessignature"
+          }
+        },
+        "additionalProperties": true,
+        "type": "object",
+        "required": [
+          "username",
+          "uuid",
+          "texturesValue",
+          "texturesSignature"
+        ],
+        "title": "FinalMaskXmcProfile"
+      },
+      "FinalMaskXmcSettings": {
+        "properties": {
+          "hostname": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Hostname"
+          },
+          "password": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Password"
+          },
+          "profiles": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/FinalMaskXmcProfile"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Profiles"
+          },
+          "usernames": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Usernames"
+          }
+        },
+        "additionalProperties": true,
+        "type": "object",
+        "title": "FinalMaskXmcSettings"
+      },
       "Forbidden": {
         "properties": {
           "detail": {
@@ -23405,38 +23746,12 @@
         "type": "object",
         "title": "Forbidden"
       },
-      "FragmentSettings-Input": {
+      "FragmentSettings": {
         "properties": {
           "xray": {
             "anyOf": [
               {
-                "$ref": "#/components/schemas/XrayFragmentSettings-Input"
-              },
-              {
-                "type": "null"
-              }
-            ]
-          },
-          "sing_box": {
-            "anyOf": [
-              {
-                "$ref": "#/components/schemas/SingBoxFragmentSettings"
-              },
-              {
-                "type": "null"
-              }
-            ]
-          }
-        },
-        "type": "object",
-        "title": "FragmentSettings"
-      },
-      "FragmentSettings-Output": {
-        "properties": {
-          "xray": {
-            "anyOf": [
-              {
-                "$ref": "#/components/schemas/XrayFragmentSettings-Output"
+                "$ref": "#/components/schemas/XrayFragmentSettings"
               },
               {
                 "type": "null"
@@ -23835,7 +24150,7 @@
           "require_hwid_for_manual_sub": {
             "type": "boolean",
             "title": "Require Hwid For Manual Sub",
-            "default": true
+            "default": false
           },
           "fallback_limit": {
             "anyOf": [
@@ -25135,6 +25450,11 @@
       },
       "NodeUsageStat": {
         "properties": {
+          "period_start": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Period Start"
+          },
           "uplink": {
             "type": "integer",
             "title": "Uplink"
@@ -25142,18 +25462,13 @@
           "downlink": {
             "type": "integer",
             "title": "Downlink"
-          },
-          "period_start": {
-            "type": "string",
-            "format": "date-time",
-            "title": "Period Start"
           }
         },
         "type": "object",
         "required": [
+          "period_start",
           "uplink",
-          "downlink",
-          "period_start"
+          "downlink"
         ],
         "title": "NodeUsageStat"
       },
@@ -25847,6 +26162,228 @@
         "type": "object",
         "title": "ProxyTable"
       },
+      "RealityScanRequest": {
+        "properties": {
+          "target": {
+            "type": "string",
+            "maxLength": 253,
+            "minLength": 1,
+            "title": "Target",
+            "description": "host or host:port to probe (port defaults to 443)"
+          },
+          "timeout": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 20.0,
+                "minimum": 1.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Timeout",
+            "description": "Per-probe timeout in seconds (1-20, default 10)"
+          }
+        },
+        "type": "object",
+        "required": [
+          "target"
+        ],
+        "title": "RealityScanRequest"
+      },
+      "RealityScanResult": {
+        "properties": {
+          "target": {
+            "type": "string",
+            "title": "Target"
+          },
+          "host": {
+            "type": "string",
+            "title": "Host"
+          },
+          "ip": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Ip"
+          },
+          "port": {
+            "type": "integer",
+            "title": "Port"
+          },
+          "sni": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Sni"
+          },
+          "sni_discovered": {
+            "type": "boolean",
+            "title": "Sni Discovered",
+            "default": false
+          },
+          "feasible": {
+            "type": "boolean",
+            "title": "Feasible"
+          },
+          "tls13": {
+            "type": "boolean",
+            "title": "Tls13"
+          },
+          "tls_version": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Tls Version"
+          },
+          "h2": {
+            "type": "boolean",
+            "title": "H2"
+          },
+          "alpn": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Alpn"
+          },
+          "x25519": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "X25519"
+          },
+          "post_quantum": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Post Quantum"
+          },
+          "curve": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Curve"
+          },
+          "h3": {
+            "type": "boolean",
+            "title": "H3",
+            "default": false
+          },
+          "cert_valid": {
+            "type": "boolean",
+            "title": "Cert Valid"
+          },
+          "cert_subject": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Cert Subject"
+          },
+          "cert_issuer": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Cert Issuer"
+          },
+          "not_after": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Not After"
+          },
+          "server_names": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Server Names"
+          },
+          "latency_ms": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Latency Ms"
+          },
+          "reason": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reason"
+          }
+        },
+        "type": "object",
+        "required": [
+          "target",
+          "host",
+          "port",
+          "feasible",
+          "tls13",
+          "h2",
+          "cert_valid"
+        ],
+        "title": "RealityScanResult"
+      },
       "RemoveAPIKeysResponse": {
         "properties": {
           "api_keys": {
@@ -26114,7 +26651,7 @@
           "require_hwid_for_manual_sub": {
             "type": "boolean",
             "title": "Require Hwid For Manual Sub",
-            "default": true
+            "default": false
           },
           "fallback_limit": {
             "anyOf": [
@@ -27547,20 +28084,20 @@
       },
       "UserCountMetricStat": {
         "properties": {
-          "count": {
-            "type": "integer",
-            "title": "Count"
-          },
           "period_start": {
             "type": "string",
             "format": "date-time",
             "title": "Period Start"
+          },
+          "count": {
+            "type": "integer",
+            "title": "Count"
           }
         },
         "type": "object",
         "required": [
-          "count",
-          "period_start"
+          "period_start",
+          "count"
         ],
         "title": "UserCountMetricStat"
       },
@@ -28340,6 +28877,26 @@
       },
       "UserSubscriptionUpdateChart": {
         "properties": {
+          "period": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Period"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "start": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Start"
+          },
+          "end": {
+            "type": "string",
+            "format": "date-time",
+            "title": "End"
+          },
           "total": {
             "type": "integer",
             "title": "Total"
@@ -28350,10 +28907,19 @@
             },
             "type": "array",
             "title": "Segments"
+          },
+          "stats": {
+            "items": {
+              "$ref": "#/components/schemas/UserSubscriptionUpdateChartStat"
+            },
+            "type": "array",
+            "title": "Stats"
           }
         },
         "type": "object",
         "required": [
+          "start",
+          "end",
           "total"
         ],
         "title": "UserSubscriptionUpdateChart"
@@ -28380,6 +28946,30 @@
           "percentage"
         ],
         "title": "UserSubscriptionUpdateChartSegment"
+      },
+      "UserSubscriptionUpdateChartStat": {
+        "properties": {
+          "period_start": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Period Start"
+          },
+          "agent": {
+            "type": "string",
+            "title": "Agent"
+          },
+          "count": {
+            "type": "integer",
+            "title": "Count"
+          }
+        },
+        "type": "object",
+        "required": [
+          "period_start",
+          "agent",
+          "count"
+        ],
+        "title": "UserSubscriptionUpdateChartStat"
       },
       "UserSubscriptionUpdateList": {
         "properties": {
@@ -28938,20 +29528,20 @@
       },
       "UserUsageStat": {
         "properties": {
-          "total_traffic": {
-            "type": "integer",
-            "title": "Total Traffic"
-          },
           "period_start": {
             "type": "string",
             "format": "date-time",
             "title": "Period Start"
+          },
+          "total_traffic": {
+            "type": "integer",
+            "title": "Total Traffic"
           }
         },
         "type": "object",
         "required": [
-          "total_traffic",
-          "period_start"
+          "period_start",
+          "total_traffic"
         ],
         "title": "UserUsageStat"
       },
@@ -29500,47 +30090,6 @@
         "title": "WireGuardHostOverrides",
         "description": "Optional per-host values merged into WireGuard subscription output."
       },
-      "WireGuardPeerIPsReallocateResponse": {
-        "properties": {
-          "wireguard_inbound_tags": {
-            "type": "integer",
-            "title": "Wireguard Inbound Tags"
-          },
-          "candidates": {
-            "type": "integer",
-            "title": "Candidates"
-          },
-          "updated": {
-            "type": "integer",
-            "title": "Updated"
-          },
-          "dry_run": {
-            "type": "boolean",
-            "title": "Dry Run"
-          },
-          "sample_usernames": {
-            "items": {
-              "type": "string"
-            },
-            "type": "array",
-            "title": "Sample Usernames"
-          },
-          "affected_users": {
-            "type": "integer",
-            "title": "Affected Users"
-          }
-        },
-        "type": "object",
-        "required": [
-          "wireguard_inbound_tags",
-          "candidates",
-          "updated",
-          "dry_run",
-          "sample_usernames",
-          "affected_users"
-        ],
-        "title": "WireGuardPeerIPsReallocateResponse"
-      },
       "WireGuardSettings": {
         "properties": {
           "private_key": {
@@ -29575,6 +30124,50 @@
         },
         "type": "object",
         "title": "WireGuardSettings"
+      },
+      "WireGuardSubnetUsage": {
+        "properties": {
+          "subnet": {
+            "type": "string",
+            "title": "Subnet"
+          },
+          "interface_tags": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Interface Tags"
+          },
+          "capacity": {
+            "type": "integer",
+            "title": "Capacity"
+          },
+          "used": {
+            "type": "integer",
+            "title": "Used"
+          },
+          "free": {
+            "type": "integer",
+            "title": "Free"
+          },
+          "free_ips": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Free Ips"
+          }
+        },
+        "type": "object",
+        "required": [
+          "subnet",
+          "interface_tags",
+          "capacity",
+          "used",
+          "free",
+          "free_ips"
+        ],
+        "title": "WireGuardSubnetUsage"
       },
       "WorkerHealth": {
         "properties": {
@@ -29762,6 +30355,30 @@
               }
             ],
             "title": "Session Key"
+          },
+          "session_id_table": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^[\\x20-\\x7E]*$"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Session Id Table"
+          },
+          "session_id_length": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^\\d{1,16}(-\\d{1,16})?$"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Session Id Length"
           },
           "seq_placement": {
             "anyOf": [
@@ -29956,7 +30573,7 @@
         ],
         "title": "XUDP"
       },
-      "XrayFragmentSettings-Input": {
+      "XrayFragmentSettings": {
         "properties": {
           "packets": {
             "type": "string",
@@ -29991,44 +30608,6 @@
           "packets",
           "length",
           "interval"
-        ],
-        "title": "XrayFragmentSettings"
-      },
-      "XrayFragmentSettings-Output": {
-        "properties": {
-          "packets": {
-            "type": "string",
-            "pattern": "^(:?tlshello|[\\d-]{1,16})$",
-            "title": "Packets"
-          },
-          "length": {
-            "type": "string",
-            "pattern": "^[\\d-]{1,16}$",
-            "title": "Length"
-          },
-          "delay": {
-            "type": "string",
-            "pattern": "^[\\d-]{1,16}$",
-            "title": "Delay"
-          },
-          "maxSplit": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Maxsplit"
-          }
-        },
-        "additionalProperties": true,
-        "type": "object",
-        "required": [
-          "packets",
-          "length",
-          "delay"
         ],
         "title": "XrayFragmentSettings"
       },

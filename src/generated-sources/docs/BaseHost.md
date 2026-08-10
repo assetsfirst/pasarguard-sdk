@@ -21,7 +21,7 @@ Name | Type | Description | Notes
 **http_headers** | **{ [key: string]: string; }** |  | [optional] [default to undefined]
 **transport_settings** | [**TransportSettings**](TransportSettings.md) |  | [optional] [default to undefined]
 **mux_settings** | [**MuxSettingsOutput**](MuxSettingsOutput.md) |  | [optional] [default to undefined]
-**fragment_settings** | [**FragmentSettingsOutput**](FragmentSettingsOutput.md) |  | [optional] [default to undefined]
+**fragment_settings** | [**FragmentSettings**](FragmentSettings.md) |  | [optional] [default to undefined]
 **noise_settings** | [**NoiseSettings**](NoiseSettings.md) |  | [optional] [default to undefined]
 **random_user_agent** | **boolean** |  | [optional] [default to false]
 **use_sni_as_host** | **boolean** |  | [optional] [default to false]
@@ -34,7 +34,7 @@ Name | Type | Description | Notes
 **verify_peer_cert_by_name** | **Set&lt;string&gt;** |  | [optional] [default to undefined]
 **wireguard_overrides** | [**WireGuardHostOverrides**](WireGuardHostOverrides.md) |  | [optional] [default to undefined]
 **subscription_templates** | [**SubscriptionTemplates**](SubscriptionTemplates.md) |  | [optional] [default to undefined]
-**final_mask_settings** | [**FinalMaskOutput**](FinalMaskOutput.md) |  | [optional] [default to undefined]
+**final_mask_settings** | [**FinalMask**](FinalMask.md) |  | [optional] [default to undefined]
 
 ## Example
 

@@ -5,8 +5,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**count** | **number** |  | [default to undefined]
 **period_start** | **string** |  | [default to undefined]
+**count** | **number** |  | [default to undefined]
 
 ## Example
 
@@ -14,8 +14,8 @@ Name | Type | Description | Notes
 import { UserCountMetricStat } from './api';
 
 const instance: UserCountMetricStat = {
-    count,
     period_start,
+    count,
 };
 ```
 
